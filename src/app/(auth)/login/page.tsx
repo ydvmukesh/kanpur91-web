@@ -14,7 +14,7 @@ import {
   IconPhone,
 } from "@/components/Icons";
 import { PhoneNumberField } from "@/components/auth/PhoneNumberField";
-import { useStore } from "@/lib/store";
+import { DEMO_LOGIN, useStore } from "@/lib/store";
 import { cn } from "@/lib/cn";
 
 const PILL =
@@ -24,9 +24,9 @@ export default function LoginPage() {
   const { t, login, remember, setRemember, showToast, lang, setLang } = useStore();
   const router = useRouter();
   const [tab, setTab] = useState<"phone" | "email">("phone");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState(DEMO_LOGIN.phone);
+  const [email, setEmail] = useState(DEMO_LOGIN.email);
+  const [password, setPassword] = useState(DEMO_LOGIN.password);
   const [hide, setHide] = useState(true);
   const [langOpen, setLangOpen] = useState(false);
 
@@ -182,6 +182,7 @@ export default function LoginPage() {
         >
           {t("login")}
         </button>
+        <p className="mt-3 text-center text-[12px] text-l3">{t("demoHint")}</p>
         <Link
           href="/register"
           className="mt-3 w-full h-12 rounded-full border border-main text-main text-[16px] font-bold grid place-items-center"

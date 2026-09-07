@@ -83,6 +83,35 @@ type Persist = {
 
 const KEY = "kanpur91-store-v1";
 
+export const DEMO_LOGIN = {
+  phone: "9876543210",
+  email: "demo@kanpur91.com",
+  password: "123456",
+};
+
+function demoUser(): User {
+  return {
+    phone: DEMO_LOGIN.phone,
+    email: DEMO_LOGIN.email,
+    password: DEMO_LOGIN.password,
+    nickname: "Demo",
+    uid: uidFromPhone(DEMO_LOGIN.phone),
+    inviteCode: DEMO_LOGIN.phone.slice(-6),
+    balance: 10000,
+    thirdParty: 0,
+    hideBalance: false,
+    usedGifts: [],
+    lastCheckIn: null,
+    checkStreak: 0,
+    vipExp: 0,
+  };
+}
+
+function withDemo(p: Persist): Persist {
+  if (p.users.some((u) => u.phone === DEMO_LOGIN.phone)) return p;
+  return { ...p, users: [demoUser(), ...p.users] };
+}
+
 const defaultNotifs = [
   {
     id: "n1",
@@ -108,7 +137,7 @@ function load(): Persist {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) {
-      return {
+      return withDemo({
         lang: "en",
         remember: true,
         users: [],
@@ -116,11 +145,11 @@ function load(): Persist {
         bets: [],
         txns: [],
         notifications: defaultNotifs,
-      };
+      });
     }
-    return JSON.parse(raw) as Persist;
+    return withDemo(JSON.parse(raw) as Persist);
   } catch {
-    return {
+    return withDemo({
       lang: "en",
       remember: true,
       users: [],
@@ -128,7 +157,7 @@ function load(): Persist {
       bets: [],
       txns: [],
       notifications: defaultNotifs,
-    };
+    });
   }
 }
 
