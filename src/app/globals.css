@@ -1,26 +1,299 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --main-color: #f95959;
+  --main_gradient-color: linear-gradient(90deg, #f95959 0%, #ff9a8e 100%);
+  --main_gradient-color2: linear-gradient(180deg, #f95959 0%, #ff9a8e 100%);
+  --light-main_gradient-color: var(--main_gradient-color);
+  --text_white: #fff;
+  --light-bg_white: #fff;
+  --light-main-color: var(--main-color);
+  --norm_red-color: #fb5b5b;
+  --norm_green-color: #18b660;
+  --norm_secondary-color: #feaa57;
+  --norm_Purple-color: #c86eff;
+  --norm_bule-color: #6ea8f4;
+  --Secondary_red_color: #fd565c;
+  --Secondary_green_color: #40ad72;
+  --Secondary_Color1: #ffebec;
+  --Secondary_Color2: #daffeb;
+  --button_dis_color: linear-gradient(90deg, #cccedc 15.38%, #cdcfdd 98.73%);
+  --Secondary_moto_Color9: #e93a3a;
+  --Secondary_moto_Color8: #ffdbdb;
+  --text_color_L1: #1e2637;
+  --text_color_L2: #768096;
+  --text_color_L3: #b6bcc8;
+  --text_color_L4: #fff;
+  --norm_purple1_color: #7b8eff;
+  --norm_Orange_color: #fbb84d;
+  --norm_green_color: #3ac967;
+  --norm_blue_color: #54b0fd;
+  --norm_purple2_color: #c36fff;
+  --norm_brown_color: #b7805f;
+  --norm_blue2_color: #2ad4c5;
+  --norm_blue3_color: #7fadd1;
+  --norm_Orange2_color: #fd8654;
+  --bg_color_L1: #f7f8ff;
+  --bg_color_L2: #fff;
+  --bg_color_L3: #f6f6f6;
+  --Dividing-line_color: #e1e1e1;
+  --sheet_nva_color: var(--main-color);
+  --sheet_detail_bg_color: #f6f6f6;
+  --pop_bg-color: linear-gradient(180deg, #ff6c6b 0%, #ff4a4a 68.59%);
+  --icon1: rgba(7, 221, 209, 0.6);
+  --icon2: rgba(7, 221, 209, 0.3);
+  --tab1: #fb5755;
+  --tab2: #ff745b;
+  --iconSecondary: rgba(24, 182, 96, 0.3);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-main: #f95959;
+  --color-red-norm: #fb5b5b;
+  --color-green-norm: #18b660;
+  --color-violet-norm: #c86eff;
+  --color-secondary: #feaa57;
+  --color-blue-norm: #6ea8f4;
+  --color-red-2: #fd565c;
+  --color-green-2: #40ad72;
+  --color-red-soft: #ffebec;
+  --color-green-soft: #daffeb;
+  --color-moto-red: #e93a3a;
+  --color-moto-pink: #ffdbdb;
+  --color-l1: #1e2637;
+  --color-l2: #768096;
+  --color-l3: #b6bcc8;
+  --color-l4: #ffffff;
+  --color-bg-l1: #f7f8ff;
+  --color-bg-l2: #ffffff;
+  --color-bg-l3: #f6f6f6;
+  --color-line: #e1e1e1;
+  --color-tab1: #fb5755;
+  --color-tab2: #ff745b;
+  --color-orange: #fbb84d;
+  --color-orange-2: #fd8654;
+  --color-purple-1: #7b8eff;
+  --color-purple-2: #c36fff;
+  --color-green-3: #3ac967;
+  --color-blue-2: #54b0fd;
+  --color-blue-3: #2ad4c5;
+  --color-blue-4: #7fadd1;
+  --color-brown: #b7805f;
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+  background: #f1f2f5;
+  color: var(--text_color_L1);
+  font-family: var(--font-inter), "PingFang SC", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+a,
+[role="button"],
+label,
+select,
+summary,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+button:disabled,
+a[aria-disabled="true"],
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
+
+.bg-main-x {
+  background: var(--main_gradient-color);
+}
+
+.bg-main-y {
+  background: var(--main_gradient-color2);
+}
+
+.wingo-hero {
+  background: linear-gradient(180deg, #f95959 0%, #ff8f7c 58%, #f6f6f6 100%);
+}
+
+.bg-pop {
+  background: var(--pop_bg-color);
+}
+
+.bg-btn-disabled {
+  background: var(--button_dis_color);
+}
+
+.bg-tab {
+  background: linear-gradient(90deg, var(--tab1) 0%, var(--tab2) 100%);
+}
+
+.phone-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.phone-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 18s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-digit {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.digit-pulse {
+  animation: pulse-digit 0.6s ease-in-out infinite;
+}
+
+@keyframes wingo-ball-flash {
+  0% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.wingo-ball-flash {
+  animation: wingo-ball-flash 0.12s ease-out;
+  filter: drop-shadow(0 0 8px rgba(249, 89, 89, 0.55));
+  z-index: 1;
+}
+
+@keyframes wingo-ball-pick {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.32);
+  }
+  100% {
+    transform: scale(1.14);
+  }
+}
+
+.wingo-color-btn {
+  height: 44px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 80ms ease, box-shadow 80ms ease, filter 80ms ease;
+  cursor: pointer;
+}
+
+.wingo-color-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 transparent;
+  filter: brightness(0.9);
+}
+
+.wingo-press {
+  transition: transform 80ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wingo-press:active {
+  transform: scale(0.9);
+}
+
+.wingo-size-btn {
+  -webkit-tap-highlight-color: transparent;
+  transition: filter 80ms ease, transform 80ms ease;
+}
+
+.wingo-size-btn:active {
+  filter: brightness(0.86);
+  transform: scale(0.97);
+}
+
+.wingo-ticket {
+  position: relative;
+  background: linear-gradient(180deg, #ff7a73 0%, #f95959 42%, #f64d4d 100%);
+}
+
+.wingo-ticket::before,
+.wingo-ticket::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f6f6f6;
+  transform: translateY(-50%);
+}
+
+.wingo-ticket::before {
+  left: -9px;
+}
+
+.wingo-ticket::after {
+  right: -9px;
+}
+
+.wingo-bet-head {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), 50% 100%, 0 calc(100% - 18px));
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.safe-bottom {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
 }
