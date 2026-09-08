@@ -17,6 +17,7 @@ export const dict = {
     privacyAgreement: "Privacy Agreement",
     haveAccountLogin: "I have an account",
     loginSub1: "Please log in with your phone number or email",
+    loginSub2: "If you forget your password, please contact customer service",
     demoHint: "Demo: 9876543210 / 123456",
     phoneTab: "Phone number",
     emailTab: "Email",
