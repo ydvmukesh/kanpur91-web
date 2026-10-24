@@ -7,9 +7,13 @@ import { HomeLogo } from "@/components/Logo";
 import { IconCoin, IconDownload, IconRefresh } from "@/components/Icons";
 import { GameSlider, type GameSlide } from "@/components/GameSlider";
 import { BANNERS, CARD_VENDORS, CASINO_VENDORS, CATEGORIES, FISHING_GAMES, GAMES, IMG, ImgIcon, MINI_GAMES, SLOT_VENDORS, SPORTS_VENDORS } from "@/lib/img";
-import { useStore } from "@/lib/store";
-import { formatMoney } from "@/lib/format";
+import { loginUrl } from "@/lib/auth/routes";
 import { cn } from "@/lib/cn";
+import { formatMoney } from "@/lib/format";
+import { useWallet } from "@/hooks/useWallet";
+import { useAuth } from "@/hooks/useAuth";
+import { useStore } from "@/lib/store";
+import { ArrowDown, ArrowUp } from "lucide-react";
 
 const heroes = BANNERS;
 
@@ -72,7 +76,9 @@ function formatRankAmt(n: number) {
 }
 
 export default function HomePage() {
-  const { t, user, showToast, recycle } = useStore();
+  const { t, showToast } = useStore();
+  const { user } = useAuth();
+  const { recycle } = useWallet();
   const router = useRouter();
   const [bi, setBi] = useState(0);
   const [cat, setCat] = useState<
@@ -96,12 +102,12 @@ export default function HomePage() {
   }, []);
 
   function go(href: string) {
-    if (!user) router.push("/login");
+    if (!user) router.push(loginUrl(href));
     else router.push(href);
   }
 
   function soon() {
-    if (!user) router.push("/login");
+    if (!user) router.push(loginUrl());
     else showToast(t("comingSoon"));
   }
 
@@ -120,18 +126,17 @@ export default function HomePage() {
       <header className=" top-0 z-40 bg-white px-3 h-12 flex items-center justify-between">
         <HomeLogo className="h-11" />
         {user ? (
-          <button
-            type="button"
+          <Link
+            href="/download"
             className="h-9 w-9 grid place-items-center text-main"
-            onClick={() => showToast(t("download"))}
           >
             <IconDownload />
-          </button>
+          </Link>  
         ) : (
           <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="h-[30px] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-l1 text-[13px] font-medium grid place-items-center"
+              className="h-[30px] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-ink text-[13px] font-medium grid place-items-center"
             >
               {t("login")}
             </Link>
@@ -148,7 +153,7 @@ export default function HomePage() {
       <div className="h-9 bg-[#F3F4F8] px-3 flex items-center gap-2">
         <ImgIcon src={IMG.notice} alt="" className="h-4 w-4 shrink-0" />
         <div className="flex-1 overflow-hidden">
-          <div className="marquee text-[11px] text-l1">
+          <div className="marquee text-[11px] text-ink">
             <span className="pr-8">{t("withdrawNotice")}</span>
             <span className="pr-8">{t("withdrawNotice")}</span>
           </div>
@@ -192,7 +197,7 @@ export default function HomePage() {
                 <span className="text-[12px] text-[#8A93A6]">{t("walletBalance")}</span>
               </div>
               <div className="flex items-center gap-1.5 mt-1">
-                <span className="text-[22px] font-extrabold text-l1 leading-none tabular-nums">
+                <span className="text-[22px] font-extrabold text-ink leading-none tabular-nums">
                   ₹{formatMoney(user.balance + user.thirdParty)}
                 </span>
                 <button
@@ -210,22 +215,18 @@ export default function HomePage() {
             </div>
             <div className="flex gap-2 shrink-0">
               <Link
-                href="/withdraw"
+                href="/wallet/withdraw"
                 className="h-[46px] w-[74px] rounded-lg bg-gradient-to-b from-[#FFB24A] to-[#FF8C3A] text-white flex flex-col items-center justify-center gap-0.5 shadow-[0_2px_6px_rgba(255,140,58,0.35)]"
               >
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2">
-                  <path d="M12 19V6M7 10l5-5 5 5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="text-[11px] font-semibold leading-none">{t("withdraw")}</span>
+                <ArrowUp className="h-4 w-4" />
+                <span className="text-[14px] font-semibold leading-none">{t("withdraw")}</span>
               </Link>
               <Link
                 href="/deposit"
                 className="h-[46px] w-[74px] rounded-lg bg-gradient-to-b from-[#FF7B8C] to-[#F95959] text-white flex flex-col items-center justify-center gap-0.5 shadow-[0_2px_6px_rgba(249,89,89,0.35)]"
               >
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.2">
-                  <path d="M12 5v13M7 14l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="text-[11px] font-semibold leading-none">{t("deposit")}</span>
+              <ArrowDown className="h-4 w-4 text-white" />
+                <span className="text-[14px] font-semibold leading-none">{t("deposit")}</span>
               </Link>
             </div>
           </div>
@@ -318,7 +319,7 @@ export default function HomePage() {
           <div className="flex items-start gap-1 mb-2.5">
             <ImgIcon src={CATEGORIES.lobbyActive} alt="" className="h-6 w-6 shrink-0 mt-0.5 object-contain" />
             <div className="min-w-0">
-              <h2 className="text-[14px] font-bold text-l1 font-serif leading-none">{t("lottery")}</h2>
+              <h2 className="text-[14px] font-bold text-ink font-serif leading-none">{t("lottery")}</h2>
               <p className="text-[11px] text-[#7d889d] leading-snug mt-1">{t("lotteryIntro")}</p>
             </div>
           </div>
@@ -359,10 +360,10 @@ export default function HomePage() {
         <section>
           <div className="flex items-center gap-1.5 mb-2">
             <ImgIcon src={IMG.winner} alt="" className="h-5 w-5 object-contain" />
-            <h2 className="text-[14px] font-semibold font-serif text-l1">{t("winningInfo")}</h2>
+            <h2 className="text-[14px] font-semibold font-serif text-ink">{t("winningInfo")}</h2>
           </div>
           <div className="bg-white rounded-xl overflow-hidden">
-            <div className="grid grid-cols-3 px-3 py-2.5 text-[12px] font-semibold text-l1">
+            <div className="grid grid-cols-3 px-3 py-2.5 text-[12px] font-semibold text-ink">
               <span>{t("game")}</span>
               <span className="text-center">{t("user")}</span>
               <span className="text-right">{t("winningAmount")}</span>
@@ -372,7 +373,7 @@ export default function HomePage() {
                 key={w.name + w.game + w.amt}
                 className="grid grid-cols-3 items-center px-3 py-2.5 text-[12px] border-t border-[#EEEFF3]"
               >
-                <span className="flex items-center gap-1.5 min-w-0 text-l1">
+                <span className="flex items-center gap-1.5 min-w-0 text-ink">
                   <ImgIcon src={IMG.winner} alt="" className="h-4 w-4 shrink-0 object-contain" />
                   <span className="truncate">{w.game}</span>
                 </span>
@@ -386,7 +387,7 @@ export default function HomePage() {
         <section className="">
           <div className="flex items-center gap-1.5 mb-2">
             <ImgIcon src={IMG.rank} alt="" className="h-5 w-auto object-contain" />
-            <h2 className="text-[14px] font-semibold font-serif text-l1">{t("todayProfit")}</h2>
+            <h2 className="text-[14px] font-semibold font-serif text-ink">{t("todayProfit")}</h2>
           </div>
 <div className="px-1 pt-9 bg-white rounded-xl overflow-hidden">
           <div className="relative ">
@@ -442,11 +443,11 @@ export default function HomePage() {
                 key={r.name}
                 className="flex items-center gap-2.5 py-[11px] border-t border-[#F0F1F5] text-[13px]"
               >
-                <span className="w-5 text-center font-bold text-l1">{i + 4}</span>
+                <span className="w-5 text-center font-bold text-ink">{i + 4}</span>
                 <span className="h-9 w-9 rounded-full overflow-hidden bg-[#E8EDF5] shrink-0">
                   <ImgIcon src={r.avatar} alt="" className="h-full w-full object-cover" />
                 </span>
-                <span className="flex-1 font-medium text-l1 truncate">{r.name}</span>
+                <span className="flex-1 font-medium text-ink truncate">{r.name}</span>
                 <span className="shrink-0 font-medium text-[#fb5755] tabular-nums">₹{formatRankAmt(r.amt)}</span>
               </div>
             ))}

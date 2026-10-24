@@ -73,7 +73,7 @@ function SliderHead({
         <span className="relative h-6 w-6 shrink-0 overflow-hidden">
           <ImgIcon src={icon} alt="" className="absolute left-0 top-1/2 h-6 w-auto max-w-none -translate-y-1/2" />
         </span>
-        <h2 className="text-[14px] font-semibold font-serif text-l1">{title}</h2>
+        <h2 className="text-[14px] font-semibold font-serif text-ink">{title}</h2>
       </div>
       <div className="flex items-center gap-1.5 shrink-0">
         {detailLabel ? (

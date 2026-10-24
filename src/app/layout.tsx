@@ -11,7 +11,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "91 Club",
   description: "91 Club lottery",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.ico", apple: "/img/imgi_84_logo-128.png" },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "91 Club",
+    statusBarStyle: "black-translucent",
+  },
 };
 
 export const viewport: Viewport = {

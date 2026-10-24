@@ -3,8 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import { IconChevronDown } from "@/components/Icons";
 import { RuleModal } from "@/components/RuleModal";
+import { EmptyState } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { formatMoney } from "@/lib/format";
+import { usePlaceWinGoMutation } from "@/hooks/mutations/useBetMutations";
+import { errMsg } from "@/lib/query/sync";
 import { useStore } from "@/lib/store";
 import {
   FOLLOW_STRATEGIES,
@@ -133,7 +136,7 @@ function IconPad() {
 
 function HelpBtn({ onClick }: { onClick: () => void }) {
   return (
-    <button type="button" className="text-l3" onClick={onClick} aria-label="Help">
+    <button type="button" className="text-faint" onClick={onClick} aria-label="Help">
       <IconHelp />
     </button>
   );
@@ -152,7 +155,10 @@ export function WinGoFollow({
   now: number;
   trx?: boolean;
 }) {
-  const { t, placeWinGo, showToast } = useStore();
+  const { t, showToast } = useStore();
+  const placeMut = usePlaceWinGoMutation();
+  const placeRef = useRef(placeMut.mutateAsync);
+  placeRef.current = placeMut.mutateAsync;
   const round = getRound(interval, now);
   const [hint, setHint] = useState<null | "strategy" | "roi" | "profit" | "wagered">(null);
   const [historyOpen, setHistoryOpen] = useState(false);
@@ -180,6 +186,7 @@ export function WinGoFollow({
 
   function startFollow(tryOnly: boolean) {
     if (!pick) return;
+    const strategy = pick;
     const amt = clampAmt(amount);
     const n = Math.max(1, Math.min(100, Math.floor(rounds) || 1));
     if (tryOnly) {
@@ -187,33 +194,50 @@ export function WinGoFollow({
       setPick(null);
       return;
     }
-    if (!round.locked) {
-      const err = placeWinGo(interval, round.period, strategyBet(pick), amt, trx ? "trx" : "wingo");
-      if (err) return showToast(err);
-      lastBetPeriod.current = round.period;
-    } else {
-      lastBetPeriod.current = "";
-    }
-    setActive({
-      strategy: pick,
-      amount: amt,
-      remaining: round.locked ? n : n - 1,
-      martingale,
-      lastPeriod: lastBetPeriod.current,
-    });
-    setHistory((h) => [
-      {
-        id: `${pick.id}-${Date.now()}`,
-        name: pick.type,
-        author: pick.author,
+    function activate(lastPeriod: string, remaining: number) {
+      setActive({
+        strategy,
         amount: amt,
-        rounds: n,
-        at: new Date().toLocaleString(),
-      },
-      ...h,
-    ]);
-    setPick(null);
-    showToast(t("strategyFollowed"));
+        remaining,
+        martingale,
+        lastPeriod,
+      });
+      setHistory((h) => [
+        {
+          id: `${strategy.id}-${Date.now()}`,
+          name: strategy.type,
+          author: strategy.author,
+          amount: amt,
+          rounds: n,
+          at: new Date().toLocaleString(),
+        },
+        ...h,
+      ]);
+      setPick(null);
+      showToast(t("strategyFollowed"));
+    }
+
+    if (round.locked) {
+      lastBetPeriod.current = "";
+      activate("", n);
+      return;
+    }
+
+    void placeRef
+      .current({
+        interval,
+        period: round.period,
+        bet: strategyBet(strategy),
+        amount: amt,
+        game: trx ? "trx" : "wingo",
+      })
+      .then(
+        () => {
+          lastBetPeriod.current = round.period;
+          activate(round.period, n - 1);
+        },
+        (e) => showToast(errMsg(e)),
+      );
   }
 
   useEffect(() => {
@@ -221,29 +245,31 @@ export function WinGoFollow({
     if (round.locked) return;
     if (lastBetPeriod.current === round.period) return;
     lastBetPeriod.current = round.period;
-    const err = placeWinGo(
+    void placeRef.current({
       interval,
-      round.period,
-      strategyBet(active.strategy),
-      active.amount,
-      trx ? "trx" : "wingo",
+      period: round.period,
+      bet: strategyBet(active.strategy),
+      amount: active.amount,
+      game: trx ? "trx" : "wingo",
+    }).then(
+      () => {
+        setActive((prev) =>
+          prev
+            ? {
+                ...prev,
+                remaining: prev.remaining - 1,
+                lastPeriod: round.period,
+              }
+            : prev,
+        );
+      },
+      (e) => {
+        lastBetPeriod.current = "";
+        showToast(errMsg(e));
+        setActive(null);
+      },
     );
-    if (err) {
-      lastBetPeriod.current = "";
-      showToast(err);
-      setActive(null);
-      return;
-    }
-    setActive((prev) =>
-      prev
-        ? {
-            ...prev,
-            remaining: prev.remaining - 1,
-            lastPeriod: round.period,
-          }
-        : prev,
-    );
-  }, [active, interval, round.locked, round.period, placeWinGo, showToast, trx]);
+  }, [active, interval, round.locked, round.period, showToast, trx]);
 
   useEffect(() => {
     if (active && active.remaining <= 0) setActive(null);
@@ -264,7 +290,7 @@ export function WinGoFollow({
     <div className="space-y-2.5">
       <section className="rounded-xl bg-white px-3 pt-3 pb-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 text-[15px] font-semibold text-l1">
+          <div className="flex items-center gap-1 text-[15px] font-semibold text-ink">
             {t("bettingStrategy")}
             <HelpBtn onClick={() => setHint("strategy")} />
           </div>
@@ -280,21 +306,18 @@ export function WinGoFollow({
 
         {historyOpen ? (
           history.length === 0 ? (
-            <div className="pt-6 pb-2">
-              <EmptyStrategyArt />
-              <p className="mt-2 text-center text-[13px] text-l3">{t("noStrategyHistory")}</p>
-            </div>
+            <EmptyState compact label={t("noStrategyHistory")} className="pt-6 pb-2" />
           ) : (
             <div className="mt-3 space-y-2">
               {history.map((h) => (
                 <div key={h.id} className="flex justify-between text-[12px] py-2 border-t border-[#F0F1F5]">
                   <div>
-                    <p className="font-semibold text-l1">{h.name}</p>
-                    <p className="text-l3 mt-0.5">
+                    <p className="font-semibold text-ink">{h.name}</p>
+                    <p className="text-faint mt-0.5">
                       {h.author} · {h.rounds} · ₹{formatMoney(h.amount)}
                     </p>
                   </div>
-                  <p className="text-l3">{h.at}</p>
+                  <p className="text-faint">{h.at}</p>
                 </div>
               ))}
             </div>
@@ -303,8 +326,8 @@ export function WinGoFollow({
           <div className="mt-3 flex items-center gap-2.5">
             <LionAvatar />
             <div className="flex-1 min-w-0">
-              <p className="text-[15px] font-bold text-l1">{active.strategy.type}</p>
-              <p className="text-[12px] text-l2 mt-0.5">
+              <p className="text-[15px] font-bold text-ink">{active.strategy.type}</p>
+              <p className="text-[12px] text-muted mt-0.5">
                 {t("remainingRounds")} {active.remaining}
               </p>
             </div>
@@ -323,7 +346,7 @@ export function WinGoFollow({
         ) : (
           <div className="pt-6 pb-2">
             <EmptyStrategyArt />
-            <p className="mt-2 text-center text-[13px] text-l3">{t("pleaseSelectStrategy")}</p>
+            <p className="mt-2 text-center text-[13px] text-faint">{t("pleaseSelectStrategy")}</p>
           </div>
         )}
       </section>
@@ -333,7 +356,7 @@ export function WinGoFollow({
           <div className="flex gap-2.5">
             <LionAvatar />
             <div className="flex-1 min-w-0">
-              <p className="text-[16px] font-bold text-l1 leading-tight">{s.type}</p>
+              <p className="text-[16px] font-bold text-ink leading-tight">{s.type}</p>
               <p className="mt-1 flex items-center gap-1 text-[12px] text-main font-medium">
                 <span className="text-main">
                   <IconPeople />
@@ -341,11 +364,11 @@ export function WinGoFollow({
                 {s.followed} {t("followedCount")}
               </p>
               <div className="mt-1.5 flex items-center gap-1.5 flex-wrap">
-                <span className="text-[12px] text-l3">{s.author}</span>
+                <span className="text-[12px] text-faint">{s.author}</span>
                 <span className={cn("h-5 px-1.5 rounded text-[11px] font-medium grid place-items-center", choiceTone(s.choice))}>
                   {s.choice === "follow" ? t("followTag") : s.choice}
                 </span>
-                <span className="h-5 px-1.5 rounded bg-[#F2F3F7] text-[11px] text-l2 grid place-items-center">
+                <span className="h-5 px-1.5 rounded bg-[#F2F3F7] text-[11px] text-muted grid place-items-center">
                   {t("martingale")}
                 </span>
               </div>
@@ -354,25 +377,25 @@ export function WinGoFollow({
 
           <div className="mt-3 border-t border-[#F0F1F5] pt-2.5 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="inline-flex items-center gap-1 text-[12px] text-l2">
+              <span className="inline-flex items-center gap-1 text-[12px] text-muted">
                 {t("returnOnInvestment")}
                 <HelpBtn onClick={() => setHint("roi")} />
               </span>
               <span className="text-[20px] font-extrabold text-main leading-none">{formatRoi(s.roi)}</span>
             </div>
             <div className="flex items-center justify-between text-[13px]">
-              <span className="inline-flex items-center gap-1 text-l2">
+              <span className="inline-flex items-center gap-1 text-muted">
                 {t("totalProfit")}
                 <HelpBtn onClick={() => setHint("profit")} />
               </span>
-              <span className="text-l1 tabular-nums">₹{formatMoney(s.profit)}</span>
+              <span className="text-ink tabular-nums">₹{formatMoney(s.profit)}</span>
             </div>
             <div className="flex items-center justify-between text-[13px]">
-              <span className="inline-flex items-center gap-1 text-l2">
+              <span className="inline-flex items-center gap-1 text-muted">
                 {t("totalBetAmount")}
                 <HelpBtn onClick={() => setHint("wagered")} />
               </span>
-              <span className="text-l1 tabular-nums">₹{formatMoney(s.wagered)}</span>
+              <span className="text-ink tabular-nums">₹{formatMoney(s.wagered)}</span>
             </div>
           </div>
 
@@ -396,7 +419,7 @@ export function WinGoFollow({
                   <p className="text-white text-[15px] font-medium">· {t("strategySettings")} ·</p>
                 </div>
                 <div className="px-4 pt-4 pb-3">
-                  <label className="flex items-center gap-1.5 text-[13px] text-l2">
+                  <label className="flex items-center gap-1.5 text-[13px] text-muted">
                     <IconChip />
                     <span>
                       {t("betAmountLabel")}
@@ -408,7 +431,7 @@ export function WinGoFollow({
                       value={amount}
                       onChange={(e) => setAmount(clampAmt(Number(e.target.value)))}
                       inputMode="numeric"
-                      className="flex-1 h-10 rounded-md border border-[#E6E8EE] px-3 text-[14px] text-l1 outline-none"
+                      className="flex-1 h-10 rounded-md border border-[#E6E8EE] px-3 text-[14px] text-ink outline-none"
                     />
                     <button
                       type="button"
@@ -426,7 +449,7 @@ export function WinGoFollow({
                     </button>
                   </div>
 
-                  <label className="mt-3 flex items-center gap-1.5 text-[13px] text-l2">
+                  <label className="mt-3 flex items-center gap-1.5 text-[13px] text-muted">
                     <IconRound />
                     <span>
                       {t("strategyRound")}
@@ -437,7 +460,7 @@ export function WinGoFollow({
                     value={rounds}
                     onChange={(e) => setRounds(Math.max(1, Math.min(100, Number(e.target.value) || 1)))}
                     inputMode="numeric"
-                    className="mt-2 w-full h-10 rounded-md border border-[#E6E8EE] px-3 text-[14px] text-l1 outline-none"
+                    className="mt-2 w-full h-10 rounded-md border border-[#E6E8EE] px-3 text-[14px] text-ink outline-none"
                   />
 
                   <button
@@ -451,18 +474,18 @@ export function WinGoFollow({
                     </span>
                   </button>
 
-                  <p className="mt-2 text-[13px] text-l1 font-medium">{t("strategyParameters")}</p>
+                  <p className="mt-2 text-[13px] text-ink font-medium">{t("strategyParameters")}</p>
                   <div className="mt-2 rounded-xl bg-[#F6F7FB] px-3 py-2 text-[13px]">
                     <div className="flex justify-between py-1.5">
-                      <span className="text-l2">{t("remainingRounds")}</span>
-                      <span className="text-l1">{rounds}</span>
+                      <span className="text-muted">{t("remainingRounds")}</span>
+                      <span className="text-ink">{rounds}</span>
                     </div>
                     <div className="flex justify-between py-1.5">
-                      <span className="text-l2">{t("wagerAfterWin")}</span>
+                      <span className="text-muted">{t("wagerAfterWin")}</span>
                       <span className="text-[#FD8654]">₹{formatMoney(amount)}</span>
                     </div>
                     <div className="flex justify-between py-1.5">
-                      <span className="text-l2">{t("wagerAfterLoss")}</span>
+                      <span className="text-muted">{t("wagerAfterLoss")}</span>
                       <span className="text-[#FD8654]">
                         ₹{formatMoney(amount)}
                         {martingale ? (
@@ -473,7 +496,7 @@ export function WinGoFollow({
                       </span>
                     </div>
                     <div className="flex items-center justify-between py-1.5">
-                      <span className="text-l2 pr-3">{t("enableMartingale")}</span>
+                      <span className="text-muted pr-3">{t("enableMartingale")}</span>
                       <button
                         type="button"
                         role="switch"
@@ -493,7 +516,7 @@ export function WinGoFollow({
                       </button>
                     </div>
                     {extra ? (
-                      <p className="py-1.5 text-[12px] text-l3">
+                      <p className="py-1.5 text-[12px] text-faint">
                         {pick.type} · {pick.choice === "follow" ? t("followTag") : pick.choice}
                       </p>
                     ) : null}

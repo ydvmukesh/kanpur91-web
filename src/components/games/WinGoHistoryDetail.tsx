@@ -2,11 +2,12 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { InnerHeader } from "@/components/Ui";
-import { EmptyNoData } from "@/components/games/EmptyNoData";
+import { InnerShell } from "@/components/layout/InnerShell";
+import { EmptyState } from "@/components/ui";
 import { dummyWinGoBets, WinGoBetRows } from "@/components/games/WinGoBetHistory";
 import { IconChevron } from "@/components/Icons";
 import { cn } from "@/lib/cn";
+import { useBets } from "@/hooks/queries/useBets";
 import { useStore } from "@/lib/store";
 import { WINGO_INTERVALS, type WinGoInterval } from "@/lib/wingo";
 
@@ -18,7 +19,8 @@ function asInterval(raw: string | null): WinGoInterval {
 }
 
 export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
-  const { t, bets } = useStore();
+  const { t } = useStore();
+  const { data: bets = [] } = useBets(trx ? "trx" : "wingo");
   const params = useSearchParams();
   const [interval, setInterval] = useState<WinGoInterval>(() => asInterval(params.get("interval")));
   const [page, setPage] = useState(1);
@@ -32,8 +34,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
   const rows = all.slice((page - 1) * PAGE, page * PAGE);
 
   return (
-    <div className="min-h-dvh bg-[#F6F6F6]">
-      <InnerHeader title={trx ? t("trxWin") : t("winGo")} />
+    <InnerShell title={trx ? t("trxWin") : t("winGo")} className="bg-[#F6F6F6]">
       <div className="bg-white flex">
         {WINGO_INTERVALS.map((x) => {
           const on = interval === x.key;
@@ -47,7 +48,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
               }}
               className={cn(
                 "relative flex-1 h-11 text-[12px] font-medium",
-                on ? "text-l1" : "text-l2",
+                on ? "text-ink" : "text-muted",
               )}
             >
               {trx ? "TrxWin" : x.name} {x.sub}
@@ -58,10 +59,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
       </div>
 
       {rows.length === 0 ? (
-        <div className="pt-16">
-          <EmptyNoData />
-          <p className="mt-2 text-center text-[14px] text-l1">{t("noData")}</p>
-        </div>
+        <EmptyState className="pt-16" />
       ) : (
         <>
           <WinGoBetRows bets={rows} cards />
@@ -72,7 +70,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               className={cn(
                 "h-8 w-8 rounded-md grid place-items-center bg-white",
-                page <= 1 ? "text-[#B6BCC8]" : "text-l1",
+                page <= 1 ? "text-[#B6BCC8]" : "text-ink",
               )}
               aria-label="Previous page"
             >
@@ -80,7 +78,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
                 <IconChevron />
               </span>
             </button>
-            <span className="text-[13px] text-l1 tabular-nums">
+            <span className="text-[13px] text-ink tabular-nums">
               {page}/{pages}
             </span>
             <button
@@ -89,7 +87,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
               onClick={() => setPage((p) => Math.min(pages, p + 1))}
               className={cn(
                 "h-8 w-8 rounded-md grid place-items-center bg-white",
-                page >= pages ? "text-[#B6BCC8]" : "text-l1",
+                page >= pages ? "text-[#B6BCC8]" : "text-ink",
               )}
               aria-label="Next page"
             >
@@ -98,6 +96,6 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
           </div>
         </>
       )}
-    </div>
+    </InnerShell>
   );
 }

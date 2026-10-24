@@ -25,6 +25,13 @@ export const IMG = {
   rankCrown: "/rank/top.svg",
   wingoTime: "/wingo/time.png",
   wingoTimeActive: "/wingo/time-active.png",
+  downloadBanner: "/download/download-banner.png",
+  totalAssetsBg: "/wallet/total-assets-bg.png",
+  withdrawBank: "/wallet/withdraw/bank-card.png",
+  withdrawBankActive: "/wallet/withdraw/bank-card-active.png",
+  withdrawUpi: "/wallet/withdraw/upi.png",
+  withdrawUsdt: "/wallet/withdraw/usdt.png",
+  withdrawArb: "/wallet/withdraw/arb.png",
 } as const;
 
 export const WINGO_BALLS = [

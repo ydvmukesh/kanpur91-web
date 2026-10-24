@@ -68,6 +68,7 @@ export function dummyWinGoBets(interval: number, game: "wingo" | "trx"): StoredB
       bet.kind === "number" ? `number ${bet.value}` : bet.kind === "color" ? bet.value : bet.value;
     return {
       id: `DUM${game}${interval}${h.period}${i}`,
+      ownerPhone: "",
       game,
       interval,
       period: h.period,
@@ -90,7 +91,7 @@ function ResultValue({ n, t }: { n: number; t: ReturnType<typeof useStore>["t"] 
   const tone = { green: "#18B660", red: "#F95959", violet: "#9B48DB" };
   return (
     <span className="inline-flex items-center gap-1.5 font-medium">
-      <span className="text-l2">{n}</span>
+      <span className="text-muted">{n}</span>
       {colors.map((c) => (
         <span key={c} style={{ color: tone[c] }}>
           {t(c)}
@@ -112,8 +113,8 @@ function DetailRow({
 }) {
   return (
     <div className="flex items-center justify-between gap-3 min-h-8 py-1.5">
-      <span className="text-l2 shrink-0">{label}</span>
-      <span className={cn("text-right text-l1 tabular-nums min-w-0", valueClass)}>{value}</span>
+      <span className="text-muted shrink-0">{label}</span>
+      <span className={cn("text-right text-ink tabular-nums min-w-0", valueClass)}>{value}</span>
     </div>
   );
 }
@@ -151,7 +152,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                 {face.text}
               </span>
               <span className="flex-1 min-w-0">
-                <span className="flex items-center gap-1.5 text-[13px] font-semibold text-l1 tabular-nums">
+                <span className="flex items-center gap-1.5 text-[13px] font-semibold text-ink tabular-nums">
                   {b.period}
                   <i
                     className={cn(
@@ -160,7 +161,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                     )}
                   />
                 </span>
-                <span className="block mt-0.5 text-[11px] text-l3">{b.createdAt}</span>
+                <span className="block mt-0.5 text-[11px] text-faint">{b.createdAt}</span>
               </span>
               <span className="shrink-0 text-right">
                 <span
@@ -176,7 +177,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                 <span
                   className={cn(
                     "block mt-1 text-[13px] font-semibold tabular-nums",
-                    ok ? "text-green-norm" : fail ? "text-main" : "text-l3",
+                    ok ? "text-green-norm" : fail ? "text-main" : "text-faint",
                   )}
                 >
                   {winLose}
@@ -185,18 +186,18 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
             </button>
             {expanded ? (
               <div className="px-3 pb-3">
-                <p className="text-[14px] font-semibold text-l1 mb-2">{t("details")}</p>
+                <p className="text-[14px] font-semibold text-ink mb-2">{t("details")}</p>
                 <div className="rounded-lg bg-[#F6F7FB] px-3 py-1 text-[12px]">
                   <DetailRow
                     label={t("orderNumber")}
                     value={
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1 text-l1"
+                        className="inline-flex items-center gap-1 text-ink"
                         onClick={(e) => {
                           e.stopPropagation();
                           copyText(b.id);
-                          showToast(t("copied"));
+                          showToast(t("copied"), "copy");
                         }}
                       >
                         <span className="max-w-[170px] truncate">{b.id}</span>
@@ -222,7 +223,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                   <DetailRow
                     label={t("winLose")}
                     value={winLose}
-                    valueClass={ok ? "text-green-norm" : fail ? "text-main" : "text-l3"}
+                    valueClass={ok ? "text-green-norm" : fail ? "text-main" : "text-faint"}
                   />
                   <DetailRow label={t("orderTime")} value={b.createdAt} />
                 </div>

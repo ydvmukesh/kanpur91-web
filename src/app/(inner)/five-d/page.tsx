@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { InnerHeader } from "@/components/Ui";
+import { InnerShell } from "@/components/layout/InnerShell";
+import { EmptyState } from "@/components/ui";
 import { NumberBall } from "@/components/NumberBall";
+import { usePlaceFiveDMutation } from "@/hooks/mutations/useBetMutations";
+import { useBets } from "@/hooks/queries/useBets";
+import { useAuth } from "@/hooks/useAuth";
+import { errMsg } from "@/lib/query/sync";
 import { useStore } from "@/lib/store";
 import { formatMoney, pad2 } from "@/lib/format";
 import { cn } from "@/lib/cn";
@@ -11,7 +16,10 @@ import { FIVE_D_INTERVALS, FIVE_D_POS, fiveHistory, fiveRound, type FiveBet, typ
 const labels: Record<number, string> = { 60: "1Min", 180: "3Min", 300: "5Min", 600: "10Min" };
 
 export default function FiveDPage() {
-  const { t, placeFiveD, showToast, bets, user } = useStore();
+  const { t, showToast } = useStore();
+  const { user } = useAuth();
+  const { data: bets = [] } = useBets("5d");
+  const placeFiveD = usePlaceFiveDMutation();
   const [interval, setIntervalSec] = useState<(typeof FIVE_D_INTERVALS)[number]>(60);
   const [pos, setPos] = useState<FiveDPos>("A");
   const [now, setNow] = useState(Date.now());
@@ -30,20 +38,24 @@ export default function FiveDPage() {
 
   function play(bet: FiveBet) {
     if (round.locked) return showToast(t("bettingClosed"));
-    const err = placeFiveD(interval, round.period, bet, amt);
-    showToast(err ?? t("betPlaced"));
+    placeFiveD.mutate(
+      { interval, period: round.period, bet, amount: amt },
+      {
+        onSuccess: () => showToast(t("betPlaced")),
+        onError: (e) => showToast(errMsg(e)),
+      },
+    );
   }
 
   return (
-    <div className="min-h-dvh bg-bg-l3 pb-6">
-      <InnerHeader title={t("fiveD")} />
+    <InnerShell title={t("fiveD")} className="bg-bg-l3 pb-6">
       <div className="px-2 pt-2 grid grid-cols-4 gap-1.5">
         {FIVE_D_INTERVALS.map((x) => (
           <button
             key={x}
             type="button"
             onClick={() => setIntervalSec(x)}
-            className={cn("rounded-lg py-2 text-[11px] font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-l2")}
+            className={cn("rounded-lg py-2 text-[11px] font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-muted")}
           >
             5D {labels[x]}
           </button>
@@ -51,7 +63,7 @@ export default function FiveDPage() {
       </div>
       <div className="mx-2 mt-2 bg-white rounded-xl p-3 flex justify-between">
         <div>
-          <p className="text-[11px] text-l2">{t("period")}</p>
+          <p className="text-[11px] text-muted">{t("period")}</p>
           <p className="text-sm font-bold">{round.period}</p>
         </div>
         <p className={cn("text-xl font-black text-main", round.locked && "digit-pulse")}>
@@ -64,7 +76,7 @@ export default function FiveDPage() {
             {ss}
           </div>
         ) : null}
-        <p className="text-xs text-l2 mb-2">
+        <p className="text-xs text-muted mb-2">
           {t("balance")}: ₹{formatMoney(user?.balance ?? 0)}
         </p>
         <div className="flex gap-1 mb-3">
@@ -127,13 +139,13 @@ export default function FiveDPage() {
         {my.slice(0, 12).map((b) => (
           <div key={b.id} className="px-3 py-2 border-t border-line flex justify-between text-xs">
             <span>{b.label}</span>
-            <span className={b.status === "win" ? "text-green-norm" : "text-l2"}>
+            <span className={b.status === "win" ? "text-green-norm" : "text-muted"}>
               {b.status === "win" ? `+₹${formatMoney(b.payout)}` : t(b.status === "pending" ? "pending" : "lose")}
             </span>
           </div>
         ))}
-        {my.length === 0 ? <p className="text-center text-l3 py-6 text-sm">{t("noData")}</p> : null}
+        {my.length === 0 ? <EmptyState compact /> : null}
       </div>
-    </div>
+    </InnerShell>
   );
 }

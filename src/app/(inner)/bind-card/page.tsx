@@ -2,12 +2,17 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { InnerHeader, Field, PrimaryButton } from "@/components/Ui";
-import { useStore } from "@/lib/store";
+import { InnerShell } from "@/components/layout/InnerShell";
+import { Button, TextField } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import { useUpdateMeMutation } from "@/hooks/mutations/useWalletMutations";
+import { useAuth } from "@/hooks/useAuth";
+import { useStore } from "@/lib/store";
 
 export default function BindCardPage() {
-  const { t, user, updateUser, showToast } = useStore();
+  const { t, showToast } = useStore();
+  const { user } = useAuth();
+  const updateUser = useUpdateMeMutation();
   const router = useRouter();
   const [tab, setTab] = useState<"upi" | "bank">("upi");
   const [upi, setUpi] = useState(user?.upi ?? "");
@@ -18,8 +23,7 @@ export default function BindCardPage() {
   if (!user) return null;
 
   return (
-    <div className="min-h-dvh bg-bg-l1">
-      <InnerHeader title={t("bindCard")} />
+    <InnerShell title={t("bindCard")}>
       <div className="p-3">
         <div className="grid grid-cols-2 bg-white rounded-xl p-1 mb-3">
           {(["upi", "bank"] as const).map((x) => (
@@ -27,44 +31,46 @@ export default function BindCardPage() {
               key={x}
               type="button"
               onClick={() => setTab(x)}
-              className={cn("h-9 rounded-lg text-sm font-semibold", tab === x ? "bg-main-x text-white" : "text-l2")}
+              className={cn("h-9 rounded-lg text-sm font-semibold", tab === x ? "bg-main-x text-white" : "text-muted")}
             >
               {t(x === "upi" ? "upi" : "bank")}
             </button>
           ))}
         </div>
         {tab === "upi" ? (
-          <Field>
-            <input value={upi} onChange={(e) => setUpi(e.target.value)} placeholder={t("upiId")} className="flex-1 bg-transparent outline-none text-sm" />
-          </Field>
+          <TextField variant="line" value={upi} onChange={setUpi} placeholder={t("upiId")} />
         ) : (
           <div className="space-y-2">
-            <Field>
-              <input value={holder} onChange={(e) => setHolder(e.target.value)} placeholder={t("holderName")} className="flex-1 bg-transparent outline-none text-sm" />
-            </Field>
-            <Field>
-              <input value={account} onChange={(e) => setAccount(e.target.value)} placeholder={t("accountNo")} className="flex-1 bg-transparent outline-none text-sm" />
-            </Field>
-            <Field>
-              <input value={ifsc} onChange={(e) => setIfsc(e.target.value.toUpperCase())} placeholder={t("ifsc")} className="flex-1 bg-transparent outline-none text-sm" />
-            </Field>
-            <Field>
-              <input value={bankName} onChange={(e) => setBankName(e.target.value)} placeholder={t("bankName")} className="flex-1 bg-transparent outline-none text-sm" />
-            </Field>
+            <TextField variant="line" value={holder} onChange={setHolder} placeholder={t("holderName")} />
+            <TextField variant="line" value={account} onChange={setAccount} placeholder={t("accountNo")} />
+            <TextField
+              variant="line"
+              value={ifsc}
+              onChange={(v: string) => setIfsc(v.toUpperCase())}
+              placeholder={t("ifsc")}
+            />
+            <TextField variant="line" value={bankName} onChange={setBankName} placeholder={t("bankName")} />
           </div>
         )}
-        <PrimaryButton
+        <Button
           className="mt-4"
           onClick={() => {
-            if (tab === "upi") updateUser({ upi });
-            else updateUser({ bank: { holder, account, ifsc, bankName } });
+            if (tab === "upi") updateUser.mutate({ upi });
+            else {
+              const next = { id: `bk${Date.now()}`, holder, account, ifsc, bankName };
+              updateUser.mutate({
+                banks: [...(user.banks ?? (user.bank ? [user.bank] : [])), next],
+                selectedBankId: next.id,
+                bank: next,
+              });
+            }
             showToast(t("saved"));
             router.back();
           }}
         >
           {t("save")}
-        </PrimaryButton>
+        </Button>
       </div>
-    </div>
+    </InnerShell>
   );
 }

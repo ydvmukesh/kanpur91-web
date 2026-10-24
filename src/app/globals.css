@@ -20,10 +20,10 @@
   --button_dis_color: linear-gradient(90deg, #cccedc 15.38%, #cdcfdd 98.73%);
   --Secondary_moto_Color9: #e93a3a;
   --Secondary_moto_Color8: #ffdbdb;
-  --text_color_L1: #1e2637;
-  --text_color_L2: #768096;
-  --text_color_L3: #b6bcc8;
-  --text_color_L4: #fff;
+  --text-ink: #1e2637;
+  --text-muted: #768096;
+  --text-faint: #b6bcc8;
+  --text-inverse: #fff;
   --norm_purple1_color: #7b8eff;
   --norm_Orange_color: #fbb84d;
   --norm_green_color: #3ac967;
@@ -45,6 +45,12 @@
   --tab1: #fb5755;
   --tab2: #ff745b;
   --iconSecondary: rgba(24, 182, 96, 0.3);
+  --bg-page: #f1f2f5;
+  --bg-page-auth: #f6f7fb;
+  --bg-phone-frame: #9195a3;
+  --text-disabled: #8a90a2;
+  --field-h: 46px;
+  --field-shadow: 0 2px 8px rgba(208, 208, 237, 0.45);
 }
 
 @theme inline {
@@ -60,10 +66,10 @@
   --color-green-soft: #daffeb;
   --color-moto-red: #e93a3a;
   --color-moto-pink: #ffdbdb;
-  --color-l1: #1e2637;
-  --color-l2: #768096;
-  --color-l3: #b6bcc8;
-  --color-l4: #ffffff;
+  --color-ink: var(--text-ink);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-inverse: var(--text-inverse);
   --color-bg-l1: #f7f8ff;
   --color-bg-l2: #ffffff;
   --color-bg-l3: #f6f6f6;
@@ -79,6 +85,11 @@
   --color-blue-3: #2ad4c5;
   --color-blue-4: #7fadd1;
   --color-brown: #b7805f;
+  --color-page: var(--bg-page);
+  --color-page-auth: var(--bg-page-auth);
+  --color-phone-frame: var(--bg-phone-frame);
+  --color-disabled: var(--text-disabled);
+  --shadow-field: var(--field-shadow);
   --font-sans: var(--font-inter);
 }
 
@@ -89,8 +100,8 @@
 html,
 body {
   height: 100%;
-  background: #f1f2f5;
-  color: var(--text_color_L1);
+  background: var(--bg-page);
+  color: var(--text-ink);
   font-family: var(--font-inter), "PingFang SC", "Helvetica Neue", Helvetica,
     Arial, sans-serif;
 }
@@ -145,6 +156,12 @@ select:disabled {
 
 .bg-btn-disabled {
   background: var(--button_dis_color);
+}
+
+button:disabled.bg-btn-disabled {
+  background: var(--button_dis_color);
+  box-shadow: none;
+  color: var(--text-disabled);
 }
 
 .bg-tab {

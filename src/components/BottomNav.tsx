@@ -2,13 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useStore } from "@/lib/store";
+import { loginUrl } from "@/lib/auth/routes";
 import { cn } from "@/lib/cn";
 import { IMG, ImgIcon, TabMaskIcon } from "@/lib/img";
+import { useAuth } from "@/hooks/useAuth";
+import { useStore } from "@/lib/store";
 
 export function BottomNav() {
   const pathname = usePathname();
-  const { t, user } = useStore();
+  const { t } = useStore();
+  const { user } = useAuth();
   const items = [
     { href: "/home", label: t("home"), icon: IMG.tabHome },
     { href: "/activity", label: t("activity"), icon: IMG.tabActivity },
@@ -16,7 +19,7 @@ export function BottomNav() {
     { href: "/promotion", label: t("promotion"), icon: IMG.tabPromotion },
     { href: "/account", label: t("account"), icon: IMG.tabAccount },
   ];
-  const hrefFor = (href: string) => (!user && href !== "/home" ? "/login" : href);
+  const hrefFor = (href: string) => (!user && href !== "/home" ? loginUrl(href) : href);
 
   return (
     <nav className="shrink-0 z-40 overflow-visible bg-white border-t border-line pb-[env(safe-area-inset-bottom)]">
@@ -44,7 +47,7 @@ export function BottomNav() {
                 href={hrefFor(item.href)}
                 className={cn(
                   "h-full flex flex-col items-center justify-center gap-0.5 text-[11px]",
-                  active ? "text-main font-semibold" : "text-l2",
+                  active ? "text-main font-semibold" : "text-muted",
                 )}
               >
                 <TabMaskIcon src={item.icon as string} active={active} />

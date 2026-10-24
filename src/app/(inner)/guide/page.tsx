@@ -1,14 +1,13 @@
 "use client";
 
-import { InnerHeader } from "@/components/Ui";
+import { InnerShell } from "@/components/layout/InnerShell";
 import { useStore } from "@/lib/store";
 
 export default function GuidePage() {
   const { t } = useStore();
   const steps = [t("guide1"), t("guide2"), t("guide3"), t("guide4")];
   return (
-    <div className="min-h-dvh bg-bg-l1">
-      <InnerHeader title={t("guide")} />
+    <InnerShell title={t("guide")}>
       <div className="p-3 space-y-2">
         {steps.map((s, i) => (
           <div key={s} className="bg-white rounded-xl p-4 flex gap-3">
@@ -19,6 +18,6 @@ export default function GuidePage() {
           </div>
         ))}
       </div>
-    </div>
+    </InnerShell>
   );
 }

@@ -1,5 +1,5 @@
-export function formatMoney(n: number, digits = 2) {
-  return n.toLocaleString("en-IN", {
+export function formatMoney(n: number, digits = 2, locale = "en-IN") {
+  return n.toLocaleString(locale, {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });
@@ -12,6 +12,18 @@ export function uidFromPhone(phone: string) {
 
 export function copyText(text: string) {
   return navigator.clipboard.writeText(text);
+}
+
+export function maskAccount(account: string) {
+  const n = account.replace(/\D/g, "");
+  if (n.length < 10) return account;
+  return `${n.slice(0, 6)}****${n.slice(-4)}`;
+}
+
+export function maskPhone(phone: string) {
+  const n = phone.replace(/\D/g, "");
+  if (n.length < 6) return phone;
+  return `${n.slice(0, 5)}****`;
 }
 
 export function pad2(n: number) {

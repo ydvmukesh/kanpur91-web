@@ -1,4 +1,4 @@
-import { ArrowDown, Cloud } from "lucide-react";
+import { ArrowDown, Cloud, Eye, EyeOff } from "lucide-react";
 
 export function IconHome({ active }: { active?: boolean }) {
   return (
@@ -136,8 +136,8 @@ export function IconHeadset() {
 
 export function IconDownload() {
   return (
-    <span className="relative inline-flex h-6 w-6 items-center justify-center">
-      <Cloud className="absolute inset-0 h-6 w-6" fill="currentColor" stroke="currentColor" strokeWidth={1.25} />
+    <span className="relative inline-flex h-8 w-8 items-center justify-center">
+      <Cloud className="absolute inset-0 h-8 w-8" fill="currentColor" stroke="currentColor" strokeWidth={1.25} />
       <ArrowDown className="relative mt-[3px] h-3 w-3 text-white" strokeWidth={2.75} />
     </span>
   );
@@ -145,14 +145,9 @@ export function IconDownload() {
 
 export function IconEye({ off }: { off?: boolean }) {
   return off ? (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M4 4l16 16M9.9 9.9A3 3 0 0 0 12 15a3 3 0 0 0 2.1-.9M6.1 6.6C4.4 7.8 3.1 9.4 2.4 12c1.5 5 5.4 8 9.6 8 1.6 0 3.1-.4 4.5-1.2M17.8 15.4c1.4-1 2.5-2.5 3.3-4.4C19.6 6 15.7 3 11.5 4.2" />
-    </svg>
+    <EyeOff className="h-5 w-5" />
   ) : (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M2.5 12C4 7.5 7.7 4.5 12 4.5S20 7.5 21.5 12C20 16.5 16.3 19.5 12 19.5S4 16.5 2.5 12Z" />
-      <circle cx="12" cy="12" r="3" />
-    </svg>
+    <Eye className="h-5 w-5" />
   );
 }
 

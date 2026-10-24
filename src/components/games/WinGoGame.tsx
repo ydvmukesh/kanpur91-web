@@ -7,7 +7,6 @@ import { LogoWhite } from "@/components/Logo";
 import {
   IconBack,
   IconBook,
-  IconCheck,
   IconFlame,
   IconHeadset,
   IconRefresh,
@@ -16,13 +15,18 @@ import {
   IconWalletMini,
   IconChevron,
 } from "@/components/Icons";
+import { Checkbox, EmptyState } from "@/components/ui";
 import { RuleModal } from "@/components/RuleModal";
-import { EmptyNoData } from "@/components/games/EmptyNoData";
 import { dummyWinGoBets, WinGoBetRows } from "@/components/games/WinGoBetHistory";
 import { WinGoChart } from "@/components/games/WinGoChart";
 import { WinGoFollow } from "@/components/games/WinGoFollow";
 import { IMG, ImgIcon, WINGO_BALLS } from "@/lib/img";
 import { PRESALE_RULES, wingoHowToPlay } from "@/lib/rules";
+import { usePlaceWinGoMutation } from "@/hooks/mutations/useBetMutations";
+import { useBets } from "@/hooks/queries/useBets";
+import { useAuth } from "@/hooks/useAuth";
+import { useWallet } from "@/hooks/useWallet";
+import { errMsg } from "@/lib/query/sync";
 import { useStore } from "@/lib/store";
 import { formatMoney, pad2 } from "@/lib/format";
 import { cn } from "@/lib/cn";
@@ -134,7 +138,11 @@ function TimeBox({ n, pulse }: { n: string; pulse?: boolean }) {
 }
 
 export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
-  const { t, user, placeWinGo, showToast, recycle, bets } = useStore();
+  const { t, showToast } = useStore();
+  const { user } = useAuth();
+  const { recycle } = useWallet();
+  const { data: bets = [] } = useBets(trx ? "trx" : "wingo");
+  const placeWinGo = usePlaceWinGoMutation();
   const router = useRouter();
   const [interval, setIntervalSec] = useState<WinGoInterval>(30);
   const [now, setNow] = useState(Date.now());
@@ -241,10 +249,16 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
   function confirm() {
     if (!sheet) return;
     if (!agree) return showToast(t("agree"));
-    const err = placeWinGo(interval, round.period, sheet, total, trx ? "trx" : "wingo");
-    if (err) return showToast(err);
-    showToast(t("betPlaced"));
-    setSheet(null);
+    placeWinGo.mutate(
+      { interval, period: round.period, bet: sheet, amount: total, game: trx ? "trx" : "wingo" },
+      {
+        onSuccess: () => {
+          showToast(t("betPlaced"));
+          setSheet(null);
+        },
+        onError: (e) => showToast(errMsg(e)),
+      },
+    );
   }
 
   const theme = sheet ? betTheme(sheet) : "#F95959";
@@ -314,7 +328,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
           </div>
           <div className="mt-4 grid grid-cols-2 gap-3">
             <Link
-              href="/withdraw"
+              href="/wallet/withdraw"
               className="h-10 rounded-full bg-[#F95959] text-white text-[14px] font-semibold grid place-items-center"
             >
               {t("withdraw")}
@@ -333,7 +347,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
             <IconSpeaker />
           </span>
           <div className="flex-1 overflow-hidden">
-            <div className="marquee text-[11px] text-l1">
+            <div className="marquee text-[11px] text-ink">
               <span className="pr-8">{t("withdrawNotice")}</span>
               <span className="pr-8">{t("withdrawNotice")}</span>
             </div>
@@ -481,7 +495,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                   onClick={() => setMul(m)}
                   className={cn(
                     "h-8 min-w-[36px] px-1.5 rounded-full text-[12px] font-semibold wingo-press",
-                    mul === m ? "bg-main text-white" : "bg-[#F0F1F5] text-l2",
+                    mul === m ? "bg-main text-white" : "bg-[#F0F1F5] text-muted",
                   )}
                 >
                   X{m}
@@ -526,7 +540,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                 "h-10 shrink-0 w-[calc((100%-2.4rem)/3)] rounded-lg text-[12px] font-semibold border px-1 leading-tight",
                 tab === x.key
                   ? "bg-main-x text-white border-transparent"
-                  : "bg-white text-l2 border-[#E6E8EE]",
+                  : "bg-white text-muted border-[#E6E8EE]",
               )}
             >
               {x.label}
@@ -548,11 +562,11 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                   key={h.period}
                   className="grid grid-cols-[1.55fr_0.5fr_0.7fr_0.55fr] items-center py-2.5 text-[13px] border-t border-[#F0F1F5]"
                 >
-                  <span className="pl-3 text-left text-l1 tabular-nums text-[12px]">{h.period}</span>
+                  <span className="pl-3 text-left text-ink tabular-nums text-[12px]">{h.period}</span>
                   <span className="text-center">
                     <HistoryNumber n={h.number} />
                   </span>
-                  <span className="text-center text-l1">{h.big ? t("big") : t("small")}</span>
+                  <span className="text-center text-ink">{h.big ? t("big") : t("small")}</span>
                   <span className="text-center">
                     <ColorDots colors={h.colors} />
                   </span>
@@ -574,7 +588,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                   <IconChevron />
                 </span>
               </button>
-              <span className="text-[13px] text-l1 tabular-nums">
+              <span className="text-[13px] text-ink tabular-nums">
                 {histPage}/{HISTORY_PAGES}
               </span>
               <button
@@ -609,10 +623,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
               </span>
             </Link>
             {my.length === 0 ? (
-              <div className="pt-12 pb-8">
-                <EmptyNoData />
-                <p className="mt-1 text-center text-[14px] text-l1">{t("noData")}</p>
-              </div>
+              <EmptyState className="pt-12 pb-8" />
             ) : (
               <div className="pt-10">
                 <WinGoBetRows bets={my.slice(0, 10)} />
@@ -636,7 +647,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
 
               <div className="px-3 pt-1 pb-3">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-[13px] text-l2">{t("balance")}</span>
+                  <span className="text-[13px] text-muted">{t("balance")}</span>
                   <div className="flex gap-1.5">
                     {amounts.map((a) => (
                       <button
@@ -645,7 +656,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                         onClick={() => setAmt(a)}
                         className={cn(
                           "h-8 min-w-[46px] px-2 rounded-md text-[13px] font-semibold",
-                          amt === a ? "text-white" : "bg-[#F4F5F8] text-l2",
+                          amt === a ? "text-white" : "bg-[#F4F5F8] text-muted",
                         )}
                         style={amt === a ? { background: theme } : undefined}
                       >
@@ -656,7 +667,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                 </div>
 
                 <div className="mt-4 flex items-center justify-between gap-3">
-                  <span className="text-[13px] text-l2">{t("quantity")}</span>
+                  <span className="text-[13px] text-muted">{t("quantity")}</span>
                   <div className="flex items-center gap-1.5">
                     <button
                       type="button"
@@ -688,7 +699,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                       onClick={() => setMul(m)}
                       className={cn(
                         "h-7 min-w-[36px] px-1.5 rounded-md text-[12px] font-semibold",
-                        mul === m ? "text-white" : "bg-[#F4F5F8] text-l2",
+                        mul === m ? "text-white" : "bg-[#F4F5F8] text-muted",
                       )}
                       style={mul === m ? { background: theme } : undefined}
                     >
@@ -697,19 +708,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                   ))}
                 </div>
 
-                <button
-                  type="button"
-                  className="mt-4 flex items-center gap-1.5 text-[13px] text-l2"
-                  onClick={() => setAgree((v) => !v)}
-                >
-                  <span
-                    className={cn(
-                      "h-[18px] w-[18px] rounded-full border grid place-items-center shrink-0",
-                      agree ? "border-main bg-main text-white" : "border-l3 bg-white",
-                    )}
-                  >
-                    {agree ? <IconCheck className="h-2.5 w-2.5" /> : null}
-                  </span>
+                <Checkbox className="mt-4" checked={agree} onChange={setAgree}>
                   <span>
                     {t("agree")}{" "}
                     <span
@@ -722,14 +721,14 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                       《{t("preSaleRules")}》
                     </span>
                   </span>
-                </button>
+                </Checkbox>
               </div>
 
               <div className="flex">
                 <button
                   type="button"
                   onClick={() => setSheet(null)}
-                  className="h-12 w-[32%] bg-[#F4F5F8] text-l2 text-[15px] font-medium"
+                  className="h-12 w-[32%] bg-[#F4F5F8] text-muted text-[15px] font-medium"
                 >
                   {t("cancel")}
                 </button>

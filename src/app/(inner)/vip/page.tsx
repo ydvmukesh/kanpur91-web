@@ -1,17 +1,18 @@
 "use client";
 
-import { InnerHeader } from "@/components/Ui";
+import { InnerShell } from "@/components/layout/InnerShell";
+import { useAuth } from "@/hooks/useAuth";
 import { useStore } from "@/lib/store";
 import { IMG, ImgIcon } from "@/lib/img";
 
 export default function VipPage() {
-  const { t, user } = useStore();
+  const { t } = useStore();
+  const { user } = useAuth();
   if (!user) return null;
   const level = Math.min(10, Math.floor(user.vipExp / 1000));
   const into = user.vipExp % 1000;
   return (
-    <div className="min-h-dvh bg-bg-l1">
-      <InnerHeader title={t("vip")} />
+    <InnerShell title={t("vip")}>
       <div className="mx-3 mt-3 rounded-xl overflow-hidden">
         <ImgIcon src={IMG.vip} alt="" className="w-full h-auto" />
       </div>
@@ -27,11 +28,11 @@ export default function VipPage() {
           {t("exp")} {user.vipExp} / {(level + 1) * 1000}
         </p>
       </div>
-      <div className="mx-3 bg-white rounded-xl p-3 text-xs text-l2 space-y-1.5">
+      <div className="mx-3 bg-white rounded-xl p-3 text-xs text-muted space-y-1.5">
         <p>· VIP upgrades from betting EXP</p>
         <p>· Higher VIP = higher rebate</p>
         <p>· Birthday gift from VIP3</p>
       </div>
-    </div>
+    </InnerShell>
   );
 }

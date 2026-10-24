@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { InnerHeader } from "@/components/Ui";
+import { InnerShell } from "@/components/layout/InnerShell";
+import { EmptyState } from "@/components/ui";
+import { usePlaceK3Mutation } from "@/hooks/mutations/useBetMutations";
+import { useBets } from "@/hooks/queries/useBets";
+import { useAuth } from "@/hooks/useAuth";
+import { errMsg } from "@/lib/query/sync";
 import { useStore } from "@/lib/store";
 import { formatMoney, pad2 } from "@/lib/format";
 import { cn } from "@/lib/cn";
@@ -10,7 +15,10 @@ import { K3_INTERVALS, k3History, k3Round, type K3Bet } from "@/lib/k3";
 const labels: Record<number, string> = { 60: "1Min", 180: "3Min", 300: "5Min", 600: "10Min" };
 
 export default function K3Page() {
-  const { t, placeK3, showToast, bets, user } = useStore();
+  const { t, showToast } = useStore();
+  const { user } = useAuth();
+  const { data: bets = [] } = useBets("k3");
+  const placeK3 = usePlaceK3Mutation();
   const [interval, setIntervalSec] = useState<(typeof K3_INTERVALS)[number]>(60);
   const [now, setNow] = useState(Date.now());
   const [sumPick, setSumPick] = useState<number | null>(null);
@@ -29,21 +37,25 @@ export default function K3Page() {
 
   function play(bet: K3Bet) {
     if (round.locked) return showToast(t("bettingClosed"));
-    const err = placeK3(interval, round.period, bet, amt);
-    showToast(err ?? t("betPlaced"));
+    placeK3.mutate(
+      { interval, period: round.period, bet, amount: amt },
+      {
+        onSuccess: () => showToast(t("betPlaced")),
+        onError: (e) => showToast(errMsg(e)),
+      },
+    );
     setSumPick(null);
   }
 
   return (
-    <div className="min-h-dvh bg-bg-l3 pb-6">
-      <InnerHeader title={t("k3")} />
+    <InnerShell title={t("k3")} className="bg-bg-l3 pb-6">
       <div className="px-2 pt-2 grid grid-cols-4 gap-1.5">
         {K3_INTERVALS.map((x) => (
           <button
             key={x}
             type="button"
             onClick={() => setIntervalSec(x)}
-            className={cn("rounded-lg py-2 text-[11px] font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-l2")}
+            className={cn("rounded-lg py-2 text-[11px] font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-muted")}
           >
             K3 {labels[x]}
           </button>
@@ -51,11 +63,11 @@ export default function K3Page() {
       </div>
       <div className="mx-2 mt-2 bg-white rounded-xl p-3 flex justify-between">
         <div>
-          <p className="text-[11px] text-l2">{t("period")}</p>
+          <p className="text-[11px] text-muted">{t("period")}</p>
           <p className="text-sm font-bold">{round.period}</p>
         </div>
         <div className="text-right">
-          <p className="text-[11px] text-l2">{t("timeRemaining")}</p>
+          <p className="text-[11px] text-muted">{t("timeRemaining")}</p>
           <p className={cn("text-xl font-black text-main", round.locked && "digit-pulse")}>
             {mm}:{ss}
           </p>
@@ -68,7 +80,7 @@ export default function K3Page() {
             {ss}
           </div>
         ) : null}
-        <p className="text-xs text-l2 mb-2">{t("balance")}: ₹{formatMoney(user?.balance ?? 0)}</p>
+        <p className="text-xs text-muted mb-2">{t("balance")}: ₹{formatMoney(user?.balance ?? 0)}</p>
         <div className="flex gap-2 mb-3">
           {[1, 10, 100, 1000].map((a) => (
             <button key={a} type="button" onClick={() => setAmt(a)} className={cn("flex-1 h-8 rounded text-xs font-semibold", amt === a ? "bg-main text-white" : "bg-bg-l3")}>
@@ -90,7 +102,7 @@ export default function K3Page() {
             {t("even")} 2x
           </button>
         </div>
-        <p className="text-xs text-l2 mt-3 mb-2">{t("sum")}</p>
+        <p className="text-xs text-muted mt-3 mb-2">{t("sum")}</p>
         <div className="grid grid-cols-8 gap-1.5">
           {Array.from({ length: 16 }, (_, i) => i + 3).map((n) => (
             <button
@@ -123,13 +135,13 @@ export default function K3Page() {
         {my.slice(0, 12).map((b) => (
           <div key={b.id} className="px-3 py-2 border-t border-line flex justify-between text-xs">
             <span>{b.label}</span>
-            <span className={b.status === "win" ? "text-green-norm" : "text-l2"}>
+            <span className={b.status === "win" ? "text-green-norm" : "text-muted"}>
               {b.status === "win" ? `+₹${formatMoney(b.payout)}` : t(b.status === "pending" ? "pending" : "lose")}
             </span>
           </div>
         ))}
-        {my.length === 0 ? <p className="text-center text-l3 py-6 text-sm">{t("noData")}</p> : null}
+        {my.length === 0 ? <EmptyState compact /> : null}
       </div>
-    </div>
+    </InnerShell>
   );
 }

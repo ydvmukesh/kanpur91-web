@@ -74,7 +74,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
         </div>
 
         <div className="px-1.5 pt-2 pb-1">
-          <p className="text-[12px] text-l2 mb-2">{t("statisticLast100")}</p>
+          <p className="text-[12px] text-muted mb-2">{t("statisticLast100")}</p>
           <div className="grid grid-cols-[76px_repeat(10,1fr)] gap-y-1.5 items-center">
             <span />
             {Array.from({ length: 10 }, (_, n) => (
@@ -87,9 +87,9 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
             ))}
             {statRows.map((row) => (
               <div key={row.label} className="contents">
-                <span className="text-[11px] text-l2 leading-tight pr-1">{row.label}</span>
+                <span className="text-[11px] text-muted leading-tight pr-1">{row.label}</span>
                 {row.values.map((v, n) => (
-                  <span key={n} className="text-center text-[11px] text-l1 tabular-nums">
+                  <span key={n} className="text-center text-[11px] text-ink tabular-nums">
                     {v}
                   </span>
                 ))}
@@ -105,7 +105,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
                 key={h.period}
                 className="flex h-9 items-center border-t border-[#F0F1F5] pl-2 pr-2"
               >
-                <span className="text-[10px] text-l1 tabular-nums leading-tight">{h.period}</span>
+                <span className="text-[10px] text-ink tabular-nums leading-tight">{h.period}</span>
               </div>
             ))}
           </div>
@@ -178,7 +178,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
             <IconChevron />
           </span>
         </button>
-        <span className="text-[13px] text-l1 tabular-nums">
+        <span className="text-[13px] text-ink tabular-nums">
           {page}/{PAGES}
         </span>
         <button

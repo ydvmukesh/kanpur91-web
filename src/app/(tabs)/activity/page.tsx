@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useCheckInMutation } from "@/hooks/mutations/useWalletMutations";
+import { useAuth } from "@/hooks/useAuth";
+import { errMsg } from "@/lib/query/sync";
 import { useStore } from "@/lib/store";
 import { formatMoney } from "@/lib/format";
 import { IconChevron } from "@/components/Icons";
@@ -9,7 +12,9 @@ import { IMG, ImgIcon } from "@/lib/img";
 const days = [5, 10, 15, 20, 25, 30, 50];
 
 export default function ActivityPage() {
-  const { t, user, checkIn, showToast } = useStore();
+  const { t, showToast } = useStore();
+  const { user } = useAuth();
+  const checkIn = useCheckInMutation();
   if (!user) return null;
   const today = new Date().toISOString().slice(0, 10);
 
@@ -29,7 +34,7 @@ export default function ActivityPage() {
         <section className="bg-white rounded-xl p-3">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-semibold">{t("checkIn")}</h2>
-            <span className="text-xs text-l2">
+            <span className="text-xs text-muted">
               {t("consecutive")} {user.checkStreak}
             </span>
           </div>
@@ -38,10 +43,10 @@ export default function ActivityPage() {
               const done = user.checkStreak > i && user.lastCheckIn === today ? true : user.checkStreak > i;
               return (
                 <div key={amt} className="text-center">
-                  <div className={`h-10 rounded-lg grid place-items-center text-[11px] font-semibold ${done ? "bg-green-soft text-green-norm" : "bg-bg-l3 text-l2"}`}>
+                  <div className={`h-10 rounded-lg grid place-items-center text-[11px] font-semibold ${done ? "bg-green-soft text-green-norm" : "bg-bg-l3 text-muted"}`}>
                     ₹{amt}
                   </div>
-                  <p className="text-[10px] text-l3 mt-1">
+                  <p className="text-[10px] text-faint mt-1">
                     {t("day")}
                     {i + 1}
                   </p>
@@ -53,8 +58,10 @@ export default function ActivityPage() {
             type="button"
             className="mt-3 w-full h-10 rounded-full bg-main-x text-white text-sm font-semibold"
             onClick={() => {
-              const err = checkIn();
-              showToast(err ?? t("checked"));
+              checkIn.mutate(undefined, {
+                onSuccess: () => showToast(t("checked")),
+                onError: (e) => showToast(errMsg(e)),
+              });
             }}
           >
             {t("checkIn")}

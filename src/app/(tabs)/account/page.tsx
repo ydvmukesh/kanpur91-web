@@ -2,19 +2,24 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
+import { useNotifs } from "@/hooks/queries/useNotifs";
 import { useStore } from "@/lib/store";
 import { copyText } from "@/lib/format";
 import { IconChevron, IconCopy } from "@/components/Icons";
 import { IMG, ImgIcon } from "@/lib/img";
 
 export default function AccountPage() {
-  const { t, user, logout, showToast, notifications } = useStore();
+  const { t, showToast } = useStore();
+  const { user, logout } = useAuth();
+  const { data: notifications = [] } = useNotifs();
   const router = useRouter();
   if (!user) return null;
   const unread = notifications.filter((n) => !n.read).length;
   const vip = Math.min(10, Math.floor(user.vipExp / 1000));
 
   const rows = [
+    { href: "/wallet", label: t("wallet") },
     { href: "/vip", label: t("vip") },
     { href: "/notifications", label: t("notifications"), badge: unread },
     { href: "/gift", label: t("gift") },
@@ -39,7 +44,7 @@ export default function AccountPage() {
               className="flex items-center gap-1 text-xs text-white/85 mt-0.5"
               onClick={() => {
                 copyText(user.uid);
-                showToast(t("copied"));
+                showToast(t("copied"), "copy");
               }}
             >
               {t("uid")}: {user.uid} <IconCopy />
@@ -55,7 +60,7 @@ export default function AccountPage() {
         {rows.map((r) => (
           <Link key={r.href} href={r.href} className="flex items-center justify-between px-4 h-12 border-b border-line last:border-0">
             <span className="text-sm">{r.label}</span>
-            <span className="flex items-center gap-2 text-l3">
+            <span className="flex items-center gap-2 text-faint">
               {r.badge ? (
                 <span className="min-w-4 h-4 px-1 rounded-full bg-main text-white text-[10px] grid place-items-center">
                   {r.badge}
