@@ -27,6 +27,8 @@ export const IMG = {
   wingoTimeActive: "/wingo/time-active.png",
   downloadBanner: "/download/download-banner.png",
   totalAssetsBg: "/wallet/total-assets-bg.png",
+  homeWithdrawBtn: "/home/withdraw-btn.svg",
+  homeRechargeBtn: "/home/recharge-btn.svg",
   withdrawBank: "/wallet/withdraw/bank-card.png",
   withdrawBankActive: "/wallet/withdraw/bank-card-active.png",
   withdrawUpi: "/wallet/withdraw/upi.png",

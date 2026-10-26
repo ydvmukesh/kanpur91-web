@@ -334,7 +334,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
               {t("withdraw")}
             </Link>
             <Link
-              href="/deposit"
+              href="/wallet/deposit"
               className="h-10 rounded-full bg-[#18B660] text-white text-[14px] font-semibold grid place-items-center"
             >
               {t("deposit")}

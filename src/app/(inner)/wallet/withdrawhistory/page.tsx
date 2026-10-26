@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { ChevronDown, Copy, LayoutGrid } from "lucide-react";
 import { InnerShell } from "@/components/layout/InnerShell";
-import { EmptyState } from "@/components/ui";
+import { EmptyState, WheelPicker } from "@/components/ui";
 import { useTxns } from "@/hooks/queries/useTxns";
 import { useI18n } from "@/hooks/useI18n";
 import { IMG, ImgIcon } from "@/lib/img";
@@ -33,12 +33,21 @@ export default function WithdrawHistoryPage() {
   const [date, setDate] = useState("");
 
   const statusLabel =
-    status === "pending" ? t("pending") : status === "completed" ? t("completed") : status === "rejected" ? t("rejected") : t("all");
+    status === "pending"
+      ? t("pending")
+      : status === "completed"
+        ? t("completed")
+        : status === "rejected"
+          ? t("rejected")
+          : status === "processing"
+            ? t("processing")
+            : t("all");
   const statusOptions = [
     { id: "all", label: t("all") },
     { id: "pending", label: t("pending") },
     { id: "completed", label: t("completed") },
     { id: "rejected", label: t("rejected") },
+    { id: "processing", label: t("processing") },
   ];
 
   const filtered = useMemo(
@@ -60,6 +69,7 @@ export default function WithdrawHistoryPage() {
   ];
 
   return (
+    <>
     <InnerShell
       title={t("withdrawHistory")}
       variant="light"
@@ -126,19 +136,20 @@ export default function WithdrawHistoryPage() {
         ))}
         {filtered.length > 0 ? <p className="pt-3 text-center text-sm text-ink">{t("noMore")}</p> : null}
       </div>
+    </InnerShell>
 
       {openStatus ? (
         <div className="fixed inset-0 z-50 flex justify-center">
           <div className="relative w-full max-w-[400px] h-full">
             <button type="button" className="absolute inset-0 bg-black/55" onClick={() => setOpenStatus(false)} />
-            <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-2xl">
+            <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-2xl animate-[sheet-up_280ms_ease-out]">
               <div className="flex items-center justify-between px-4 h-12">
                 <button type="button" className="text-sm text-muted" onClick={() => setOpenStatus(false)}>
                   {t("cancel")}
                 </button>
                 <button
                   type="button"
-                  className="text-sm text-main"
+                  className="text-sm text-main font-semibold"
                   onClick={() => {
                     setStatus(draftStatus);
                     setOpenStatus(false);
@@ -147,26 +158,14 @@ export default function WithdrawHistoryPage() {
                   {t("confirm")}
                 </button>
               </div>
-              <div className="pb-8">
-                {statusOptions.map((opt) => (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => setDraftStatus(opt.id)}
-                    className={cn(
-                      "w-full h-12 text-center text-base",
-                      draftStatus === opt.id ? "text-ink" : "text-faint",
-                    )}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
+              <div className="flex items-center min-h-50 pb-10">
+                <WheelPicker options={statusOptions} value={draftStatus} onChange={setDraftStatus} />
               </div>
             </div>
           </div>
         </div>
       ) : null}
-    </InnerShell>
+    </>
   );
 }
 

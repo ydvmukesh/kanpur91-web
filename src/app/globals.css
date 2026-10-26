@@ -91,6 +91,11 @@
   --color-disabled: var(--text-disabled);
   --shadow-field: var(--field-shadow);
   --font-sans: var(--font-inter);
+  --font-times: "Times New Roman", Times, serif;
+}
+
+.font-times {
+  font-family: var(--font-times);
 }
 
 * {
@@ -308,6 +313,15 @@ button:disabled.bg-btn-disabled {
 @keyframes spin-slow {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
   }
 }
 

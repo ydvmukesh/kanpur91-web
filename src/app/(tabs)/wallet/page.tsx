@@ -8,9 +8,9 @@ import { formatMoney } from "@/lib/format";
 import { IconEye } from "@/components/Icons";
 
 const actions = [
-  { href: "/deposit", labelKey: "deposit" as const, bg: "#FFEBEC", icon: "↓" },
+  { href: "/wallet/deposit", labelKey: "deposit" as const, bg: "#FFEBEC", icon: "↓" },
   { href: "/wallet/withdraw", labelKey: "withdraw" as const, bg: "#DAFFEB", icon: "↑" },
-  { href: "/deposit-history", labelKey: "depositHistory" as const, bg: "#FFF4E5", icon: "📄" },
+  { href: "/wallet/deposithistory", labelKey: "depositHistory" as const, bg: "#FFF4E5", icon: "📄" },
   { href: "/wallet/withdrawhistory", labelKey: "withdrawHistory" as const, bg: "#EEE8FF", icon: "📑" },
 ];
 

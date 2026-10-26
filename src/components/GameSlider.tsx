@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
+import { GAME_CARD_W, GameCard, type GameSlide } from "@/components/GameCard";
 import { IMG, ImgIcon } from "@/lib/img";
 
-export type GameSlide = { n: string; img: string };
+export type { GameSlide };
 
-const CARD = 118;
+const CARD = GAME_CARD_W;
 const GAP = 8;
 const STEP = CARD + GAP;
 const TRACK_W = 40;
@@ -97,21 +98,6 @@ function SliderHead({
         ) : null}
       </div>
     </div>
-  );
-}
-
-function GameCard({ game, onOpen, onClickGuard }: { game: GameSlide; onOpen: () => void; onClickGuard?: () => boolean }) {
-  return (
-    <button
-      type="button"
-      onClick={() => {
-        if (onClickGuard?.()) return;
-        onOpen();
-      }}
-      className="relative h-[160px] w-[118px] shrink-0 overflow-hidden rounded-md bg-white shadow-sm"
-    >
-      <ImgIcon src={game.img} alt={game.n} className="h-full w-full object-cover" />
-    </button>
   );
 }
 

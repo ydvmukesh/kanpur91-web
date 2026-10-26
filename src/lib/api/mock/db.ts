@@ -77,6 +77,29 @@ function empty(): Persist {
   };
 }
 
+function demoDeposits(): Txn[] {
+  return [
+    {
+      id: "RC20261024232400078104620b",
+      ownerPhone: DEMO_LOGIN.phone,
+      type: "deposit",
+      amount: 300,
+      status: "pending",
+      method: "Phonepe_QR",
+      createdAt: "2026-10-24 23:24:00",
+    },
+    {
+      id: "RC20261024225915791048879",
+      ownerPhone: DEMO_LOGIN.phone,
+      type: "deposit",
+      amount: 100,
+      status: "rejected",
+      method: "Phonepe_QR",
+      createdAt: "2026-10-24 22:59:15",
+    },
+  ];
+}
+
 function demoWithdraws(): Txn[] {
   return [
     {
@@ -103,7 +126,7 @@ function demoWithdraws(): Txn[] {
 
 function withDemo(p: Persist): Persist {
   let next = p.users.some((u) => u.phone === DEMO_LOGIN.phone) ? p : { ...p, users: [demoUser(), ...p.users] };
-  const missing = demoWithdraws().filter((row) => !next.txns.some((x) => x.id === row.id));
+  const missing = [...demoDeposits(), ...demoWithdraws()].filter((row) => !next.txns.some((x) => x.id === row.id));
   if (missing.length) next = { ...next, txns: [...missing, ...next.txns] };
   return next;
 }

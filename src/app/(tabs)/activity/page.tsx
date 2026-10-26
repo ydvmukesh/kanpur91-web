@@ -69,7 +69,7 @@ export default function ActivityPage() {
         </section>
 
         {[
-          { href: "/deposit", title: t("firstDeposit"), sub: "Up to 20%", c: "from-[#FF6C6B] to-[#FF4A4A]" },
+          { href: "/wallet/deposit", title: t("firstDeposit"), sub: "Up to 20%", c: "from-[#FF6C6B] to-[#FF4A4A]" },
           { href: "/promotion", title: t("invitationBonus"), sub: "Commission", c: "from-[#FD8654] to-[#FBB84D]" },
           { href: "/promotion", title: t("bettingRebate"), sub: "Up to 1.2%", c: "from-[#7B8EFF] to-[#C36FFF]" },
           { href: "/gift", title: t("gift"), sub: "Redeem code", c: "from-[#18B660] to-[#2AD4C5]" },

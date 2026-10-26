@@ -58,7 +58,7 @@ export default function AddBankCardPage() {
   const canSave = Boolean(bankName && holder.trim() && account.trim() && phone.trim() && ifsc.trim());
 
   function save() {
-    if (!canSave) return;
+    if (!canSave || !user) return;
     const next = {
       id: `bk${Date.now()}`,
       holder: holder.trim(),
@@ -127,7 +127,7 @@ export default function AddBankCardPage() {
           />
         </Field>
 
-        <Button className="mt-8" variant="main" size="sm" disabled={!canSave} onClick={save}>
+        <Button className="mt-8"  size="sm" disabled={!canSave} onClick={save}>
           {t("save")}
         </Button>
       </div>

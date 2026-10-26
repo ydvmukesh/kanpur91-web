@@ -5,8 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { HomeLogo } from "@/components/Logo";
 import { IconCoin, IconDownload, IconRefresh } from "@/components/Icons";
-import { GameSlider, type GameSlide } from "@/components/GameSlider";
-import { BANNERS, CARD_VENDORS, CASINO_VENDORS, CATEGORIES, FISHING_GAMES, GAMES, IMG, ImgIcon, MINI_GAMES, SLOT_VENDORS, SPORTS_VENDORS } from "@/lib/img";
+import { GameCard, type GameSlide } from "@/components/GameCard";
+import { GameSlider } from "@/components/GameSlider";
+import { useCatalogs } from "@/hooks/queries/useCatalogs";
+import { VendorPicker } from "@/components/VendorPicker";
+import { toSlide, viewAllHref, type GameCatalog } from "@/lib/games/catalog";
+import { BANNERS, CATEGORIES, GAMES, IMG, ImgIcon } from "@/lib/img";
 import { loginUrl } from "@/lib/auth/routes";
 import { cn } from "@/lib/cn";
 import { formatMoney } from "@/lib/format";
@@ -27,22 +31,6 @@ const recGames: GameSlide[] = [
   { n: "Cricket Road", img: GAMES.cricketRoad },
   { n: "Balloon", img: GAMES.balloon },
 ];
-
-function miniLabel(src: string) {
-  const file = src.split("/").pop() ?? src;
-  return file
-    .replace(/^\d{3}-/, "")
-    .replace(/\.[^.]+$/, "")
-    .replace(/_\d{8,}.*$/, "")
-    .replace(/[-_]+/g, " ");
-}
-
-const miniGames: GameSlide[] = MINI_GAMES.map((img) => ({ n: miniLabel(img), img }));
-const slotVendors: GameSlide[] = SLOT_VENDORS.map((img) => ({ n: miniLabel(img), img }));
-const cardVendors: GameSlide[] = CARD_VENDORS.map((img) => ({ n: miniLabel(img), img }));
-const fishingGames: GameSlide[] = FISHING_GAMES.map((img) => ({ n: miniLabel(img), img }));
-const casinoVendors: GameSlide[] = CASINO_VENDORS.map((img) => ({ n: miniLabel(img), img }));
-const sportsVendors: GameSlide[] = SPORTS_VENDORS.map((img) => ({ n: miniLabel(img), img }));
 
 const wins = [
   { name: "Mem***EXU", game: "TB Chess", amt: 13.8 },
@@ -81,9 +69,8 @@ export default function HomePage() {
   const { recycle } = useWallet();
   const router = useRouter();
   const [bi, setBi] = useState(0);
-  const [cat, setCat] = useState<
-    "lobby" | "mini" | "slots" | "card" | "fishing" | "casino" | "sports"
-  >("lobby");
+  const { data: catalogs = [] } = useCatalogs();
+  const [cat, setCat] = useState("lobby");
   const tabBarRef = useRef<HTMLDivElement>(null);
 
   function openTab(next: typeof cat) {
@@ -112,13 +99,14 @@ export default function HomePage() {
   }
 
   const cats = [
-    { key: "lobby" as const, label: t("lobby"), src: CATEGORIES.lobby, activeSrc: CATEGORIES.lobbyActive, graphic: false },
-    { key: "mini" as const, label: t("miniGame"), src: CATEGORIES.miniGame, activeSrc: CATEGORIES.miniGame, graphic: true },
-    { key: "slots" as const, label: t("slots"), src: CATEGORIES.slots, activeSrc: CATEGORIES.slotsActive, graphic: false },
-    { key: "card" as const, label: t("card"), src: CATEGORIES.card, activeSrc: CATEGORIES.cardActive, graphic: false },
-    { key: "fishing" as const, label: t("fishing"), src: CATEGORIES.fishing, activeSrc: CATEGORIES.fishingActive, graphic: false },
-    { key: "casino" as const, label: t("casino"), src: CATEGORIES.casino, activeSrc: CATEGORIES.casinoActive, graphic: false },
-    { key: "sports" as const, label: t("sports"), src: CATEGORIES.sports, activeSrc: CATEGORIES.sportsActive, graphic: false },
+    { key: "lobby", label: t("lobby"), src: CATEGORIES.lobby, activeSrc: CATEGORIES.lobbyActive, graphic: false },
+    ...catalogs.map((c) => ({
+      key: c.id,
+      label: t(c.tabKey),
+      src: c.icon,
+      activeSrc: c.iconActive,
+      graphic: Boolean(c.graphic),
+    })),
   ];
 
   return (
@@ -197,7 +185,7 @@ export default function HomePage() {
                 <span className="text-[12px] text-[#8A93A6]">{t("walletBalance")}</span>
               </div>
               <div className="flex items-center gap-1.5 mt-1">
-                <span className="text-[22px] font-extrabold text-ink leading-none tabular-nums">
+                <span className="text-xl font-extrabold text-ink leading-none tabular-nums">
                   ₹{formatMoney(user.balance + user.thirdParty)}
                 </span>
                 <button
@@ -216,17 +204,19 @@ export default function HomePage() {
             <div className="flex gap-2 shrink-0">
               <Link
                 href="/wallet/withdraw"
-                className="h-[46px] w-[74px] rounded-lg bg-gradient-to-b from-[#FFB24A] to-[#FF8C3A] text-white flex flex-col items-center justify-center gap-0.5 shadow-[0_2px_6px_rgba(255,140,58,0.35)]"
+                className="h-[46px] w-[78px] text-white flex flex-col items-center justify-center gap-0.5 bg-contain bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${IMG.homeWithdrawBtn})` }}
               >
                 <ArrowUp className="h-4 w-4" />
-                <span className="text-[14px] font-semibold leading-none">{t("withdraw")}</span>
+                <span className="text-sm font-semibold leading-none">{t("withdraw")}</span>
               </Link>
               <Link
-                href="/deposit"
-                className="h-[46px] w-[74px] rounded-lg bg-gradient-to-b from-[#FF7B8C] to-[#F95959] text-white flex flex-col items-center justify-center gap-0.5 shadow-[0_2px_6px_rgba(249,89,89,0.35)]"
+                href="/wallet/deposit"
+                className="h-[46px] w-[78px] text-white flex flex-col items-center justify-center gap-0.5 bg-contain bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${IMG.homeRechargeBtn})` }}
               >
-              <ArrowDown className="h-4 w-4 text-white" />
-                <span className="text-[14px] font-semibold leading-none">{t("deposit")}</span>
+                <ArrowDown className="h-4 w-4" />
+                <span className="text-sm font-semibold leading-none">{t("deposit")}</span>
               </Link>
             </div>
           </div>
@@ -255,7 +245,7 @@ export default function HomePage() {
                   key={c.key}
                   type="button"
                   data-cat={c.key}
-                  onClick={() => setCat(c.key)}
+                  onClick={() => openTab(c.key)}
                   className={cn(
                     "shrink-0 flex items-center h-10",
                     c.graphic ? "px-1.5" : "gap-0.5 px-2.5",
@@ -292,24 +282,17 @@ export default function HomePage() {
 
         {cat === "lobby" ? <GameSlider title={t("recommendedGames")} games={recGames} onOpen={soon} /> : null}
 
-        {cat === "mini" ? (
-          <GameSlider title={t("miniGame")} icon={CATEGORIES.miniGame} games={miniGames} onOpen={soon} />
-        ) : null}
-        {cat === "slots" ? (
-          <GameSlider title={t("slots")} icon={CATEGORIES.slotsActive} games={slotVendors} onOpen={soon} />
-        ) : null}
-        {cat === "card" ? (
-          <GameSlider title={t("cardRummy")} icon={CATEGORIES.cardActive} games={cardVendors} onOpen={soon} />
-        ) : null}
-        {cat === "fishing" ? (
-          <GameSlider title={t("fishing")} icon={CATEGORIES.fishingActive} games={fishingGames} onOpen={soon} />
-        ) : null}
-        {cat === "casino" ? (
-          <GameSlider title={t("casino")} icon={CATEGORIES.casinoActive} games={casinoVendors} onOpen={soon} />
-        ) : null}
-        {cat === "sports" ? (
-          <GameSlider title={t("sports")} icon={CATEGORIES.sportsActive} games={sportsVendors} onOpen={soon} />
-        ) : null}
+        {catalogs.map((c) =>
+          cat === c.id ? (
+            <GameIconGrid
+              key={c.id}
+              catalog={c}
+              onOpen={soon}
+              viewAll={t("viewAll")}
+              href={viewAllHref(c)}
+            />
+          ) : null,
+        )}
 
         {cat === "lobby" ? (
         <>
@@ -343,20 +326,22 @@ export default function HomePage() {
           </div>
         </section>
 
-        <GameSlider title={t("miniGame")} icon={CATEGORIES.miniGame} games={miniGames} detailLabel={t("detail")} onOpen={soon} onDetail={() => openTab("mini")} />
-
-        <GameSlider title={t("slots")} icon={CATEGORIES.slotsActive} games={slotVendors} detailLabel={t("detail")} onOpen={soon} onDetail={() => openTab("slots")} />
-
-        <GameSlider title={t("cardRummy")} icon={CATEGORIES.cardActive} games={cardVendors} detailLabel={t("detail")} onOpen={soon} onDetail={() => openTab("card")} />
-
-        <GameSlider title={t("fishing")} icon={CATEGORIES.fishingActive} games={fishingGames} detailLabel={t("detail")} onOpen={soon} onDetail={() => openTab("fishing")} />
-
-        <GameSlider title={t("casino")} icon={CATEGORIES.casinoActive} games={casinoVendors} detailLabel={t("detail")} onOpen={soon} onDetail={() => openTab("casino")} />
-
-        <GameSlider title={t("sports")} icon={CATEGORIES.sportsActive} games={sportsVendors} detailLabel={t("detail")} onOpen={soon} onDetail={() => openTab("sports")} />
+        {catalogs.map((c) => (
+          <GameSlider
+            key={c.id}
+            title={t(c.tabKey)}
+            icon={c.iconActive}
+            games={c.games.slice(0, 20).map(toSlide)}
+            detailLabel={t("detail")}
+            onOpen={soon}
+            onDetail={() => router.push(viewAllHref(c))}
+          />
+        ))}
         </>
         ) : null}
 
+        {cat === "lobby" ? (
+        <>
         <section>
           <div className="flex items-center gap-1.5 mb-2">
             <ImgIcon src={IMG.winner} alt="" className="h-5 w-5 object-contain" />
@@ -454,15 +439,14 @@ export default function HomePage() {
           </div>
           </div>
         </section>
+        </>
+        ) : null}
 
-        <footer className="bg-white rounded-[20px] px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)] mb-16">
+        <footer className=" bg-white rounded-[20px] px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)] mb-16">
           <div className="mx-auto mb-4 h-[46px] w-[46px] rounded-full border-[2.5px] border-[#F95959] grid place-items-center">
             <span className="text-[15px] font-bold text-[#F95959] leading-none">+18</span>
           </div>
-          <div
-            className="space-y-1.5 text-[13px] leading-[1.55] text-[#6E7C91]"
-            style={{ fontFamily: '"Times New Roman", Times, serif' }}
-          >
+          <div className="space-y-1.5 text-[13px] leading-[1.55] text-[#6E7C91]">
             {[t("footerFair"), t("footerPartners"), t("footerVisit")].map((line) => (
               <p key={line} className="flex gap-2">
                 <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rotate-45 bg-[#F95959]" />
@@ -470,20 +454,46 @@ export default function HomePage() {
               </p>
             ))}
           </div>
-          <p
-            className="text-[13px] leading-[1.55] text-[#E07060] mt-3.5"
-            style={{ fontFamily: '"Times New Roman", Times, serif' }}
-          >
+          <p className="text-[13px] leading-[1.55] text-[#E07060] mt-3.5">
             {t("footerAddictive")}
           </p>
-          <p
-            className="text-[13px] leading-[1.55] text-[#E07060]"
-            style={{ fontFamily: '"Times New Roman", Times, serif' }}
-          >
+          <p className="text-[13px] leading-[1.55] text-[#E07060]">
             {t("footerAge18")}
           </p>
         </footer>
       </div>
+    </div>
+  );
+}
+
+const GRID_PREVIEW = 15;
+
+function GameIconGrid({
+  catalog,
+  onOpen,
+  viewAll,
+  href,
+}: {
+  catalog: GameCatalog;
+  onOpen: () => void;
+  viewAll: string;
+  href: string;
+}) {
+  const vendors = catalog.vendors ?? [];
+  const [vendor, setVendor] = useState(vendors[0]?.id ?? "");
+  const games = catalog.games.filter((g) => !vendor || !g.vendorId || g.vendorId === vendor);
+  const list = games.slice(0, GRID_PREVIEW).map(toSlide);
+  return (
+    <div>
+      {vendors.length ? <VendorPicker vendors={vendors} value={vendor} onChange={setVendor} /> : null}
+      <div className="grid grid-cols-3 justify-items-center gap-2">
+        {list.map((g, i) => (
+          <GameCard key={`${g.img}-${i}`} game={g} onOpen={onOpen} fill />
+        ))}
+      </div>
+      <Link href={href} className="mt-4 w-full h-10 rounded-lg bg-white text-sm text-muted shadow-field grid place-items-center">
+        {viewAll}
+      </Link>
     </div>
   );
 }

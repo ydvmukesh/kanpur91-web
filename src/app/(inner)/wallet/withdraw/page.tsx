@@ -59,6 +59,7 @@ export default function WithdrawPage() {
   const isUpi = method === "upi";
 
   async function submit() {
+    if (!user) return;
     if (method === "bank" && !user.bank) return showToast(t("needBind"));
     if (method === "upi" && !user.upi) return showToast(t("needBind"));
     if (method === "arpay" && !user.upi) return showToast(t("needBind"));
@@ -255,7 +256,7 @@ export default function WithdrawPage() {
             <span className="text-muted">{t("withdrawReceived")}</span>
             <span className="text-secondary font-semibold">₹{formatMoney(received)}</span>
           </div>
-          <Button className="mt-5" variant="main" size="sm" disabled={!amount} onClick={submit}>
+          <Button className="mt-5"  size="sm" disabled={!amount} onClick={submit}>
             {t("withdrawal")}
           </Button>
         </div>

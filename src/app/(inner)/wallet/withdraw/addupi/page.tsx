@@ -45,7 +45,7 @@ export default function AddUpiPage() {
           placeholder={t("enterUpi")}
           className="w-full h-11 rounded-md bg-white px-4 text-[13px] text-ink placeholder:text-faint outline-none"
         />
-        <Button className="mt-8" variant="main" size="sm" disabled={!canSave} onClick={save}>
+        <Button className="mt-8"  size="sm" disabled={!canSave} onClick={save}>
           {t("save")}
         </Button>
       </div>
