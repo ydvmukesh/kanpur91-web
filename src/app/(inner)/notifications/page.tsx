@@ -60,7 +60,7 @@ export default function NotificationsPage() {
       className="bg-[#F4F5F8]"
       headerExtra={
         <div className="bg-[#F4F5F8] px-3 pt-2 pb-2">
-          <div className="flex h-10 rounded-lg bg-white p-[3px] shadow-[0_1px_4px_rgba(30,38,55,0.06)]">
+          <div className="flex h-10 rounded-lg bg-white p-[0.1875rem] shadow-[0_0.0625rem_0.25rem_rgba(30,38,55,0.06)]">
             <button
               type="button"
               onClick={() => setTab("notice")}

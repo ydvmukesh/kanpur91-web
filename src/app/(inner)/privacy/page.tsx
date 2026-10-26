@@ -15,7 +15,7 @@ export default function PrivacyPage() {
         <EmptyState />
       ) : (
         <div
-          className="cms-html px-5 pt-4 pb-10 text-sm text-ink leading-[22px]"
+          className="cms-html px-5 pt-4 pb-10 text-sm text-ink leading-[1.375rem]"
           dangerouslySetInnerHTML={{ __html: data?.html ?? "" }}
         />
       )}

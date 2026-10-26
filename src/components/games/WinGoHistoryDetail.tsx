@@ -52,7 +52,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
               )}
             >
               {trx ? "TrxWin" : x.name} {x.sub}
-              {on ? <i className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] w-10 rounded-full bg-main" /> : null}
+              {on ? <i className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[0.1875rem] w-10 rounded-full bg-main" /> : null}
             </button>
           );
         })}

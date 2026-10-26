@@ -11,7 +11,7 @@ export function fieldSurface(variant: FieldVariant = "sheet") {
   return cn(
     FIELD_H,
     "bg-white text-13 text-ink placeholder:text-faint outline-none shadow-field",
-    variant === "pill" ? "rounded-full" : "rounded-[10px]",
+    variant === "pill" ? "rounded-full" : "rounded-[0.625rem]",
   );
 }
 

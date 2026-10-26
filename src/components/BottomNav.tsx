@@ -31,9 +31,9 @@ export function BottomNav() {
               <li key={`center-${idx}`} className="relative z-10">
                 <Link
                   href={hrefFor(item.href)}
-                  className="absolute inset-x-0 bottom-5 flex items-end justify-center h-[96px]"
+                  className="absolute inset-x-0 bottom-5 flex items-end justify-center h-[6rem]"
                 >
-                  <ImgIcon src={IMG.wheel} alt="" className="h-[92px] w-[92px] object-contain" />
+                  <ImgIcon src={IMG.wheel} alt="" className="h-[5.75rem] w-[5.75rem] object-contain" />
                   <span className="absolute bottom-2 text-11 text-main font-semibold leading-none pointer-events-none">
                     {item.label}
                   </span>

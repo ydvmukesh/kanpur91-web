@@ -1,6 +1,6 @@
 export function FieldIcon({ children }: { children: React.ReactNode }) {
   return (
-    <span className="h-[18px] w-[18px] rounded-[4px] text-main grid place-items-center shrink-0">
+    <span className="h-[1.125rem] w-[1.125rem] rounded-[0.25rem] text-main grid place-items-center shrink-0">
       {children}
     </span>
   );

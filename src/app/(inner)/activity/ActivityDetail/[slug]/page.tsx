@@ -27,7 +27,7 @@ function ActivityDetailBody({ params }: { params: Promise<{ slug: string }> }) {
       ) : (
         <div className="pb-8">
           <ImgIcon src={event.banner} alt="" className="h-auto w-full" />
-          <h2 className="px-4 py-3 text-center text-[15px] font-bold uppercase text-ink">{event.title}</h2>
+          <h2 className="px-4 py-3 text-center text-15 font-bold uppercase text-ink">{event.title}</h2>
           {event.body ? (
             <div className="px-3">
               <ImgIcon src={event.body} alt="" className="h-auto w-full" />

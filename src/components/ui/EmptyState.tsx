@@ -44,7 +44,7 @@ export function EmptyState({
         className,
       )}
     >
-      <EmptyArt className={compact ? "h-[88px] w-[136px]" : "h-[120px] w-[184px]"} />
+      <EmptyArt className={compact ? "h-[5.5rem] w-[8.5rem]" : "h-[7.5rem] w-[11.5rem]"} />
       <p className="mt-3 text-sm text-muted">{label ?? t("noData")}</p>
     </div>
   );

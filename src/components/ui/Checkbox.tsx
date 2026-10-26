@@ -25,7 +25,7 @@ export function Checkbox({
       >
         <span
           className={cn(
-            "h-[18px] w-[18px] rounded-full border grid place-items-center",
+            "h-[1.125rem] w-[1.125rem] rounded-full border grid place-items-center",
             checked ? "border-main bg-main text-white" : "border-faint bg-white",
           )}
         >

@@ -11,7 +11,7 @@ export function BonusCard({ row }: { row: BonusRow }) {
     <div className="rounded-lg bg-white px-3 py-3">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="flex items-center gap-1.5 text-[15px] font-semibold text-secondary">
+          <p className="flex items-center gap-1.5 text-15 font-semibold text-secondary">
             <IconCoin />
             ₹{formatMoney(row.amount)}
           </p>

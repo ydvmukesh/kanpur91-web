@@ -156,7 +156,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                   {b.period}
                   <i
                     className={cn(
-                      "inline-block border-x-[4px] border-x-transparent border-t-[5px] border-t-[#1e2637]",
+                      "inline-block border-x-[0.25rem] border-x-transparent border-t-[0.3125rem] border-t-[#1e2637]",
                       expanded && "rotate-180",
                     )}
                   />
@@ -166,7 +166,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
               <span className="shrink-0 text-right">
                 <span
                   className={cn(
-                    "inline-flex h-[22px] min-w-[58px] px-2 rounded border text-sm font-medium items-center justify-center",
+                    "inline-flex h-[1.375rem] min-w-[3.625rem] px-2 rounded border text-sm font-medium items-center justify-center",
                     ok && "border-green-norm text-green-norm",
                     fail && "border-main text-main",
                     b.status === "pending" && "border-secondary text-secondary",
@@ -200,7 +200,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                           showToast(t("copied"), "copy");
                         }}
                       >
-                        <span className="max-w-[170px] truncate">{b.id}</span>
+                        <span className="max-w-[10.625rem] truncate">{b.id}</span>
                         <IconCopy />
                       </button>
                     }

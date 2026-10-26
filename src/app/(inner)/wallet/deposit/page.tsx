@@ -82,7 +82,7 @@ export default function RechargePage() {
         }
       >
         <div className="pb-28">
-          <div className="mx-3.5 mt-4 relative min-h-[132px] text-white px-4 pt-4 pb-8">
+          <div className="mx-3.5 mt-4 relative min-h-[8.25rem] text-white px-4 pt-4 pb-8">
             <img src={IMG.totalAssetsBg} alt="" className="absolute inset-0 h-full w-full object-fill" />
             <p className="relative z-10 flex items-center gap-1.5 text-13 text-white/95">
               <Wallet className="h-5 w-5" />
@@ -262,7 +262,7 @@ export default function RechargePage() {
       </InnerShell>
 
       <div className="fixed inset-0 z-20 flex justify-center pointer-events-none">
-        <div className="relative w-full max-w-[400px] h-full">
+        <div className="relative w-full max-w-[25rem] h-full">
           <div className="pointer-events-auto absolute inset-x-0 bottom-0 bg-white px-3.5 py-3 flex items-center gap-3">
             <p className="flex-1 text-xs text-muted leading-tight">
               {t("rechargeMethod")}: <span className="text-ink font-medium">{methodLabel}</span>

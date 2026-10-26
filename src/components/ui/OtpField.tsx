@@ -35,13 +35,13 @@ export function OtpField({
           value={value}
           onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 6))}
           placeholder={placeholder}
-          className={cn(fieldInput("sheet"), "pr-[88px]")}
+          className={cn(fieldInput("sheet"), "pr-[5.5rem]")}
         />
         <button
           type="button"
           onClick={onSend}
           disabled={wait > 0}
-          className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 min-w-[68px] px-3 rounded-[6px] bg-main-x text-white text-sm font-semibold disabled:opacity-70"
+          className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 min-w-[4.25rem] px-3 rounded-[0.375rem] bg-main-x text-white text-sm font-semibold disabled:opacity-70"
         >
           {wait > 0 ? `${wait}s` : sendLabel}
         </button>

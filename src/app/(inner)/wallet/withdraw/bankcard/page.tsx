@@ -67,7 +67,7 @@ export default function WithdrawBankcardPage() {
 
         <Link
           href="/wallet/withdraw/addBankCard"
-          className={cn("bg-white rounded-lg min-h-[120px] grid place-items-center text-center px-4", cards.length > 0 && "mt-3")}
+          className={cn("bg-white rounded-lg min-h-[7.5rem] grid place-items-center text-center px-4", cards.length > 0 && "mt-3")}
         >
           <span>
             <span className="mx-auto h-11 w-11 rounded-md border border-dashed border-disabled grid place-items-center">

@@ -58,8 +58,8 @@ export default function ForgotPage() {
         value={tab}
         onChange={setTab}
         items={[
-          { id: "phone", label: t("phoneTab"), icon: <IconPhone className="h-[22px] w-[22px]" /> },
-          { id: "email", label: t("emailTab"), icon: <IconMail className="h-[22px] w-[22px]" /> },
+          { id: "phone", label: t("phoneTab"), icon: <IconPhone className="h-[1.375rem] w-[1.375rem]" /> },
+          { id: "email", label: t("emailTab"), icon: <IconMail className="h-[1.375rem] w-[1.375rem]" /> },
         ]}
       />
 

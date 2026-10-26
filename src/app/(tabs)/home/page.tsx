@@ -127,13 +127,13 @@ export default function HomePage() {
           <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="h-[30px] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-ink text-13 font-medium grid place-items-center"
+              className="h-[1.875rem] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-ink text-13 font-medium grid place-items-center"
             >
               {t("login")}
             </Link>
             <Link
               href="/register"
-              className="h-[30px] px-3.5 rounded-md bg-main text-white text-13 font-medium grid place-items-center"
+              className="h-[1.875rem] px-3.5 rounded-md bg-main text-white text-13 font-medium grid place-items-center"
             >
               {t("register")}
             </Link>
@@ -169,7 +169,7 @@ export default function HomePage() {
               <ImgIcon src={src} alt="" className="h-full w-full object-cover" />
             </div>
           ))}
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-[3px] z-10">
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-[0.1875rem] z-10">
             {heroes.map((src, i) => (
               <button
                 key={src}
@@ -196,7 +196,7 @@ export default function HomePage() {
                 <button
                   type="button"
                   aria-label={t("recycle")}
-                  className="h-[18px] w-[18px] rounded-full border border-[#D5D8E2] grid place-items-center text-[#A0A7B8]"
+                  className="h-[1.125rem] w-[1.125rem] rounded-full border border-[#D5D8E2] grid place-items-center text-[#A0A7B8]"
                   onClick={() => {
                     recycle();
                     showToast(t("recycled"));
@@ -209,7 +209,7 @@ export default function HomePage() {
             <div className="flex gap-2 shrink-0">
               <Link
                 href="/wallet/withdraw"
-                className="h-[46px] w-[78px] text-white flex flex-col items-center justify-center gap-0.5 bg-contain bg-center bg-no-repeat"
+                className="h-[2.875rem] w-[4.875rem] text-white flex flex-col items-center justify-center gap-0.5 bg-contain bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${IMG.homeWithdrawBtn})` }}
               >
                 <ArrowUp className="h-4 w-4" />
@@ -217,7 +217,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/wallet/deposit"
-                className="h-[46px] w-[78px] text-white flex flex-col items-center justify-center gap-0.5 bg-contain bg-center bg-no-repeat"
+                className="h-[2.875rem] w-[4.875rem] text-white flex flex-col items-center justify-center gap-0.5 bg-contain bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${IMG.homeRechargeBtn})` }}
               >
                 <ArrowDown className="h-4 w-4" />
@@ -228,10 +228,10 @@ export default function HomePage() {
         ) : null}
 
         <div className="grid grid-cols-2 gap-2">
-          <button type="button" onClick={() => go("/activity")} className="rounded-md overflow-hidden h-[52px]">
+          <button type="button" onClick={() => go("/activity")} className="rounded-md overflow-hidden h-[3.25rem]">
             <ImgIcon src={IMG.turntable} alt={t("wheelOfFortune")} className="h-full w-full object-cover" />
           </button>
-          <button type="button" onClick={() => go("/vip")} className="rounded-md overflow-hidden h-[52px]">
+          <button type="button" onClick={() => go("/vip")} className="rounded-md overflow-hidden h-[3.25rem]">
             <ImgIcon src={IMG.vip} alt={t("vipPrivileges")} className="h-full w-full object-cover" />
           </button>
         </div>
@@ -254,14 +254,14 @@ export default function HomePage() {
                   className={cn(
                     "shrink-0 flex items-center h-10",
                     c.graphic ? "px-1.5" : "gap-0.5 px-2.5",
-                    on ? "bg-white rounded-lg shadow-[0_2px_10px_rgba(30,38,55,0.10)]" : "",
+                    on ? "bg-white rounded-lg shadow-[0_0.125rem_0.625rem_rgba(30,38,55,0.10)]" : "",
                   )}
                 >
                   {c.graphic ? (
                     <ImgIcon
                       src={on ? c.activeSrc : c.src}
                       alt={c.label}
-                      className="h-[24px] w-auto max-w-[128px] object-contain object-left"
+                      className="h-[1.5rem] w-auto max-w-[8rem] object-contain object-left"
                     />
                   ) : (
                     <>
@@ -323,7 +323,7 @@ export default function HomePage() {
                 key={g.name}
                 type="button"
                 onClick={() => (g.href ? go(g.href) : soon())}
-                className="relative overflow-hidden rounded-lg aspect-[7/4] bg-white shadow-[0_2px_8px_rgba(30,38,55,0.08)]"
+                className="relative overflow-hidden rounded-lg aspect-[7/4] bg-white shadow-[0_0.125rem_0.5rem_rgba(30,38,55,0.08)]"
               >
                 <ImgIcon src={g.img} alt={g.name} className="h-full w-full object-cover" />
               </button>
@@ -402,8 +402,8 @@ export default function HomePage() {
                     ) : null}
                     <span
                       className={cn(
-                        "block rounded-full overflow-hidden bg-[#E8EDF5] shadow-[0_2px_6px_rgba(30,38,55,0.12)]",
-                        p.place === 1 ? "h-[50px] w-[50px] border-2 border-main" : "h-[44px] w-[44px]",
+                        "block rounded-full overflow-hidden bg-[#E8EDF5] shadow-[0_0.125rem_0.375rem_rgba(30,38,55,0.12)]",
+                        p.place === 1 ? "h-[3.125rem] w-[3.125rem] border-2 border-main" : "h-[2.75rem] w-[2.75rem]",
                       )}
                     >
                       <ImgIcon src={p.rank.avatar} alt="" className="h-full w-full object-cover" />
@@ -431,7 +431,7 @@ export default function HomePage() {
             {ranks.slice(3).map((r, i) => (
               <div
                 key={r.name}
-                className="flex items-center gap-2.5 py-[11px] border-t border-[#F0F1F5] text-13"
+                className="flex items-center gap-2.5 py-[0.6875rem] border-t border-[#F0F1F5] text-13"
               >
                 <span className="w-5 text-center font-bold text-ink">{i + 4}</span>
                 <span className="h-9 w-9 rounded-full overflow-hidden bg-[#E8EDF5] shrink-0">
@@ -447,8 +447,8 @@ export default function HomePage() {
         </>
         ) : null}
 
-        <footer className="mb-12 rounded-xl bg-white px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)]">
-          <div className="mx-auto mb-4 grid h-[46px] w-[46px] place-items-center rounded-full border-[2.5px] border-[#F95959]">
+        <footer className="mb-12 rounded-xl bg-white px-5 pt-5 pb-6 shadow-[0_0.25rem_0.875rem_rgba(30,38,55,0.08)]">
+          <div className="mx-auto mb-4 grid h-[2.875rem] w-[2.875rem] place-items-center rounded-full border-[0.15625rem] border-[#F95959]">
             <span className="text-15 font-bold leading-none text-[#F95959]">+18</span>
           </div>
           <HtmlContent html={HOME_FOOTER_HTML} />

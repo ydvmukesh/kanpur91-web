@@ -63,8 +63,8 @@ export function ToastHost() {
   return (
     <div className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center px-10">
       {toast.kind === "copy" || toast.kind === "warn" ? (
-        <div className="flex h-[120px] w-[120px] flex-col items-center justify-center rounded-[8px] bg-[rgba(0,0,0,0.7)] px-2 text-white">
-          {toast.kind === "copy" ? <Check className="h-8 w-8" /> : <span className="text-[32px] leading-none font-light">!</span>}
+        <div className="flex h-[7.5rem] w-[7.5rem] flex-col items-center justify-center rounded-[0.5rem] bg-[rgba(0,0,0,0.7)] px-2 text-white">
+          {toast.kind === "copy" ? <Check className="h-8 w-8" /> : <span className="text-[2rem] leading-none font-light">!</span>}
           <p className="mt-3 text-center text-sm leading-snug whitespace-pre-line">{toast.text}</p>
         </div>
       ) : (

@@ -44,7 +44,7 @@ export default function SuperJackpotPage() {
             {t("jackpotRule")}
           </Link>
           <Link
-            href="/main/SuperJackpot/WinningStar"
+            href="/main/SuperJackpot/star"
             className="flex h-[3rem] items-center justify-center gap-2 rounded-md bg-white text-sm font-medium text-ink"
           >
             <span className="grid h-6 w-6 place-items-center rounded-full bg-main text-white">

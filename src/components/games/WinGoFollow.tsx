@@ -55,7 +55,7 @@ function LionAvatar({ className = "h-11 w-11" }: { className?: string }) {
 
 function EmptyStrategyArt() {
   return (
-    <svg viewBox="0 0 180 110" className="mx-auto h-[92px] w-[150px]" aria-hidden>
+    <svg viewBox="0 0 180 110" className="mx-auto h-[5.75rem] w-[9.375rem]" aria-hidden>
       <ellipse cx="90" cy="98" rx="46" ry="6" fill="#EEF0F5" />
       <rect x="108" y="38" width="28" height="36" rx="3" fill="#E4E7EE" />
       <rect x="114" y="44" width="16" height="2" rx="1" fill="#D0D5DE" />
@@ -352,7 +352,7 @@ export function WinGoFollow({
       </section>
 
       {FOLLOW_STRATEGIES.map((s) => (
-        <article key={s.id} className="rounded-xl bg-white px-3 pt-3 pb-3 shadow-[0_1px_4px_rgba(30,38,55,0.04)]">
+        <article key={s.id} className="rounded-xl bg-white px-3 pt-3 pb-3 shadow-[0_0.0625rem_0.25rem_rgba(30,38,55,0.04)]">
           <div className="flex gap-2.5">
             <LionAvatar />
             <div className="flex-1 min-w-0">
@@ -411,7 +411,7 @@ export function WinGoFollow({
 
       {pick ? (
         <div className="fixed inset-0 z-50 flex justify-center">
-          <div className="relative w-full max-w-[400px] h-full">
+          <div className="relative w-full max-w-[25rem] h-full">
             <button type="button" className="absolute inset-0 bg-black/55" onClick={() => setPick(null)} />
             <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 flex flex-col items-center">
               <div className="w-full overflow-hidden rounded-2xl bg-white">
@@ -503,14 +503,14 @@ export function WinGoFollow({
                         aria-checked={martingale}
                         onClick={() => setMartingale((v) => !v)}
                         className={cn(
-                          "relative h-[22px] w-10 rounded-full transition-colors",
+                          "relative h-[1.375rem] w-10 rounded-full transition-colors",
                           martingale ? "bg-main" : "bg-[#D8DCE6]",
                         )}
                       >
                         <i
                           className={cn(
-                            "absolute top-[2px] h-[18px] w-[18px] rounded-full bg-white shadow transition-all",
-                            martingale ? "left-[20px]" : "left-[2px]",
+                            "absolute top-[0.125rem] h-[1.125rem] w-[1.125rem] rounded-full bg-white shadow transition-all",
+                            martingale ? "left-[1.25rem]" : "left-[0.125rem]",
                           )}
                         />
                       </button>

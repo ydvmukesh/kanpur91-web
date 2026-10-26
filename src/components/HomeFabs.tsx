@@ -13,7 +13,7 @@ export function InstallBanner() {
   return (
     <Link
       href="/download"
-      className="absolute left-3 right-3  mx-auto max-w-[220px] bottom-[110px] z-30 h-12 rounded-full bg-main-x shadow-lg shadow-main/25 flex items-center px-2 gap-2"
+      className="absolute left-3 right-3  mx-auto max-w-[13.75rem] bottom-[6.875rem] z-30 h-12 rounded-full bg-main-x shadow-lg shadow-main/25 flex items-center px-2 gap-2"
     >
       <span className="h-9 w-9 rounded-full bg-white grid place-items-center shrink-0 overflow-hidden">
         <ImgIcon src={IMG.redBrand} alt="" className="h-5 w-auto object-contain" />

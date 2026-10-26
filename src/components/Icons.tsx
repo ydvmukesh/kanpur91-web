@@ -94,7 +94,7 @@ export function IconChevronDown({ className = "h-3.5 w-3.5" }: { className?: str
 
 export function FlagUS() {
   return (
-    <svg viewBox="0 0 32 32" className="h-[18px] w-[18px] rounded-full overflow-hidden">
+    <svg viewBox="0 0 32 32" className="h-[1.125rem] w-[1.125rem] rounded-full overflow-hidden">
       <rect width="32" height="32" fill="#b22234" />
       <path fill="#fff" d="M0 4h32v3H0zm0 7h32v3H0zm0 7h32v3H0zm0 7h32v3H0z" />
       <rect width="16" height="14" fill="#3c3b6e" />
@@ -104,7 +104,7 @@ export function FlagUS() {
 
 export function FlagIN() {
   return (
-    <svg viewBox="0 0 32 32" className="h-[18px] w-[18px] rounded-full overflow-hidden">
+    <svg viewBox="0 0 32 32" className="h-[1.125rem] w-[1.125rem] rounded-full overflow-hidden">
       <rect width="32" height="11" fill="#ff9933" />
       <rect y="11" width="32" height="10" fill="#fff" />
       <rect y="21" width="32" height="11" fill="#138808" />
@@ -136,7 +136,7 @@ export function IconDownload() {
   return (
     <span className="relative inline-flex h-8 w-8 items-center justify-center">
       <Cloud className="absolute inset-0 h-8 w-8" fill="currentColor" stroke="currentColor" strokeWidth={1.25} />
-      <ArrowDown className="relative mt-[3px] h-3 w-3 text-white" strokeWidth={2.75} />
+      <ArrowDown className="relative mt-[0.1875rem] h-3 w-3 text-white" strokeWidth={2.75} />
     </span>
   );
 }

@@ -39,7 +39,7 @@ export function PhoneField({
             onClick={() => setOpen((v) => !v)}
             className={cn(
               FIELD_H,
-              "w-[76px] shrink-0 bg-white shadow-field text-13 text-ink flex items-center justify-center gap-1 px-2 rounded-[10px]",
+              "w-[4.75rem] shrink-0 bg-white shadow-field text-13 text-ink flex items-center justify-center gap-1 px-2 rounded-[0.625rem]",
             )}
           >
             <span className="font-medium">+91</span>
@@ -67,7 +67,7 @@ export function PhoneField({
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="absolute left-0 top-[calc(100%+6px)] z-30 w-[min(100%,280px)] rounded-[10px] bg-main text-white text-sm px-4 py-3 flex items-center gap-6 text-left shadow-lg"
+              className="absolute left-0 top-[calc(100%+0.375rem)] z-30 w-[min(100%,17.5rem)] rounded-[0.625rem] bg-main text-white text-sm px-4 py-3 flex items-center gap-6 text-left shadow-lg"
             >
               <span className="font-medium">+91</span>
               <span>India (भारत)</span>

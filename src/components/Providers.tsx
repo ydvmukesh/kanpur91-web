@@ -24,7 +24,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <div className="h-dvh bg-phone-frame flex justify-center overflow-hidden">
           <div
             id="phone-root"
-            className="phone-scroll relative w-full max-w-[400px] h-dvh flex flex-col bg-page shadow-[0_0_40px_rgba(30,38,55,.12)] overflow-y-auto"
+            className="phone-scroll relative w-full max-w-[25rem] h-dvh flex flex-col bg-page shadow-[0_0_2.5rem_rgba(30,38,55,.12)] overflow-y-auto"
           >
             <AuthGuard>
               <RealtimeGate />

@@ -6,6 +6,46 @@ export type JackpotRecord = {
 
 export const JACKPOT_RECORDS: JackpotRecord[] = [];
 
+export type JackpotStar = {
+  id: string;
+  name: string;
+  avatar: string;
+  gameName: string;
+  multiple: string;
+  bonus: number;
+  time: string;
+};
+
+export const JACKPOT_STARS: JackpotStar[] = [
+  {
+    id: "1",
+    name: "Mem***WHN",
+    avatar: "/rank/1.svg",
+    gameName: "Fortune Ox",
+    multiple: "100",
+    bonus: 300,
+    time: "2026-10-26 21:48:01",
+  },
+  {
+    id: "2",
+    name: "Mem***ZVX",
+    avatar: "/rank/2.svg",
+    gameName: "Golden Empire",
+    multiple: "44.45",
+    bonus: 210,
+    time: "2026-10-26 21:48:01",
+  },
+  {
+    id: "3",
+    name: "Mem***MHF",
+    avatar: "/rank/3.svg",
+    gameName: "Vortex",
+    multiple: "10",
+    bonus: 35,
+    time: "2026-10-26 21:48:01",
+  },
+];
+
 export const JACKPOT_RULES_TABLE_HTML = `
 <table>
   <thead>

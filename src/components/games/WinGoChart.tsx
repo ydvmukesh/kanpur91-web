@@ -67,7 +67,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
   return (
     <div>
       <div className="overflow-hidden rounded-xl bg-white">
-        <div className="grid grid-cols-[118px_minmax(0,1fr)_26px] bg-main text-white text-13 font-semibold py-2.5">
+        <div className="grid grid-cols-[7.375rem_minmax(0,1fr)_1.625rem] bg-main text-white text-13 font-semibold py-2.5">
           <span className="pl-3">{t("period")}</span>
           <span className="text-center">{t("number")}</span>
           <span />
@@ -75,12 +75,12 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
 
         <div className="px-1.5 pt-2 pb-1">
           <p className="text-sm text-muted mb-2">{t("statisticLast100")}</p>
-          <div className="grid grid-cols-[76px_repeat(10,1fr)] gap-y-1.5 items-center">
+          <div className="grid grid-cols-[4.75rem_repeat(10,1fr)] gap-y-1.5 items-center">
             <span />
             {Array.from({ length: 10 }, (_, n) => (
               <span
                 key={n}
-                className="mx-auto h-[18px] w-[18px] rounded-full border border-main text-10 text-main font-semibold grid place-items-center"
+                className="mx-auto h-[1.125rem] w-[1.125rem] rounded-full border border-main text-10 text-main font-semibold grid place-items-center"
               >
                 {n}
               </span>
@@ -98,7 +98,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
           </div>
         </div>
 
-        <div className="grid grid-cols-[118px_minmax(0,1fr)_26px]">
+        <div className="grid grid-cols-[7.375rem_minmax(0,1fr)_1.625rem]">
           <div>
             {rows.map((h) => (
               <div
@@ -118,7 +118,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
                     <span key={n} className="grid place-items-center">
                       <span
                         className={cn(
-                          "relative z-[2] h-[18px] w-[18px] rounded-full text-10 font-semibold grid place-items-center",
+                          "relative z-[2] h-[1.125rem] w-[1.125rem] rounded-full text-10 font-semibold grid place-items-center",
                           win ? "text-white" : "border border-[#E4E7EE] text-[#C5CAD6]",
                         )}
                         style={win ? { background: chartBallBg(n) } : undefined}
@@ -152,7 +152,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
             {rows.map((h) => (
               <div key={h.period} className="grid h-9 place-items-center border-t border-[#F0F1F5]">
                 <span
-                  className="h-[18px] w-[18px] rounded-full text-10 font-bold text-white grid place-items-center"
+                  className="h-[1.125rem] w-[1.125rem] rounded-full text-10 font-bold text-white grid place-items-center"
                   style={{ background: h.big ? "#FEAA57" : "#6EA8F4" }}
                 >
                   {h.big ? "B" : "S"}

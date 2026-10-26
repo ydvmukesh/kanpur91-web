@@ -18,14 +18,14 @@ export function RuleModal({
 
   return (
     <div className="fixed inset-0 z-[60] flex justify-center">
-      <div className="relative w-full max-w-[400px] h-full">
+      <div className="relative w-full max-w-[25rem] h-full">
         <button type="button" className="absolute inset-0 bg-black/55" onClick={onClose} />
-        <div className="absolute inset-x-5 top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white shadow-[0_8px_30px_rgba(0,0,0,0.28)]">
+        <div className="absolute inset-x-5 top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white shadow-[0_0.5rem_1.875rem_rgba(0,0,0,0.28)]">
           <div className="h-12 bg-main-x grid place-items-center px-3">
             <p className="text-white text-15 font-medium">· 《{title}》 ·</p>
           </div>
           <div className="px-3 pt-3">
-            <div className="bet-rule-body max-h-[240px] overflow-y-auto pr-1 text-13 leading-[1.7] text-[#1e2637]">
+            <div className="bet-rule-body max-h-[15rem] overflow-y-auto pr-1 text-13 leading-[1.7] text-[#1e2637]">
               {children}
             </div>
           </div>

@@ -36,7 +36,7 @@ export function VendorPicker({
       {open && mounted
         ? createPortal(
         <div className="fixed inset-0 z-50 flex justify-center">
-          <div className="relative w-full max-w-[400px] h-full">
+          <div className="relative w-full max-w-[25rem] h-full">
             <button type="button" className="absolute inset-0 bg-black/55" onClick={() => setOpen(false)} />
             <div className="absolute inset-x-0 bottom-0 max-h-[80%] bg-white rounded-t-2xl animate-[sheet-up_280ms_ease-out] flex flex-col">
               <div className="phone-scroll overflow-y-auto">

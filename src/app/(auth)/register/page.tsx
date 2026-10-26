@@ -44,7 +44,7 @@ export default function RegisterPage() {
         value="phone"
         onChange={() => {}}
         items={[
-          { id: "phone", label: t("registerPhoneTab"), icon: <IconPhone className="h-[22px] w-[22px]" /> },
+          { id: "phone", label: t("registerPhoneTab"), icon: <IconPhone className="h-[1.375rem] w-[1.375rem]" /> },
         ]}
       />
 

@@ -82,7 +82,7 @@ export default function WithdrawPage() {
       }
     >
       <div className="pb-8">
-        <div className="mx-3.5 mt-4 relative min-h-[132px] text-white px-4 pt-4 pb-8">
+        <div className="mx-3.5 mt-4 relative min-h-[8.25rem] text-white px-4 pt-4 pb-8">
           <img src={IMG.totalAssetsBg} alt="" className="absolute inset-0 h-full w-full object-fill" />
           <p className="relative z-10 flex items-center gap-1.5 text-13 text-white/95">
             <Wallet className="h-5 w-5" />
@@ -151,7 +151,7 @@ export default function WithdrawPage() {
             <Landmark className="h-5 w-5 text-main shrink-0" />
             {user.bank ? (
               <>
-                <span className="max-w-[88px] truncate text-ink">{user.bank.bankName}</span>
+                <span className="max-w-[5.5rem] truncate text-ink">{user.bank.bankName}</span>
                 <i className="h-4 w-px bg-line shrink-0" />
                 <span className="flex-1 text-ink">{maskAccount(user.bank.account)}</span>
               </>
@@ -175,7 +175,7 @@ export default function WithdrawPage() {
           ) : (
             <Link
               href="/wallet/withdraw/addUpi"
-              className="mx-3.5 mt-3 bg-white rounded-lg min-h-[120px] grid place-items-center text-center px-4"
+              className="mx-3.5 mt-3 bg-white rounded-lg min-h-[7.5rem] grid place-items-center text-center px-4"
             >
               <span>
                 <span className="mx-auto h-11 w-11 rounded-md border border-dashed border-disabled grid place-items-center">
@@ -287,7 +287,7 @@ export default function WithdrawPage() {
         {recent.map((x) => (
           <div key={x.id} className="mx-3.5 mt-2.5 bg-white rounded-xl px-3 py-3.5">
             <div className="flex items-center justify-between border-b border-line pb-2">
-              <span className="h-[26px] px-3 rounded-md bg-main text-white text-13 font-medium grid place-items-center">
+              <span className="h-[1.625rem] px-3 rounded-md bg-main text-white text-13 font-medium grid place-items-center">
                 {t("withdrawal")}
               </span>
               <span
