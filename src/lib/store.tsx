@@ -9,7 +9,7 @@ import { getToken, setToken } from "@/lib/api/token";
 export type { StoredBet, Txn, User } from "@/lib/api/models";
 export { DEMO_LOGIN } from "@/lib/api/mock/db";
 
-export type ToastKind = "default" | "copy";
+export type ToastKind = "default" | "copy" | "warn";
 
 type Toast = { id: string; text: string; kind: ToastKind } | null;
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CalendarDays, ChevronDown } from "lucide-react";
+import { WheelPicker } from "@/components/ui/WheelPicker";
 import { WheelPickerSheet, type PickerOption } from "@/components/ui/WheelPickerSheet";
 import { useI18n } from "@/hooks/useI18n";
 import { cn } from "@/lib/cn";
@@ -10,27 +11,30 @@ function FieldShell({
   children,
   className,
   onClick,
+  trailing,
 }: {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  trailing?: React.ReactNode;
 }) {
   const cls = cn(
     "relative flex h-11 w-full items-center justify-between gap-2 rounded-lg bg-white px-3 text-left text-sm text-ink",
     className,
   );
+  const icons = trailing ?? <ChevronDown className="h-4 w-4 shrink-0 text-faint" />;
   if (onClick) {
     return (
       <button type="button" onClick={onClick} className={cls}>
         {children}
-        <ChevronDown className="h-4 w-4 shrink-0 text-faint" />
+        {icons}
       </button>
     );
   }
   return (
     <div className={cls}>
       {children}
-      <ChevronDown className="h-4 w-4 shrink-0 text-faint" />
+      {icons}
     </div>
   );
 }
@@ -76,6 +80,25 @@ export function FilterSelect({
   );
 }
 
+function currentYear() {
+  return new Date().getFullYear();
+}
+
+function splitDate(value: string) {
+  const maxY = currentYear();
+  const [y, m, d] = (value || "").split("-");
+  const year = Math.min(Number(y) || maxY, maxY);
+  return {
+    y: String(Number.isFinite(year) && year > 0 ? year : maxY),
+    m: m || "01",
+    d: d || "01",
+  };
+}
+
+function daysInMonth(year: string, month: string) {
+  return new Date(Number(year), Number(month), 0).getDate();
+}
+
 export function DateSelect({
   value,
   onChange,
@@ -86,21 +109,58 @@ export function DateSelect({
   className?: string;
 }) {
   const { t } = useI18n();
+  const [open, setOpen] = useState(false);
+  const [draft, setDraft] = useState(splitDate(value));
+  const maxYear = currentYear();
+  const startYear = Math.min(2022, maxYear);
+  const years = Array.from({ length: maxYear - startYear + 1 }, (_, i) => {
+    const id = String(startYear + i);
+    return { id, label: id };
+  });
+  const months = Array.from({ length: 12 }, (_, i) => {
+    const id = String(i + 1).padStart(2, "0");
+    return { id, label: id };
+  });
+  const maxDay = daysInMonth(draft.y, draft.m);
+  const days = Array.from({ length: maxDay }, (_, i) => {
+    const id = String(i + 1).padStart(2, "0");
+    return { id, label: id };
+  });
+  const day = Number(draft.d) > maxDay ? String(maxDay).padStart(2, "0") : draft.d;
+
   return (
-    <label className={cn("relative block", className)}>
-      <FieldShell>
-        <input
-          type="date"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className={cn("min-w-0 flex-1 bg-transparent text-sm outline-none", !value && "text-transparent")}
-        />
-        {!value ? (
-          <span className="pointer-events-none absolute left-3 text-sm text-faint">{t("chooseDate")}</span>
-        ) : null}
-        <CalendarDays className="pointer-events-none absolute right-8 h-4 w-4 text-faint" />
+    <>
+      <FieldShell
+        className={className}
+        onClick={() => {
+          setDraft(splitDate(value));
+          setOpen(true);
+        }}
+        trailing={
+          <div className="flex shrink-0 items-center gap-1">
+            <CalendarDays className="h-4 w-4 text-faint" />
+            <ChevronDown className="h-4 w-4 text-faint" />
+          </div>
+        }
+      >
+        <span className={cn("min-w-0 truncate", value ? "text-ink" : "text-faint")}>{value || t("chooseDate")}</span>
       </FieldShell>
-    </label>
+      <WheelPickerSheet
+        open={open}
+        title={t("chooseDate")}
+        onCancel={() => setOpen(false)}
+        onConfirm={() => {
+          onChange(`${draft.y}-${draft.m}-${day}`);
+          setOpen(false);
+        }}
+      >
+        <div className="grid grid-cols-3">
+          <WheelPicker options={years} value={draft.y} onChange={(y) => setDraft((prev) => ({ ...prev, y }))} />
+          <WheelPicker options={months} value={draft.m} onChange={(m) => setDraft((prev) => ({ ...prev, m }))} />
+          <WheelPicker key={`${draft.y}-${draft.m}`} options={days} value={day} onChange={(d) => setDraft((prev) => ({ ...prev, d }))} />
+        </div>
+      </WheelPickerSheet>
+    </>
   );
 }
 

@@ -1,4 +1,5 @@
 export { AmountField } from "./AmountField";
+export { HtmlContent } from "./HtmlContent";
 export { EmptyState } from "./EmptyState";
 export { Button } from "./Button";
 export { Checkbox } from "./Checkbox";
@@ -8,7 +9,7 @@ export { PasswordField } from "./PasswordField";
 export { PhoneField } from "./PhoneField";
 export { Spinner } from "./Spinner";
 export { TextField } from "./TextField";
-export { UnderlineTabs } from "./UnderlineTabs";
+export { TabContent, UnderlineTabs } from "./UnderlineTabs";
 export { DateSelect, FilterDateRow, FilterSelect } from "./FilterDateRow";
 export { WheelPicker } from "./WheelPicker";
 export { WheelPickerSheet } from "./WheelPickerSheet";

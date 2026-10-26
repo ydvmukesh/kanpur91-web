@@ -8,6 +8,7 @@ import { depositAmountSchema, isPassword, isPhone, withdrawAmountSchema } from "
 import { getRound, payoutMultiplier, resultForPeriod } from "@/lib/wingo";
 import type { WinGoBetValue } from "@/lib/wingo";
 import { ApiError } from "@/lib/api/client";
+import { notifyTokenExpired } from "@/lib/api/token";
 import type { AppNotification, CmsPage, Session, StoredBet, Txn, User, WalletSnapshot } from "@/lib/api/models";
 import { currentUser, getDb, rid, updateDb } from "./db";
 
@@ -21,7 +22,10 @@ function fail(status: number, key: DictKey): never {
 
 function needUser() {
   const user = currentUser();
-  if (!user) fail(401, "loginFailed");
+  if (!user) {
+    notifyTokenExpired();
+    fail(401, "tokenExpired");
+  }
   return user;
 }
 

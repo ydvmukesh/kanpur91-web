@@ -2,6 +2,22 @@
 
 import { cn } from "@/lib/cn";
 
+export function TabContent<T extends string>({
+  value,
+  when,
+  children,
+  className,
+}: {
+  value: T;
+  when: T;
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  if (value !== when) return null;
+  if (!className) return children;
+  return <div className={className}>{children}</div>;
+}
+
 export function UnderlineTabs<T extends string>({
   value,
   onChange,

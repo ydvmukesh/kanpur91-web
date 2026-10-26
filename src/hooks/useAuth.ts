@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useMe } from "@/hooks/queries/useMe";
 import { useToken } from "@/hooks/useToken";
 import { ApiError } from "@/lib/api/client";
-import { clearToken } from "@/lib/api/token";
+import { notifyTokenExpired } from "@/lib/api/token";
 import {
   useLoginMutation,
   useLogoutMutation,
@@ -27,7 +27,7 @@ export function useAuth() {
   const hydrated = storeReady && (!token || me.isFetched || me.isError);
 
   useEffect(() => {
-    if (me.error instanceof ApiError && me.error.status === 401) clearToken();
+    if (me.error instanceof ApiError && me.error.status === 401) notifyTokenExpired();
   }, [me.error]);
 
   async function login(account: string, password: string) {

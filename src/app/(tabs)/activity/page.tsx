@@ -20,7 +20,7 @@ export default function ActivityPage() {
   if (!user) return null;
 
   const tiles: { href?: string; src: string; label: DictKey; dot?: boolean }[] = [
-    { href: "/promotion", src: IMG.actInvite, label: "invitationBonus" },
+    { href: "/main/InvitationBonus", src: IMG.actInvite, label: "invitationBonus" },
     { src: IMG.actRebate, label: "bettingRebate" },
     { src: IMG.actJackpot, label: "superJackpot" },
     { src: IMG.actFirstGift, label: "firstGift" },

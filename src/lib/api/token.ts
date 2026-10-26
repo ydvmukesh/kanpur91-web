@@ -40,3 +40,27 @@ export function subscribeToken(fn: () => void) {
     listeners.delete(fn);
   };
 }
+
+const expireListeners = new Set<() => void>();
+let expireLock = false;
+
+export function notifyTokenExpired() {
+  if (expireLock) return;
+  expireLock = true;
+  clearToken();
+  expireListeners.forEach((fn) => fn());
+  if (typeof window !== "undefined") {
+    window.setTimeout(() => {
+      expireLock = false;
+    }, 2500);
+  } else {
+    expireLock = false;
+  }
+}
+
+export function subscribeTokenExpired(fn: () => void) {
+  expireListeners.add(fn);
+  return () => {
+    expireListeners.delete(fn);
+  };
+}

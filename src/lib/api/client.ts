@@ -1,5 +1,5 @@
 import { API_URL, USE_MOCK } from "./env";
-import { getToken } from "./token";
+import { getToken, notifyTokenExpired } from "./token";
 
 export class ApiError extends Error {
   constructor(
@@ -30,6 +30,8 @@ export async function apiFetch<T>(path: string, init: Options = {}): Promise<T> 
 
   if (!res.ok) {
     const body = (await res.json().catch(() => null)) as { message?: string } | null;
+    const authCall = path.startsWith("/auth/");
+    if (res.status === 401 && !authCall) notifyTokenExpired();
     throw new ApiError(res.status, body?.message || res.statusText);
   }
 

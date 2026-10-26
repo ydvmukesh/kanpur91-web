@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 export function InstallBanner() {
   const pathname = usePathname();
   const { t } = useStore();
-  if (pathname !== "/home") return null;
+  if (pathname !== "/") return null;
 
   return (
     <Link

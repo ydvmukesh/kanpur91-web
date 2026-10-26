@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IconLock, IconMail, IconPhone, IconShield } from "@/components/Icons";
 import { AuthHeader } from "@/components/layout/AuthHeader";
-import { Button, OtpField, PasswordField, PhoneField, TextField, UnderlineTabs } from "@/components/ui";
+import { Button, OtpField, PasswordField, PhoneField, TabContent, TextField, UnderlineTabs } from "@/components/ui";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/hooks/useI18n";
 import { useStore } from "@/lib/store";
@@ -64,9 +64,10 @@ export default function ForgotPage() {
       />
 
       <div className="px-5 pt-4 pb-10 flex-1">
-        {tab === "phone" ? (
+        <TabContent value={tab} when="phone">
           <PhoneField value={phone} onChange={setPhone} />
-        ) : (
+        </TabContent>
+        <TabContent value={tab} when="email">
           <TextField
             label={t("email")}
             icon={<IconMail />}
@@ -75,7 +76,7 @@ export default function ForgotPage() {
             onChange={setEmail}
             placeholder={t("emailHint")}
           />
-        )}
+        </TabContent>
 
       
         <PasswordField

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IconLock, IconMail, IconPhone } from "@/components/Icons";
 import { AuthHeader } from "@/components/layout/AuthHeader";
-import { Button, Checkbox, PasswordField, PhoneField, TextField, UnderlineTabs } from "@/components/ui";
+import { Button, Checkbox, PasswordField, PhoneField, TabContent, TextField, UnderlineTabs } from "@/components/ui";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/hooks/useI18n";
 import { safeNext } from "@/lib/auth/routes";
@@ -60,9 +60,10 @@ export default function LoginPage() {
       />
 
       <div className="px-5 pt-5 pb-10">
-        {tab === "phone" ? (
+        <TabContent value={tab} when="phone">
           <PhoneField value={phone} onChange={setPhone} />
-        ) : (
+        </TabContent>
+        <TabContent value={tab} when="email">
           <TextField
             label={t("email")}
             icon={<IconMail />}
@@ -71,7 +72,7 @@ export default function LoginPage() {
             onChange={setEmail}
             placeholder={t("emailHint")}
           />
-        )}
+        </TabContent>
 
         <PasswordField
           className="mt-4"

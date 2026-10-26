@@ -26,16 +26,16 @@ export function isAuthOnly(pathname: string | null | undefined): boolean {
 }
 
 export function safeNext(next: string | null | undefined): string {
-  if (!next) return "/home";
+  if (!next) return "/";
   const raw = next.trim();
-  if (!raw.startsWith("/") || raw.startsWith("//") || raw.includes("://")) return "/home";
+  if (!raw.startsWith("/") || raw.startsWith("//") || raw.includes("://")) return "/";
   const [pathPart, query] = raw.split("?");
   const clean = normalizePath(pathPart);
-  if (isAuthOnly(clean) || clean === "/") return "/home";
+  if (isAuthOnly(clean) || clean === "/") return "/";
   return query ? `${clean}?${query}` : clean;
 }
 
 export function loginUrl(next?: string | null): string {
   const safe = safeNext(next);
-  return safe === "/home" ? "/login" : `/login?next=${encodeURIComponent(safe)}`;
+  return safe === "/" ? "/login" : `/login?next=${encodeURIComponent(safe)}`;
 }

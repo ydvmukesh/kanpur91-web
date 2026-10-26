@@ -8,6 +8,7 @@ import { applySettleCache } from "@/hooks/mutations/useBetMutations";
 import { isAuthOnly, isPublic, loginUrl, safeNext } from "@/lib/auth/routes";
 import { betsApi } from "@/lib/api/resources/bets";
 import { USE_MOCK } from "@/lib/api/env";
+import { subscribeTokenExpired } from "@/lib/api/token";
 import { Check } from "lucide-react";
 import { useStore } from "@/lib/store";
 
@@ -54,20 +55,20 @@ export function Settler() {
 }
 
 export function ToastHost() {
-  const { toast } = useStore();
+  const { toast, t, showToast } = useStore();
+
+  useEffect(() => subscribeTokenExpired(() => showToast(t("tokenExpired"), "warn")), [t, showToast]);
+
   if (!toast) return null;
   return (
     <div className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center px-10">
-      {toast.kind === "copy" ? (
-        <div className="h-[120px] w-[120px] rounded-[8px] bg-[rgba(0,0,0,0.7)] text-white px-2 flex flex-col items-center justify-center">
-            <Check className="h-8 w-8"  />
-        
-          <p className="mt-3 text-sm leading-snug text-center whitespace-pre-line">{toast.text}</p>
+      {toast.kind === "copy" || toast.kind === "warn" ? (
+        <div className="flex h-[120px] w-[120px] flex-col items-center justify-center rounded-[8px] bg-[rgba(0,0,0,0.7)] px-2 text-white">
+          {toast.kind === "copy" ? <Check className="h-8 w-8" /> : <span className="text-[32px] leading-none font-light">!</span>}
+          <p className="mt-3 text-center text-sm leading-snug whitespace-pre-line">{toast.text}</p>
         </div>
       ) : (
-        <div className="bg-black/75 text-white text-sm px-4 py-2.5 rounded-lg max-w-[80%] text-center">
-          {toast.text}
-        </div>
+        <div className="max-w-[80%] rounded-lg bg-black/75 px-4 py-2.5 text-center text-sm text-white">{toast.text}</div>
       )}
     </div>
   );

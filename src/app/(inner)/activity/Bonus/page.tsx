@@ -3,9 +3,22 @@
 import { useMemo, useState } from "react";
 import { BonusCard } from "@/components/activity/BonusCard";
 import { InnerShell } from "@/components/layout/InnerShell";
-import { EmptyState, FilterDateRow, UnderlineTabs } from "@/components/ui";
+import { EmptyState, FilterDateRow, TabContent, UnderlineTabs } from "@/components/ui";
 import { useI18n } from "@/hooks/useI18n";
-import { BONUS_FILTERS, BONUS_ROWS, type BonusStatus } from "@/lib/activity";
+import { BONUS_FILTERS, BONUS_ROWS, type BonusRow, type BonusStatus } from "@/lib/activity";
+
+function BonusList({ rows }: { rows: BonusRow[] }) {
+  const { t } = useI18n();
+  if (rows.length === 0) return <EmptyState />;
+  return (
+    <>
+      {rows.map((row) => (
+        <BonusCard key={row.id} row={row} />
+      ))}
+      <p className="pt-4 text-center text-sm text-ink">{t("noMore")}</p>
+    </>
+  );
+}
 
 export default function BonusPage() {
   const { t } = useI18n();
@@ -14,15 +27,14 @@ export default function BonusPage() {
   const [date, setDate] = useState("");
 
   const filterOptions = BONUS_FILTERS.map((id) => ({ id, label: t(id) }));
-  const rows = useMemo(
+  const visible = useMemo(
     () =>
       BONUS_ROWS.filter((row) => {
-        if (row.status !== tab) return false;
         if (filter !== "all" && row.type !== filter) return false;
         if (date && !row.time.startsWith(date)) return false;
         return true;
       }),
-    [tab, filter, date],
+    [filter, date],
   );
 
   return (
@@ -48,11 +60,15 @@ export default function BonusPage() {
       }
     >
       <div className="px-3 pb-8 pt-3">
-        {rows.length === 0 ? <EmptyState /> : null}
-        {rows.map((row) => (
-          <BonusCard key={row.id} row={row} />
-        ))}
-        {rows.length > 0 ? <p className="pt-4 text-center text-sm text-ink">{t("noMore")}</p> : null}
+        <TabContent value={tab} when="collect">
+          <BonusList rows={visible.filter((row) => row.status === "collect")} />
+        </TabContent>
+        <TabContent value={tab} when="received">
+          <BonusList rows={visible.filter((row) => row.status === "received")} />
+        </TabContent>
+        <TabContent value={tab} when="expired">
+          <BonusList rows={visible.filter((row) => row.status === "expired")} />
+        </TabContent>
       </div>
     </InnerShell>
   );

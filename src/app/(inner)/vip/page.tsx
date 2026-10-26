@@ -6,7 +6,7 @@ import Swiper from "swiper";
 import "swiper/css";
 import { Database, Gem, Heart } from "lucide-react";
 import { IconBack, IconRuleHead } from "@/components/Icons";
-import { Button, UnderlineTabs } from "@/components/ui";
+import { Button, HtmlContent, TabContent, UnderlineTabs } from "@/components/ui";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/hooks/useI18n";
 import { IMG, ImgIcon } from "@/lib/img";
@@ -220,8 +220,7 @@ function VipHistoryRules() {
           ]}
         />
 
-        {tab === "history" ? (
-          <div className="px-3 pb-4 pt-4">
+        <TabContent value={tab} when="history" className="px-3 pb-4 pt-4">
             {items.map((item, i) => (
               <div key={item.id} className={i > 0 ? "mt-3 border-t border-line pt-3" : ""}>
                 <p className={item.tone === "orange" ? "text-sm font-medium text-secondary" : "text-sm font-medium text-main"}>
@@ -237,12 +236,10 @@ function VipHistoryRules() {
             <Button className="mt-5" size="sm" href="/vip/RecordVsruleHistory">
               {t("viewAll")}
             </Button>
-          </div>
-        ) : null}
+        </TabContent>
       </div>
 
-      {tab === "rules" ? (
-        <>
+      <TabContent value={tab} when="rules">
           <h2 className="mt-4 text-center text-md font-semibold text-main">{t("vipPrivileges")}</h2>
           <p className="mt-1 text-center text-13 text-muted">{t("vipRuleDescription")}</p>
           <div className="mt-5 space-y-3">
@@ -254,12 +251,11 @@ function VipHistoryRules() {
                     {rule.title}
                   </span>
                 </div>
-                <p className="whitespace-pre-line px-3 py-3 text-xs leading-relaxed text-muted">{rule.body}</p>
+                <HtmlContent html={rule.body} className="px-3 py-3 text-xs [&_p]:text-xs leading-relaxed text-muted" />
               </div>
             ))}
           </div>
-        </>
-      ) : null}
+      </TabContent>
     </div>
   );
 }

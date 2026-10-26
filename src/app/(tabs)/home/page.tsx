@@ -16,6 +16,8 @@ import { cn } from "@/lib/cn";
 import { formatMoney } from "@/lib/format";
 import { useWallet } from "@/hooks/useWallet";
 import { useAuth } from "@/hooks/useAuth";
+import { HtmlContent } from "@/components/ui";
+import { HOME_FOOTER_HTML } from "@/lib/home-footer";
 import { useStore } from "@/lib/store";
 import { ArrowDown, ArrowUp } from "lucide-react";
 
@@ -445,24 +447,11 @@ export default function HomePage() {
         </>
         ) : null}
 
-        <footer className=" bg-white rounded-xl px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)] mb-12">
-          <div className="mx-auto mb-4 h-[46px] w-[46px] rounded-full border-[2.5px] border-[#F95959] grid place-items-center">
-            <span className="text-15 font-bold text-[#F95959] leading-none">+18</span>
+        <footer className="mb-12 rounded-xl bg-white px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)]">
+          <div className="mx-auto mb-4 grid h-[46px] w-[46px] place-items-center rounded-full border-[2.5px] border-[#F95959]">
+            <span className="text-15 font-bold leading-none text-[#F95959]">+18</span>
           </div>
-          <div className="space-y-1.5 text-13 leading-[1.55] text-[#6E7C91]">
-            {[t("footerFair"), t("footerPartners"), t("footerVisit")].map((line) => (
-              <p key={line} className="flex gap-2">
-                <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rotate-45 bg-[#F95959]" />
-                <span>{line}</span>
-              </p>
-            ))}
-          </div>
-          <p className="text-13 leading-[1.55] text-[#E07060] mt-3.5">
-            {t("footerAddictive")}
-          </p>
-          <p className="text-13 leading-[1.55] text-[#E07060]">
-            {t("footerAge18")}
-          </p>
+          <HtmlContent html={HOME_FOOTER_HTML} />
         </footer>
       </div>
       </div>
