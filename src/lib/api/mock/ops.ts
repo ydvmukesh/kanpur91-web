@@ -8,7 +8,7 @@ import { depositAmountSchema, isPassword, isPhone, withdrawAmountSchema } from "
 import { getRound, payoutMultiplier, resultForPeriod } from "@/lib/wingo";
 import type { WinGoBetValue } from "@/lib/wingo";
 import { ApiError } from "@/lib/api/client";
-import type { AppNotification, Session, StoredBet, Txn, User, WalletSnapshot } from "@/lib/api/models";
+import type { AppNotification, CmsPage, Session, StoredBet, Txn, User, WalletSnapshot } from "@/lib/api/models";
 import { currentUser, getDb, rid, updateDb } from "./db";
 
 function msg(key: DictKey) {
@@ -375,4 +375,17 @@ export function mockSettleDue() {
   if (!changed) return { changed: false as const, user: currentUser(), bets: mockBets() };
   updateDb((p) => ({ ...p, users, bets }));
   return { changed: true as const, user: currentUser(), bets: mockBets() };
+}
+
+export function mockCmsPage(slug: string): CmsPage {
+  const lang = getDb().lang;
+  if (slug === "privacy") {
+    const blocks = ["userAgreement", "riskP1", "riskP2", "riskP3", "riskP4", "riskP5"] as const;
+    return {
+      slug,
+      title: translate(lang, "riskDisclosure"),
+      html: blocks.map((k) => `<p>${translate(lang, k)}</p>`).join(""),
+    };
+  }
+  fail(404, "comingSoon");
 }

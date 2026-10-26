@@ -81,3 +81,9 @@ export type Session = {
   token: string;
   user: User;
 };
+
+export type CmsPage = {
+  slug: string;
+  title: string;
+  html: string;
+};

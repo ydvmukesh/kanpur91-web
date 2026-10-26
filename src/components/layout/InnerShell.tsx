@@ -22,10 +22,10 @@ export function InnerShell({
   headerCenter?: React.ReactNode;
   headerCenterOut?: boolean;
   onHeaderCenterAnimEnd?: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   return (
-    <div className={cn("h-full min-h-0 flex flex-col", className ?? "bg-bg-l1")}>
+    <div className={cn("h-full min-h-0 flex flex-col", className ?? "bg-page")}>
       <div className="sticky top-0 z-30 shrink-0">
         <InnerHeader
           title={title}

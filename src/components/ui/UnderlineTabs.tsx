@@ -7,12 +7,39 @@ export function UnderlineTabs<T extends string>({
   onChange,
   items,
   className,
+  variant = "auth",
 }: {
   value: T;
   onChange: (id: T) => void;
   items: { id: T; label: string; icon?: React.ReactNode }[];
   className?: string;
+  variant?: "auth" | "line";
 }) {
+  const cols = items.length <= 1 ? "grid-cols-1" : items.length === 3 ? "grid-cols-3" : "grid-cols-2";
+
+  if (variant === "line") {
+    return (
+      <div className={cn("grid", cols, className)}>
+        {items.map((item) => {
+          const on = value === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => onChange(item.id)}
+              className={cn(
+                "h-10 text-sm",
+                on ? "border-b-2 border-main font-medium text-main" : "text-muted",
+              )}
+            >
+              {item.label}
+            </button>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <div className={cn("grid px-6", items.length === 1 ? "grid-cols-1 bg-white" : "grid-cols-2", className)}>
       {items.map((item) => {

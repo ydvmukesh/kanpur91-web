@@ -9,5 +9,8 @@ export { PhoneField } from "./PhoneField";
 export { Spinner } from "./Spinner";
 export { TextField } from "./TextField";
 export { UnderlineTabs } from "./UnderlineTabs";
+export { DateSelect, FilterDateRow, FilterSelect } from "./FilterDateRow";
 export { WheelPicker } from "./WheelPicker";
+export { WheelPickerSheet } from "./WheelPickerSheet";
+export type { PickerOption } from "./WheelPickerSheet";
 export type { FieldVariant } from "./styles";

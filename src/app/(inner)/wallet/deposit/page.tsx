@@ -167,7 +167,7 @@ export default function RechargePage() {
                 <p className="text-base font-bold leading-none">2%</p>
                 <p className="mt-1 text-8 font-semibold leading-none">{t("cashback")}</p>
               </div>
-              <div className="bg-bg-l1 px-3 py-2 text-left">
+              <div className="bg-page px-3 py-2 text-left">
                 <p className="text-xs text-muted leading-none">{t("upTo")}</p>
                 <p className="mt-0.5 text-sm font-semibold text-ink">₹2,000</p>
                 <p className="mt-0.5 text-9 text-[#96424a]">
@@ -202,7 +202,7 @@ export default function RechargePage() {
                 </button>
               ))}
             </div>
-            <div className="mt-3 h-11 rounded-full bg-bg-l1 px-3 flex items-center gap-2">
+            <div className="mt-3 h-11 rounded-full bg-page px-3 flex items-center gap-2">
               <span className="text-main text-sm font-semibold">₹</span>
               <i className="h-4 w-px bg-line shrink-0" />
               <input

@@ -1,4 +1,4 @@
-import { ArrowDown, Cloud, Eye, EyeOff } from "lucide-react";
+import { ArrowDown, ChevronLeft, Cloud, Eye, EyeOff } from "lucide-react";
 
 export function IconHome({ active }: { active?: boolean }) {
   return (
@@ -53,9 +53,7 @@ export function IconUser({ active }: { active?: boolean }) {
 
 export function IconBack() {
   return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M15 5 8 12l7 7" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <ChevronLeft className="h-6.5 w-6.5" strokeWidth={1.8} />
   );
 }
 
@@ -270,6 +268,17 @@ export function IconFlame({ className = "h-3 w-3" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor">
       <path d="M12 2s3.2 3.6 3.2 7.2c0 1.4-.5 2.6-1.3 3.5 1.6-.4 3.6-1.8 3.6-4.7 2.4 2.6 3.5 5 3.5 7.5A8 8 0 1 1 4 15.5C4 10.2 8.5 6.4 12 2Z" />
+    </svg>
+  );
+}
+
+export function IconRuleHead({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 489 60" fill="none" className={className} preserveAspectRatio="none" aria-hidden>
+      <path
+        fill="currentColor"
+        d="M-2 -0.0310078V-4H492V-0.0310078C485 -0.0310078 470.65 -0.0310078 463 4.43411C454.5 9.39535 450 12.8682 439 35.1938C429.492 54.4913 413.5 59.6693 408 60H83C66 60 53.5 42.1395 50.5 36.186C47.5 30.2326 44.0048 21.3075 33.5 9.89147C23 -1.51938 8 -0.0310078 -2 -0.0310078Z"
+      />
     </svg>
   );
 }

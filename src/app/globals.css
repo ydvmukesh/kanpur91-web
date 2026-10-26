@@ -34,6 +34,7 @@
   --norm_blue3_color: #7fadd1;
   --norm_Orange2_color: #fd8654;
   --bg_color_L1: #f7f8ff;
+  --bg_color_L1: #f6f7fb;
   --bg_color_L2: #fff;
   --bg_color_L3: #f6f6f6;
   --Dividing-line_color: #e1e1e1;
@@ -188,6 +189,39 @@ button:disabled.bg-btn-disabled {
 
 .bg-tab {
   background: linear-gradient(90deg, var(--tab1) 0%, var(--tab2) 100%);
+}
+
+.cms-html p {
+  margin-bottom: 0.75rem;
+}
+
+.cms-html p:last-child {
+  margin-bottom: 0;
+}
+
+.cms-html a {
+  color: var(--main-color);
+}
+
+.cms-html ul,
+.cms-html ol {
+  margin-bottom: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.cms-html ul {
+  list-style: disc;
+}
+
+.cms-html ol {
+  list-style: decimal;
+}
+
+.cms-html h1,
+.cms-html h2,
+.cms-html h3 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 .phone-scroll {

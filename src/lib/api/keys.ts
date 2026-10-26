@@ -6,4 +6,5 @@ export const qk = {
   notifs: ["notifications"] as const,
   catalogs: ["catalogs"] as const,
   catalog: (slug: string, type?: string | null) => ["catalog", slug, type ?? ""] as const,
+  cms: (slug: string, lang: string) => ["cms", slug, lang] as const,
 };

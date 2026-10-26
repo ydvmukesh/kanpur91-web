@@ -110,8 +110,8 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="pb-8">
-      <header className="top-0 z-40 bg-white pt-safe-t">
+    <div className="flex h-full min-h-0 flex-col">
+      <header className="z-30 shrink-0 bg-white pt-safe-t">
         <div className="px-3 h-12 flex items-center justify-between">
         <HomeLogo className="h-11" />
         {user ? (
@@ -140,6 +140,7 @@ export default function HomePage() {
         </div>
       </header>
 
+      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto pb-8">
       <div className="h-9 bg-[#F3F4F8] px-3 flex items-center gap-2">
         <ImgIcon src={IMG.notice} alt="" className="h-4 w-4 shrink-0" />
         <div className="flex-1 overflow-hidden">
@@ -236,7 +237,7 @@ export default function HomePage() {
 
       <div
         ref={tabBarRef}
-        className="sticky top-0 z-30 bg-bg-l1 px-3 py-1.5"
+        className="sticky top-0 z-30 bg-page px-3 py-1.5"
       >
         <div className="rounded-lg bg-[#F0F2F8] px-2 py-1.5">
           <div className="flex items-center gap-2 overflow-x-auto phone-scroll">
@@ -444,7 +445,7 @@ export default function HomePage() {
         </>
         ) : null}
 
-        <footer className=" bg-white rounded-[20px] px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)] mb-16">
+        <footer className=" bg-white rounded-xl px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)] mb-12">
           <div className="mx-auto mb-4 h-[46px] w-[46px] rounded-full border-[2.5px] border-[#F95959] grid place-items-center">
             <span className="text-15 font-bold text-[#F95959] leading-none">+18</span>
           </div>
@@ -463,6 +464,7 @@ export default function HomePage() {
             {t("footerAge18")}
           </p>
         </footer>
+      </div>
       </div>
     </div>
   );

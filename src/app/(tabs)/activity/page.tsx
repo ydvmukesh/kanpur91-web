@@ -1,97 +1,119 @@
 "use client";
 
 import Link from "next/link";
-import { useCheckInMutation } from "@/hooks/mutations/useWalletMutations";
+import { LoginBrand } from "@/components/Logo";
 import { useAuth } from "@/hooks/useAuth";
-import { errMsg } from "@/lib/query/sync";
-import { useStore } from "@/lib/store";
-import { formatMoney } from "@/lib/format";
-import { IconChevron } from "@/components/Icons";
+import { useI18n } from "@/hooks/useI18n";
+import { ACTIVITY_LIST } from "@/lib/activity";
 import { IMG, ImgIcon } from "@/lib/img";
+import { formatMoney } from "@/lib/format";
+import { useStore } from "@/lib/store";
+import type { DictKey } from "@/lib/i18n";
 
-const days = [5, 10, 15, 20, 25, 30, 50];
+const TODAY_BONUS = 0;
+const TOTAL_BONUS = 1130.66;
 
 export default function ActivityPage() {
-  const { t, showToast } = useStore();
+  const { t } = useI18n();
   const { user } = useAuth();
-  const checkIn = useCheckInMutation();
+  const { showToast } = useStore();
   if (!user) return null;
-  const today = new Date().toISOString().slice(0, 10);
+
+  const tiles: { href?: string; src: string; label: DictKey; dot?: boolean }[] = [
+    { href: "/promotion", src: IMG.actInvite, label: "invitationBonus" },
+    { src: IMG.actRebate, label: "bettingRebate" },
+    { src: IMG.actJackpot, label: "superJackpot" },
+    { src: IMG.actFirstGift, label: "firstGift" },
+    { src: IMG.actWheel, label: "inviteWheel", dot: true },
+  ];
+
+  function soon() {
+    showToast(t("comingSoon"));
+  }
 
   return (
-    <div>
-      <header className="bg-main-y text-white px-4 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-4">
-        <h1 className="text-lg font-semibold">{t("activity")}</h1>
-        <p className="text-xs text-white/80 mt-1">{t("attendance")}</p>
-      </header>
-      <div className="p-3 space-y-3">
-        <Link href="/gift" className="block rounded-xl overflow-hidden">
-          <ImgIcon src={IMG.turntable} alt="" className="w-full h-auto" />
-        </Link>
-        <Link href="/vip" className="block rounded-xl overflow-hidden">
-          <ImgIcon src={IMG.vip} alt="" className="w-full h-auto" />
-        </Link>
-        <section className="bg-white rounded-xl p-3">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-semibold">{t("checkIn")}</h2>
-            <span className="text-xs text-muted">
-              {t("consecutive")} {user.checkStreak}
-            </span>
-          </div>
-          <div className="grid grid-cols-7 gap-1.5">
-            {days.map((amt, i) => {
-              const done = user.checkStreak > i && user.lastCheckIn === today ? true : user.checkStreak > i;
-              return (
-                <div key={amt} className="text-center">
-                  <div className={`h-10 rounded-lg grid place-items-center text-11 font-semibold ${done ? "bg-green-soft text-green-norm" : "bg-bg-l3 text-muted"}`}>
-                    ₹{amt}
-                  </div>
-                  <p className="text-10 text-faint mt-1">
-                    {t("day")}
-                    {i + 1}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-          <button
-            type="button"
-            className="mt-3 w-full h-10 rounded-full bg-main-x text-white text-sm font-semibold"
-            onClick={() => {
-              checkIn.mutate(undefined, {
-                onSuccess: () => showToast(t("checked")),
-                onError: (e) => showToast(errMsg(e)),
-              });
-            }}
-          >
-            {t("checkIn")}
-          </button>
-        </section>
-
-        {[
-          { href: "/wallet/deposit", title: t("firstDeposit"), sub: "Up to 20%", c: "from-[#FF6C6B] to-[#FF4A4A]" },
-          { href: "/promotion", title: t("invitationBonus"), sub: "Commission", c: "from-[#FD8654] to-[#FBB84D]" },
-          { href: "/promotion", title: t("bettingRebate"), sub: "Up to 1.2%", c: "from-[#7B8EFF] to-[#C36FFF]" },
-          { href: "/gift", title: t("gift"), sub: "Redeem code", c: "from-[#18B660] to-[#2AD4C5]" },
-        ].map((a) => (
-          <Link key={a.title} href={a.href} className={`block rounded-xl p-4 text-white bg-gradient-to-r ${a.c}`}>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-semibold">{a.title}</p>
-                <p className="text-xs text-white/80 mt-1">{a.sub}</p>
-              </div>
-              <IconChevron />
-            </div>
-          </Link>
-        ))}
-        <div className="bg-white rounded-xl p-4 flex items-center gap-3">
-          <ImgIcon src={IMG.winner} alt="" className="h-10 w-10" />
-          <div className="flex-1">
-            <p className="font-semibold">{t("superJackpot")}</p>
-            <p className="text-2xl font-extrabold text-main mt-1">₹{formatMoney(1283904, 0)}</p>
-          </div>
-          <ImgIcon src={IMG.rank} alt="" className="h-9 w-9" />
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="z-30 shrink-0 bg-main-x pt-safe-t text-white">
+        <div className="flex h-12 items-center justify-center">
+          <LoginBrand />
         </div>
+      </div>
+
+      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
+        <div className="bg-main-x px-4 py-5 text-white">
+          <div className="grid grid-cols-2 divide-x divide-white/50">
+            <div className="text-center">
+              <p className="text-xs">{t("todayBonus")}</p>
+              <p className="text-lg font-semibold">₹{formatMoney(TODAY_BONUS)}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs">{t("totalBonus")}</p>
+              <p className="text-lg font-semibold">₹{formatMoney(TOTAL_BONUS)}</p>
+            </div>
+          </div>
+          <Link
+            href="/activity/Bonus"
+            className="mx-auto mt-5 flex h-10 w-40 items-center justify-center rounded-full bg-white text-sm font-medium text-main"
+          >
+            {t("bonusDetails")}
+          </Link>
+        </div>
+        <div className="px-4 pb-16 pt-4">
+        <div className="grid grid-cols-4 gap-x-2 gap-y-4">
+          {tiles.map((item) => {
+            const body = (
+              <>
+                <span className="relative mx-auto block h-12 w-12">
+                  <ImgIcon src={item.src} alt="" className="h-14 w-14 object-contain" />
+                  {item.dot ? <span className="absolute top-0 -right-1 h-2 w-2 rounded-full bg-main" /> : null}
+                </span>
+                <span className="mt-2 block text-center text-11 leading-snug text-muted">{t(item.label)}</span>
+              </>
+            );
+            const cls = "flex flex-col items-center";
+            return item.href ? (
+              <Link key={item.label} href={item.href} className={cls}>
+                {body}
+              </Link>
+            ) : (
+              <button key={item.label} type="button" onClick={soon} className={cls}>
+                {body}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-5 grid grid-cols-2 items-stretch gap-3">
+          <button type="button" onClick={soon} className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
+            <ImgIcon src={IMG.actGiftsBanner} alt="" className="h-28 w-full shrink-0 object-cover" />
+            <div className="flex flex-1 flex-col px-2.5 py-2.5">
+              <p className="text-sm font-bold text-ink">{t("gift")}</p>
+              <p className="mt-1 text-11 leading-snug text-muted">{t("giftRedeemBody")}</p>
+            </div>
+          </button>
+          <button type="button" onClick={soon} className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
+            <ImgIcon src={IMG.actAttendanceBanner} alt="" className="h-28 w-full shrink-0 object-cover" />
+            <div className="flex flex-1 flex-col px-2.5 py-2.5">
+              <p className="text-sm font-bold text-ink">{t("attendance")}</p>
+              <p className="mt-1 text-11 leading-snug text-muted">{t("attendanceBody")}</p>
+            </div>
+          </button>
+        </div>
+
+        <div className="mt-3 space-y-3">
+          {ACTIVITY_LIST.map((event) => (
+            <Link
+              key={event.slug}
+              href={`/activity/ActivityDetail/${event.slug}`}
+              className="block w-full overflow-hidden rounded-lg bg-white text-left"
+            >
+              <ImgIcon src={event.banner} alt="" className="h-auto w-full object-cover" />
+              <p className="px-3 py-2.5 text-sm font-bold text-ink">{event.title}</p>
+            </Link>
+          ))}
+        </div>
+        <p className="pt-4 text-center text-sm text-muted">{t("noMore")}</p>
+      </div>
       </div>
     </div>
   );

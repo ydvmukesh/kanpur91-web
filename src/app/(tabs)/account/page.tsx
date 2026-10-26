@@ -31,8 +31,8 @@ export default function AccountPage() {
   ];
 
   return (
-    <div>
-      <header className="bg-main-y text-white px-4 pt-[calc(1.25rem+env(safe-area-inset-top,0px))] pb-8">
+    <div className="flex h-full min-h-0 flex-col">
+      <header className="z-30 shrink-0 bg-main-y text-white px-4 pt-[calc(1.25rem+env(safe-area-inset-top,0px))] pb-8">
         <div className="flex items-center gap-3">
           <div className="h-14 w-14 rounded-full bg-white grid place-items-center overflow-hidden p-1">
             <ImgIcon src={IMG.logo} alt="" className="h-full w-full" />
@@ -56,6 +56,7 @@ export default function AccountPage() {
           </Link>
         </div>
       </header>
+      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
       <div className="mx-3 -mt-4 bg-white rounded-xl overflow-hidden">
         {rows.map((r) => (
           <Link key={r.href} href={r.href} className="flex items-center justify-between px-4 h-12 border-b border-line last:border-0">
@@ -82,6 +83,7 @@ export default function AccountPage() {
         >
           {t("logout")}
         </button>
+      </div>
       </div>
     </div>
   );

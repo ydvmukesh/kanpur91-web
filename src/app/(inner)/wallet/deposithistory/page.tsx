@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown, Copy, LayoutGrid, QrCode } from "lucide-react";
+import { Copy, LayoutGrid, QrCode } from "lucide-react";
 import { InnerShell } from "@/components/layout/InnerShell";
-import { Button, EmptyState, WheelPicker } from "@/components/ui";
+import { Button, EmptyState, FilterDateRow } from "@/components/ui";
 import { useTxns } from "@/hooks/queries/useTxns";
 import { useI18n } from "@/hooks/useI18n";
 import { IMG, ImgIcon } from "@/lib/img";
@@ -31,18 +31,8 @@ export default function DepositHistoryPage() {
   const { data: list = [] } = useTxns("deposit");
   const [tab, setTab] = useState<Tab>("all");
   const [status, setStatus] = useState("all");
-  const [draftStatus, setDraftStatus] = useState("all");
-  const [openStatus, setOpenStatus] = useState(false);
   const [date, setDate] = useState("");
 
-  const statusLabel =
-    status === "pending"
-      ? t("toBePaid")
-      : status === "completed"
-        ? t("completed")
-        : status === "rejected"
-          ? t("failed")
-          : t("all");
   const statusOptions = [
     { id: "all", label: t("all") },
     { id: "pending", label: t("toBePaid") },
@@ -72,7 +62,6 @@ export default function DepositHistoryPage() {
   ];
 
   return (
-    <>
       <InnerShell
         title={t("depositHistory")}
         variant="light"
@@ -103,29 +92,14 @@ export default function DepositHistoryPage() {
                 </button>
               ))}
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setDraftStatus(status);
-                  setOpenStatus(true);
-                }}
-                className="h-11 rounded-lg bg-white px-3 flex items-center justify-between text-sm text-ink"
-              >
-                <span>{statusLabel}</span>
-                <ChevronDown className="h-4 w-4 text-faint shrink-0" />
-              </button>
-              <label className="relative h-11 rounded-lg bg-white px-3 flex items-center justify-between text-sm text-ink">
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className={cn("flex-1 min-w-0 bg-transparent outline-none text-sm", !date && "text-transparent")}
-                />
-                {!date ? <span className="absolute left-3 text-sm text-ink pointer-events-none">{t("chooseDate")}</span> : null}
-                <ChevronDown className="h-4 w-4 text-faint shrink-0" />
-              </label>
-            </div>
+            <FilterDateRow
+              className="mt-3"
+              value={status}
+              onChange={setStatus}
+              options={statusOptions}
+              date={date}
+              onDateChange={setDate}
+            />
           </div>
         }
       >
@@ -145,39 +119,10 @@ export default function DepositHistoryPage() {
           {filtered.length > 0 ? <p className="pt-3 text-center text-sm text-ink">{t("noMore")}</p> : null}
         </div>
       </InnerShell>
-
-      {openStatus ? (
-        <div className="fixed inset-0 z-50 flex justify-center">
-          <div className="relative w-full max-w-[400px] h-full">
-            <button type="button" className="absolute inset-0 bg-black/55" onClick={() => setOpenStatus(false)} />
-            <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-2xl animate-[sheet-up_280ms_ease-out]">
-              <div className="flex items-center justify-between px-4 h-12">
-                <button type="button" className="text-sm text-muted" onClick={() => setOpenStatus(false)}>
-                  {t("cancel")}
-                </button>
-                <button
-                  type="button"
-                  className="text-sm text-main font-semibold"
-                  onClick={() => {
-                    setStatus(draftStatus);
-                    setOpenStatus(false);
-                  }}
-                >
-                  {t("confirm")}
-                </button>
-              </div>
-              <div className="flex items-center min-h-50 pb-10">
-                <WheelPicker options={statusOptions} value={draftStatus} onChange={setDraftStatus} />
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </>
   );
 }
 
-function Card({ x, onCopy, onVoucher }: { x: Txn; onCopy: () => void; onVoucher: () => void }) {
+ function Card({ x, onCopy, onVoucher }: { x: Txn; onCopy: () => void; onVoucher: () => void }) {
   const { t } = useI18n();
   const statusKey = x.status === "rejected" ? "failed" : x.status === "completed" ? "completed" : "toBePaid";
   return (
