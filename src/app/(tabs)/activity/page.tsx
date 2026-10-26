@@ -20,7 +20,7 @@ export default function ActivityPage() {
 
   return (
     <div>
-      <header className="bg-main-y text-white px-4 py-4">
+      <header className="bg-main-y text-white px-4 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-4">
         <h1 className="text-lg font-semibold">{t("activity")}</h1>
         <p className="text-xs text-white/80 mt-1">{t("attendance")}</p>
       </header>
@@ -43,10 +43,10 @@ export default function ActivityPage() {
               const done = user.checkStreak > i && user.lastCheckIn === today ? true : user.checkStreak > i;
               return (
                 <div key={amt} className="text-center">
-                  <div className={`h-10 rounded-lg grid place-items-center text-[11px] font-semibold ${done ? "bg-green-soft text-green-norm" : "bg-bg-l3 text-muted"}`}>
+                  <div className={`h-10 rounded-lg grid place-items-center text-11 font-semibold ${done ? "bg-green-soft text-green-norm" : "bg-bg-l3 text-muted"}`}>
                     ₹{amt}
                   </div>
-                  <p className="text-[10px] text-faint mt-1">
+                  <p className="text-10 text-faint mt-1">
                     {t("day")}
                     {i + 1}
                   </p>

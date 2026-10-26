@@ -22,6 +22,7 @@ export function GameCatalogView({ catalog }: { catalog: GameCatalog }) {
   const [q, setQ] = useState("");
   const [vendor, setVendor] = useState(catalog.vendors?.[0]?.id ?? "");
   const [searchOn, setSearchOn] = useState(catalog.layout === "search-grid");
+  const [searchLeaving, setSearchLeaving] = useState(false);
 
   const games = useMemo(
     () => filterCatalogGames(catalog, q, catalog.layout === "vendor-tabs" ? vendor : null),
@@ -34,60 +35,89 @@ export function GameCatalogView({ catalog }: { catalog: GameCatalog }) {
   }
 
   const vendors = catalog.vendors ?? [];
+  const inHeaderSearch = searchOn || searchLeaving;
 
   return (
     <InnerShell
       title={t(catalog.titleKey)}
       variant="light"
       className="bg-page"
-      right={
-        catalog.layout === "vendor-tabs" ? (
-          <button
-            type="button"
-            className="h-8 w-8 grid place-items-center text-ink"
-            onClick={() => setSearchOn((v) => !v)}
-            aria-label={t("searchGame")}
-          >
-            <Search className="h-5 w-5" />
-          </button>
+      headerCenterOut={searchLeaving}
+      onHeaderCenterAnimEnd={() => {
+        if (!searchLeaving) return;
+        setSearchLeaving(false);
+        setSearchOn(false);
+      }}
+      headerCenter={
+        inHeaderSearch ? (
+          <label className="flex h-9 w-full items-center gap-1.5 rounded-full border border-[#E4E6ED] bg-white px-3">
+            <Search className="h-5 w-5 text-main shrink-0" strokeWidth={1.75} />
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder={t("searchGame")}
+              autoFocus
+              className="flex-1 min-w-0 bg-transparent outline-none text-sm text-ink placeholder:text-faint"
+            />
+          </label>
         ) : null
       }
+      right={
+        inHeaderSearch ? (
+          <button
+            type="button"
+            className="px-1 text-sm text-ink whitespace-nowrap"
+            onClick={() => {
+              setQ("");
+              setSearchLeaving(true);
+            }}
+          >
+            {t("cancel")}
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="h-9 w-9 grid place-items-center text-ink"
+            onClick={() => setSearchOn(true)}
+            aria-label={t("searchGame")}
+          >
+            <Search className="h-6 w-6 text-main" />
+          </button>
+        )
+      }
       headerExtra={
-        searchOn || catalog.layout === "search-grid" || vendors.length ? (
-          <div className="bg-page px-3.5 py-3 space-y-2">
-            {searchOn || catalog.layout === "search-grid" ? (
-              <label className="h-10 rounded-full bg-white px-3 flex items-center gap-2">
-                <Search className="h-4 w-4 text-faint shrink-0" />
-                <i className="h-4 w-px bg-line shrink-0" />
-                <input
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  placeholder={t("searchGame")}
-                  className="flex-1 min-w-0 bg-transparent outline-none text-sm text-ink placeholder:text-faint"
-                />
-              </label>
-            ) : null}
-            {vendors.length ? (
-              <div className="phone-scroll flex gap-2 overflow-x-auto">
-                {vendors.map((v) => {
-                  const on = vendor === v.id;
-                  return (
-                    <button
-                      key={v.id}
-                      type="button"
-                      onClick={() => setVendor(v.id)}
-                      className={cn(
-                        "shrink-0 h-14 min-w-22 px-3 rounded-md flex flex-col items-center justify-center gap-0.5",
-                        on ? "bg-main-x text-white" : "bg-white text-muted",
-                      )}
-                    >
-                      <ImgIcon src={v.logo} alt="" className="h-6 w-6 object-contain" />
-                      <span className="text-sm font-semibold uppercase">{v.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            ) : null}
+        vendors.length ? (
+          <div className="bg-page px-3.5 py-3">
+            <div className="flex items-center gap-2 overflow-x-auto phone-scroll">
+              {vendors.map((v) => {
+                const on = vendor === v.id;
+                return (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={(e) => {
+                      setVendor(v.id);
+                      const row = e.currentTarget.parentElement;
+                      if (!row) return;
+                      const gap = Number.parseFloat(getComputedStyle(row).columnGap) || 8;
+                      const w = e.currentTarget.offsetWidth + gap;
+                      const left = e.currentTarget.offsetLeft;
+                      if (left < row.scrollLeft) row.scrollBy({ left: -w, behavior: "smooth" });
+                      else if (left + e.currentTarget.offsetWidth > row.scrollLeft + row.clientWidth) {
+                        row.scrollBy({ left: w, behavior: "smooth" });
+                      }
+                    }}
+                    className={cn(
+                      "shrink-0 h-14 min-w-25 px-3 rounded-md flex flex-col items-center justify-center gap-0.5",
+                      on ? "bg-main-x text-white" : "bg-white text-muted",
+                    )}
+                  >
+                    <ImgIcon src={v.logo} alt="" className="h-6 w-6 object-contain" />
+                    <span className="text-sm font-semibold uppercase">{v.name}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         ) : null
       }

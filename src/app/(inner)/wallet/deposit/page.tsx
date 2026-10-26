@@ -66,7 +66,7 @@ export default function RechargePage() {
     if (err) return showToast(err);
     showToast(t("deposited"));
     void qc.invalidateQueries({ queryKey: qk.txns("deposit") });
-    router.push("/wallet/deposithistory");
+    router.push("/wallet/depositHistory");
   }
 
   return (
@@ -76,7 +76,7 @@ export default function RechargePage() {
         variant="light"
         className="bg-page"
         right={
-          <Link href="/wallet/deposithistory" className="pr-2 text-xs leading-tight text-ink text-right">
+          <Link href="/wallet/depositHistory" className="pr-2 text-xs leading-tight text-ink text-right">
             {t("depositHistory")}
           </Link>
         }
@@ -84,7 +84,7 @@ export default function RechargePage() {
         <div className="pb-28">
           <div className="mx-3.5 mt-4 relative min-h-[132px] text-white px-4 pt-4 pb-8">
             <img src={IMG.totalAssetsBg} alt="" className="absolute inset-0 h-full w-full object-fill" />
-            <p className="relative z-10 flex items-center gap-1.5 text-[13px] text-white/95">
+            <p className="relative z-10 flex items-center gap-1.5 text-13 text-white/95">
               <Wallet className="h-5 w-5" />
               {t("balance")}
             </p>
@@ -115,7 +115,7 @@ export default function RechargePage() {
                   )}
                 >
                   {m.bonus ? (
-                    <span className="absolute -top-1 right-1 h-4 min-w-7 px-1 rounded-b-sm bg-main text-[10px] font-semibold text-white grid place-items-center">
+                    <span className="absolute -top-1 right-1 h-4 min-w-7 px-1 rounded-b-sm bg-main text-10 font-semibold text-white grid place-items-center">
                       {m.bonus}
                     </span>
                   ) : null}
@@ -126,7 +126,7 @@ export default function RechargePage() {
                   ) : (
                     <ImgIcon src={IMG.withdrawArb} alt="" className="h-7 w-7 object-contain" />
                   )}
-                  <span className={cn("text-[10px] font-semibold leading-tight text-center uppercase", on ? "text-white" : "text-muted")}>
+                  <span className={cn("text-10 font-semibold leading-tight text-center uppercase", on ? "text-white" : "text-muted")}>
                     {t(m.label)}
                   </span>
                 </button>
@@ -137,7 +137,7 @@ export default function RechargePage() {
 
           {isUpi ? (
             <div className="mx-3.5 mt-3 bg-white rounded-xl px-3.5 py-4">
-              <p className="flex items-center gap-1.5 text-[15px] font-semibold text-ink">
+              <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
                 <CreditCard className="h-5 w-5 text-main" />
                 {t("selectChannel")}
               </p>
@@ -154,7 +154,7 @@ export default function RechargePage() {
           ) : null}
 
           <div className="mx-3.5 mt-3 bg-white rounded-xl px-3.5 py-4">
-            <p className="flex items-center gap-1.5 text-[15px] font-semibold text-muted">
+            <p className="flex items-center gap-1.5 text-15 font-semibold text-muted">
               <TicketPercent className="h-5 w-5 text-main" />
               {t("topUpCoupons")}(1)
             </p>
@@ -165,15 +165,15 @@ export default function RechargePage() {
             >
               <div className="w-14 shrink-0 bg-main text-white flex flex-col items-center justify-center place-items-center py-2.5">
                 <p className="text-base font-bold leading-none">2%</p>
-                <p className="mt-1 text-[8px] font-semibold leading-none">{t("cashback")}</p>
+                <p className="mt-1 text-8 font-semibold leading-none">{t("cashback")}</p>
               </div>
               <div className="bg-bg-l1 px-3 py-2 text-left">
                 <p className="text-xs text-muted leading-none">{t("upTo")}</p>
                 <p className="mt-0.5 text-sm font-semibold text-ink">₹2,000</p>
-                <p className="mt-0.5 text-[9px] text-[#96424a]">
+                <p className="mt-0.5 text-9 text-[#96424a]">
                   {t("couponMin")} ₹100
                 </p>
-                <p className="mt-1 flex items-center gap-1 text-[9px] text-[#96424a]">
+                <p className="mt-1 flex items-center gap-1 text-9 text-[#96424a]">
                   <Clock className="h-2.5 w-2.5" />
                   {t("expire")} 27-10-2026
                 </p>
@@ -221,7 +221,7 @@ export default function RechargePage() {
           </div>
 
           <div className="mx-3.5 mt-3 bg-white rounded-xl px-3.5 py-4">
-            <p className="flex items-center gap-1.5 text-[15px] font-semibold text-ink">
+            <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
               <BookText className="h-5 w-5 text-main" />
               {t("rechargeInstructions")}
             </p>
@@ -236,7 +236,7 @@ export default function RechargePage() {
           </div>
 
           <div className="mx-3.5 mt-4 px-3">
-            <p className="flex items-center gap-1.5 text-[15px] font-semibold text-ink">
+            <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
               <BookText className="h-5 w-5 text-main" />
               {t("depositHistory")}
             </p>
@@ -253,7 +253,7 @@ export default function RechargePage() {
           ))}
           {recent.length > 0 ? (
             <div className="mx-3.5 mt-2 rounded-lg px-3 py-3">
-              <Button variant="outline" size="sm" className="font-medium" onClick={() => router.push("/wallet/deposithistory")}>
+              <Button variant="outline" size="sm" className="font-medium" onClick={() => router.push("/wallet/depositHistory")}>
                 {t("allHistory")}
               </Button>
             </div>
@@ -283,7 +283,7 @@ function DepositCard({ x, onCopy }: { x: Txn; onCopy: () => void }) {
   return (
     <div className="mx-3.5 mt-2.5 bg-white rounded-xl px-3 py-3.5">
       <div className="flex items-center justify-between border-b border-line pb-2">
-        <span className="h-6.5 px-3 rounded-md bg-green-norm text-white text-[13px] font-medium grid place-items-center">
+        <span className="h-6.5 px-3 rounded-md bg-green-norm text-white text-13 font-medium grid place-items-center">
           {t("deposit")}
         </span>
         <span

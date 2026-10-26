@@ -47,7 +47,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
                 setPage(1);
               }}
               className={cn(
-                "relative flex-1 h-11 text-[12px] font-medium",
+                "relative flex-1 h-11 text-sm font-medium",
                 on ? "text-ink" : "text-muted",
               )}
             >
@@ -78,7 +78,7 @@ export function WinGoHistoryDetail({ trx }: { trx?: boolean }) {
                 <IconChevron />
               </span>
             </button>
-            <span className="text-[13px] text-ink tabular-nums">
+            <span className="text-13 text-ink tabular-nums">
               {page}/{pages}
             </span>
             <button

@@ -32,7 +32,7 @@ export default function AccountPage() {
 
   return (
     <div>
-      <header className="bg-main-y text-white px-4 pt-5 pb-8">
+      <header className="bg-main-y text-white px-4 pt-[calc(1.25rem+env(safe-area-inset-top,0px))] pb-8">
         <div className="flex items-center gap-3">
           <div className="h-14 w-14 rounded-full bg-white grid place-items-center overflow-hidden p-1">
             <ImgIcon src={IMG.logo} alt="" className="h-full w-full" />
@@ -62,7 +62,7 @@ export default function AccountPage() {
             <span className="text-sm">{r.label}</span>
             <span className="flex items-center gap-2 text-faint">
               {r.badge ? (
-                <span className="min-w-4 h-4 px-1 rounded-full bg-main text-white text-[10px] grid place-items-center">
+                <span className="min-w-4 h-4 px-1 rounded-full bg-main text-white text-10 grid place-items-center">
                   {r.badge}
                 </span>
               ) : null}

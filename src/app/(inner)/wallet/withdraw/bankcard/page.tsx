@@ -52,7 +52,7 @@ export default function WithdrawBankcardPage() {
                     </div>
                   ))}
                 </div>
-                <p className="flex items-center gap-1.5 px-3 py-3.5 text-[13px] text-ink">
+                <p className="flex items-center gap-1.5 px-3 py-3.5 text-13 text-ink">
                   {on ? (
                     <CircleCheck className="size-5.5 fill-main text-inverse" />
                   ) : (
@@ -66,14 +66,14 @@ export default function WithdrawBankcardPage() {
         </div>
 
         <Link
-          href="/wallet/withdraw/addbankcard"
+          href="/wallet/withdraw/addBankCard"
           className={cn("bg-white rounded-lg min-h-[120px] grid place-items-center text-center px-4", cards.length > 0 && "mt-3")}
         >
           <span>
             <span className="mx-auto h-11 w-11 rounded-md border border-dashed border-disabled grid place-items-center">
               <Plus className="h-5 w-5 text-disabled" />
             </span>
-            <span className="mt-3 block text-[13px] text-faint">{t("addBankAccount")}</span>
+            <span className="mt-3 block text-13 text-faint">{t("addBankAccount")}</span>
           </span>
         </Link>
       </div>

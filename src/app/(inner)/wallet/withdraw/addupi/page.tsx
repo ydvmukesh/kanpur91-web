@@ -35,7 +35,7 @@ export default function AddUpiPage() {
           <CircleAlert className="mt-0.5 h-4 w-4 shrink-0" />
           {t("bindBankHint")}
         </p>
-        <p className="mt-5 flex items-center gap-1.5 text-[13px] text-ink mb-2">
+        <p className="mt-5 flex items-center gap-1.5 text-13 text-ink mb-2">
           <CreditCard className="h-4 w-4 text-main" />
           {t("upiId")}
         </p>
@@ -43,7 +43,7 @@ export default function AddUpiPage() {
           value={upi}
           onChange={(e) => setUpi(e.target.value)}
           placeholder={t("enterUpi")}
-          className="w-full h-11 rounded-md bg-white px-4 text-[13px] text-ink placeholder:text-faint outline-none"
+          className="w-full h-11 rounded-md bg-white px-4 text-13 text-ink placeholder:text-faint outline-none"
         />
         <Button className="mt-8"  size="sm" disabled={!canSave} onClick={save}>
           {t("save")}

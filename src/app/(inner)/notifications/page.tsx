@@ -65,7 +65,7 @@ export default function NotificationsPage() {
               type="button"
               onClick={() => setTab("notice")}
               className={cn(
-                "flex-1 rounded-md text-[14px] font-semibold",
+                "flex-1 rounded-md text-sm font-semibold",
                 tab === "notice" ? "bg-main text-white" : "text-[#9AA3B5]",
               )}
             >
@@ -75,7 +75,7 @@ export default function NotificationsPage() {
               type="button"
               onClick={() => setTab("info")}
               className={cn(
-                "flex-1 rounded-md text-[14px] font-semibold",
+                "flex-1 rounded-md text-sm font-semibold",
                 tab === "info" ? "bg-main text-white" : "text-[#9AA3B5]",
               )}
             >
@@ -93,7 +93,7 @@ export default function NotificationsPage() {
               <span className="text-main shrink-0">
               <MegaphoneIcon className="h-4 w-4" />
               </span>
-              <h2 className="text-[15px] font-medium text-ink leading-snug">{n.title}</h2>
+              <h2 className="text-15 font-medium text-ink leading-snug">{n.title}</h2>
             </div>
             <p className="text-xs text-muted leading-relaxed mt-2">{n.body}</p>
             <p className="text-xs text-faint mt-3">{n.time}</p>

@@ -86,7 +86,7 @@ export default function LoginPage() {
           <Checkbox className="shrink-0 whitespace-nowrap" checked={remember} onChange={setRemember}>
             {t("remember")}
           </Checkbox>
-          <Link href="/forgot" className="shrink-0 text-[13px] text-main whitespace-nowrap leading-none">
+          <Link href="/forgot" className="shrink-0 text-13 text-main whitespace-nowrap leading-none">
             {t("forgot")}
           </Link>
         </div>
@@ -94,7 +94,7 @@ export default function LoginPage() {
         <Button className="mt-6" disabled={!canSubmit} onClick={submit}>
           {t("login")}
         </Button>
-        <p className="mt-3 text-center text-[12px] text-faint">{t("demoHint")}</p>
+        <p className="mt-3 text-center text-sm text-faint">{t("demoHint")}</p>
         <Button href="/register" variant="outline" className="mt-3">
           {t("register")}
         </Button>

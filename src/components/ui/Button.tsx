@@ -14,8 +14,8 @@ const variants = {
 } as const;
 
 const sizes = {
-  md: "h-12 text-[16px]",
-  sm: "h-[43px] text-[14px]",
+  md: "h-12 text-base",
+  sm: "h-[2.6875rem] text-sm",
 } as const;
 
 type Props = {

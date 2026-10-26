@@ -111,7 +111,8 @@ export default function HomePage() {
 
   return (
     <div className="pb-8">
-      <header className=" top-0 z-40 bg-white px-3 h-12 flex items-center justify-between">
+      <header className="top-0 z-40 bg-white pt-safe-t">
+        <div className="px-3 h-12 flex items-center justify-between">
         <HomeLogo className="h-11" />
         {user ? (
           <Link
@@ -124,24 +125,25 @@ export default function HomePage() {
           <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="h-[30px] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-ink text-[13px] font-medium grid place-items-center"
+              className="h-[30px] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-ink text-13 font-medium grid place-items-center"
             >
               {t("login")}
             </Link>
             <Link
               href="/register"
-              className="h-[30px] px-3.5 rounded-md bg-main text-white text-[13px] font-medium grid place-items-center"
+              className="h-[30px] px-3.5 rounded-md bg-main text-white text-13 font-medium grid place-items-center"
             >
               {t("register")}
             </Link>
           </div>
         )}
+        </div>
       </header>
 
       <div className="h-9 bg-[#F3F4F8] px-3 flex items-center gap-2">
         <ImgIcon src={IMG.notice} alt="" className="h-4 w-4 shrink-0" />
         <div className="flex-1 overflow-hidden">
-          <div className="marquee text-[11px] text-ink">
+          <div className="marquee text-11 text-ink">
             <span className="pr-8">{t("withdrawNotice")}</span>
             <span className="pr-8">{t("withdrawNotice")}</span>
           </div>
@@ -182,7 +184,7 @@ export default function HomePage() {
             <div className="min-w-0">
               <div className="flex items-center gap-1">
                 <IconCoin />
-                <span className="text-[12px] text-[#8A93A6]">{t("walletBalance")}</span>
+                <span className="text-xs text-[#8A93A6]">{t("walletBalance")}</span>
               </div>
               <div className="flex items-center gap-1.5 mt-1">
                 <span className="text-xl font-extrabold text-ink leading-none tabular-nums">
@@ -264,7 +266,7 @@ export default function HomePage() {
                       <span
                         className={cn(
                           "whitespace-nowrap leading-none font-serif",
-                          on ? " text-[12px] font-bold text-[#1E2637]" : "text-[13px] text-[#6B7285]",
+                          on ? " text-sm font-bold text-[#1E2637]" : "text-13 text-[#6B7285]",
                         )}
                       >
                         {c.label}
@@ -302,8 +304,8 @@ export default function HomePage() {
           <div className="flex items-start gap-1 mb-2.5">
             <ImgIcon src={CATEGORIES.lobbyActive} alt="" className="h-6 w-6 shrink-0 mt-0.5 object-contain" />
             <div className="min-w-0">
-              <h2 className="text-[14px] font-bold text-ink font-serif leading-none">{t("lottery")}</h2>
-              <p className="text-[11px] text-[#7d889d] leading-snug mt-1">{t("lotteryIntro")}</p>
+              <h2 className="text-sm font-bold text-ink font-serif leading-none">{t("lottery")}</h2>
+              <p className="text-11 text-[#7d889d] leading-snug mt-1">{t("lotteryIntro")}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -345,10 +347,10 @@ export default function HomePage() {
         <section>
           <div className="flex items-center gap-1.5 mb-2">
             <ImgIcon src={IMG.winner} alt="" className="h-5 w-5 object-contain" />
-            <h2 className="text-[14px] font-semibold font-serif text-ink">{t("winningInfo")}</h2>
+            <h2 className="text-sm font-semibold font-serif text-ink">{t("winningInfo")}</h2>
           </div>
           <div className="bg-white rounded-xl overflow-hidden">
-            <div className="grid grid-cols-3 px-3 py-2.5 text-[12px] font-semibold text-ink">
+            <div className="grid grid-cols-3 px-3 py-2.5 text-sm font-semibold text-ink">
               <span>{t("game")}</span>
               <span className="text-center">{t("user")}</span>
               <span className="text-right">{t("winningAmount")}</span>
@@ -356,7 +358,7 @@ export default function HomePage() {
             {wins.map((w) => (
               <div
                 key={w.name + w.game + w.amt}
-                className="grid grid-cols-3 items-center px-3 py-2.5 text-[12px] border-t border-[#EEEFF3]"
+                className="grid grid-cols-3 items-center px-3 py-2.5 text-sm border-t border-[#EEEFF3]"
               >
                 <span className="flex items-center gap-1.5 min-w-0 text-ink">
                   <ImgIcon src={IMG.winner} alt="" className="h-4 w-4 shrink-0 object-contain" />
@@ -372,7 +374,7 @@ export default function HomePage() {
         <section className="">
           <div className="flex items-center gap-1.5 mb-2">
             <ImgIcon src={IMG.rank} alt="" className="h-5 w-auto object-contain" />
-            <h2 className="text-[14px] font-semibold font-serif text-ink">{t("todayProfit")}</h2>
+            <h2 className="text-sm font-semibold font-serif text-ink">{t("todayProfit")}</h2>
           </div>
 <div className="px-1 pt-9 bg-white rounded-xl overflow-hidden">
           <div className="relative ">
@@ -406,13 +408,13 @@ export default function HomePage() {
                   </div>
                   <div className="flex-1 min-h-0" />
                   <p
-                    className="text-[12px] font-bold truncate w-full text-center leading-none"
+                    className="text-sm font-bold truncate w-full text-center leading-none"
                     style={{ color: p.color }}
                   >
                     {p.rank.name}
                   </p>
                   <p
-                    className="text-[10px] font-semibold tabular-nums whitespace-nowrap mt-1 mb-[10%] leading-none"
+                    className="text-10 font-semibold tabular-nums whitespace-nowrap mt-1 mb-[10%] leading-none"
                     style={{ color: p.color }}
                   >
                     ₹{formatRankAmt(p.rank.amt)}
@@ -426,7 +428,7 @@ export default function HomePage() {
             {ranks.slice(3).map((r, i) => (
               <div
                 key={r.name}
-                className="flex items-center gap-2.5 py-[11px] border-t border-[#F0F1F5] text-[13px]"
+                className="flex items-center gap-2.5 py-[11px] border-t border-[#F0F1F5] text-13"
               >
                 <span className="w-5 text-center font-bold text-ink">{i + 4}</span>
                 <span className="h-9 w-9 rounded-full overflow-hidden bg-[#E8EDF5] shrink-0">
@@ -444,9 +446,9 @@ export default function HomePage() {
 
         <footer className=" bg-white rounded-[20px] px-5 pt-5 pb-6 shadow-[0_4px_14px_rgba(30,38,55,0.08)] mb-16">
           <div className="mx-auto mb-4 h-[46px] w-[46px] rounded-full border-[2.5px] border-[#F95959] grid place-items-center">
-            <span className="text-[15px] font-bold text-[#F95959] leading-none">+18</span>
+            <span className="text-15 font-bold text-[#F95959] leading-none">+18</span>
           </div>
-          <div className="space-y-1.5 text-[13px] leading-[1.55] text-[#6E7C91]">
+          <div className="space-y-1.5 text-13 leading-[1.55] text-[#6E7C91]">
             {[t("footerFair"), t("footerPartners"), t("footerVisit")].map((line) => (
               <p key={line} className="flex gap-2">
                 <span className="mt-[7px] h-[6px] w-[6px] shrink-0 rotate-45 bg-[#F95959]" />
@@ -454,10 +456,10 @@ export default function HomePage() {
               </p>
             ))}
           </div>
-          <p className="text-[13px] leading-[1.55] text-[#E07060] mt-3.5">
+          <p className="text-13 leading-[1.55] text-[#E07060] mt-3.5">
             {t("footerAddictive")}
           </p>
-          <p className="text-[13px] leading-[1.55] text-[#E07060]">
+          <p className="text-13 leading-[1.55] text-[#E07060]">
             {t("footerAge18")}
           </p>
         </footer>

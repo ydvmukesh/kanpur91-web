@@ -41,7 +41,7 @@ export function OtpField({
           type="button"
           onClick={onSend}
           disabled={wait > 0}
-          className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 min-w-[68px] px-3 rounded-[6px] bg-main-x text-white text-[12px] font-semibold disabled:opacity-70"
+          className="absolute right-1.5 top-1/2 -translate-y-1/2 h-8 min-w-[68px] px-3 rounded-[6px] bg-main-x text-white text-sm font-semibold disabled:opacity-70"
         >
           {wait > 0 ? `${wait}s` : sendLabel}
         </button>

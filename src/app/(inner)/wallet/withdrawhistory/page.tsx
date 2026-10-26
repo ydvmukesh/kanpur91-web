@@ -174,7 +174,7 @@ function Card({ x, onCopy }: { x: Txn; onCopy: () => void }) {
   return (
     <div className="bg-white rounded-xl px-3 py-3.5">
       <div className="flex items-center justify-between border-b border-line pb-2">
-        <span className="h-6.5 px-3 rounded-md bg-main text-white text-[13px] font-medium grid place-items-center">
+        <span className="h-6.5 px-3 rounded-md bg-main text-white text-13 font-medium grid place-items-center">
           {t("withdrawal")}
         </span>
         <span

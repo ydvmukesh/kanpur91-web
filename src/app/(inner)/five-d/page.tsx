@@ -55,7 +55,7 @@ export default function FiveDPage() {
             key={x}
             type="button"
             onClick={() => setIntervalSec(x)}
-            className={cn("rounded-lg py-2 text-[11px] font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-muted")}
+            className={cn("rounded-lg py-2 text-11 font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-muted")}
           >
             5D {labels[x]}
           </button>
@@ -63,7 +63,7 @@ export default function FiveDPage() {
       </div>
       <div className="mx-2 mt-2 bg-white rounded-xl p-3 flex justify-between">
         <div>
-          <p className="text-[11px] text-muted">{t("period")}</p>
+          <p className="text-11 text-muted">{t("period")}</p>
           <p className="text-sm font-bold">{round.period}</p>
         </div>
         <p className={cn("text-xl font-black text-main", round.locked && "digit-pulse")}>
@@ -85,7 +85,7 @@ export default function FiveDPage() {
               key={p}
               type="button"
               onClick={() => setPos(p)}
-              className={cn("flex-1 h-8 rounded text-[11px] font-semibold", pos === p ? "bg-main text-white" : "bg-bg-l3")}
+              className={cn("flex-1 h-8 rounded text-11 font-semibold", pos === p ? "bg-main text-white" : "bg-bg-l3")}
             >
               {p}
             </button>

@@ -22,7 +22,7 @@ export function BottomNav() {
   const hrefFor = (href: string) => (!user && href !== "/home" ? loginUrl(href) : href);
 
   return (
-    <nav className="shrink-0 z-40 overflow-visible bg-white border-t border-line pb-[env(safe-area-inset-bottom)]">
+    <nav className="shrink-0 z-40 overflow-visible bg-white border-t border-line pb-safe-b">
       <ul className="grid grid-cols-5 h-16">
         {items.map((item, idx) => {
           const active = item.center ? false : pathname === item.href;
@@ -34,7 +34,7 @@ export function BottomNav() {
                   className="absolute inset-x-0 bottom-5 flex items-end justify-center h-[96px]"
                 >
                   <ImgIcon src={IMG.wheel} alt="" className="h-[92px] w-[92px] object-contain" />
-                  <span className="absolute bottom-2 text-[11px] text-main font-semibold leading-none pointer-events-none">
+                  <span className="absolute bottom-2 text-11 text-main font-semibold leading-none pointer-events-none">
                     {item.label}
                   </span>
                 </Link>
@@ -46,7 +46,7 @@ export function BottomNav() {
               <Link
                 href={hrefFor(item.href)}
                 className={cn(
-                  "h-full flex flex-col items-center justify-center gap-0.5 text-[11px]",
+                  "h-full flex flex-col items-center justify-center gap-0.5 text-11",
                   active ? "text-main font-semibold" : "text-muted",
                 )}
               >

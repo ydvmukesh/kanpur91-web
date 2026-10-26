@@ -15,7 +15,7 @@ export function Checkbox({
   children?: React.ReactNode;
 }) {
   return (
-    <div className={cn("flex items-center gap-2 text-[13px] text-muted text-left", className)}>
+    <div className={cn("flex items-center gap-2 text-13 text-muted text-left", className)}>
       <button
         type="button"
         role="checkbox"

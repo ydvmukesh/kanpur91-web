@@ -76,7 +76,7 @@ export default function WithdrawPage() {
       variant="light"
       className="bg-page"
       right={
-        <Link href="/wallet/withdrawhistory" className="pr-2 text-xs leading-tight text-ink text-right">
+        <Link href="/wallet/withdrawHistory" className="pr-2 text-xs leading-tight text-ink text-right">
           {t("withdrawHistory")}
         </Link>
       }
@@ -84,7 +84,7 @@ export default function WithdrawPage() {
       <div className="pb-8">
         <div className="mx-3.5 mt-4 relative min-h-[132px] text-white px-4 pt-4 pb-8">
           <img src={IMG.totalAssetsBg} alt="" className="absolute inset-0 h-full w-full object-fill" />
-          <p className="relative z-10 flex items-center gap-1.5 text-[13px] text-white/95">
+          <p className="relative z-10 flex items-center gap-1.5 text-13 text-white/95">
             <Wallet className="h-5 w-5" />
             {t("availableBalance")}
           </p>
@@ -145,8 +145,8 @@ export default function WithdrawPage() {
 
         {isBank ? (
           <Link
-            href="/wallet/withdraw/bankcard"
-            className="mx-3.5 mt-3 bg-white rounded-lg px-3 py-3.5 flex items-center gap-2 text-[13px]"
+            href="/wallet/withdraw/bankCard"
+            className="mx-3.5 mt-3 bg-white rounded-lg px-3 py-3.5 flex items-center gap-2 text-13"
           >
             <Landmark className="h-5 w-5 text-main shrink-0" />
             {user.bank ? (
@@ -165,8 +165,8 @@ export default function WithdrawPage() {
         {isUpi ? (
           user.upi ? (
             <Link
-              href="/wallet/withdraw/addupi"
-              className="mx-3.5 mt-3 bg-white rounded-lg px-3 py-3.5 flex items-center gap-2 text-[13px]"
+              href="/wallet/withdraw/addUpi"
+              className="mx-3.5 mt-3 bg-white rounded-lg px-3 py-3.5 flex items-center gap-2 text-13"
             >
               <ImgIcon src={IMG.withdrawUpi} alt="" className="h-6 w-6 object-contain shrink-0" />
               <span className="flex-1 text-ink truncate">{user.upi}</span>
@@ -174,14 +174,14 @@ export default function WithdrawPage() {
             </Link>
           ) : (
             <Link
-              href="/wallet/withdraw/addupi"
+              href="/wallet/withdraw/addUpi"
               className="mx-3.5 mt-3 bg-white rounded-lg min-h-[120px] grid place-items-center text-center px-4"
             >
               <span>
                 <span className="mx-auto h-11 w-11 rounded-md border border-dashed border-disabled grid place-items-center">
                   <Plus className="h-5 w-5 text-disabled" />
                 </span>
-                <span className="mt-3 block text-[13px] text-faint">{t("addUpi")}</span>
+                <span className="mt-3 block text-13 text-faint">{t("addUpi")}</span>
               </span>
             </Link>
           )
@@ -189,7 +189,7 @@ export default function WithdrawPage() {
 
         {isArpay ? (
           <>
-            <div className="mx-3.5 mt-3 bg-white rounded-lg px-3 py-3.5 flex items-center justify-between text-[13px]">
+            <div className="mx-3.5 mt-3 bg-white rounded-lg px-3 py-3.5 flex items-center justify-between text-13">
               <span className="flex items-center gap-1.5 text-ink">
                 <ReceiptText className="h-5 w-5 text-main" />
                 {t("arpayRules")}
@@ -203,8 +203,8 @@ export default function WithdrawPage() {
               <div className="flex items-center gap-2">
                 <ImgIcon src={IMG.withdrawArb} alt="" className="h-7 w-7 object-contain" />
                 <div>
-                  <p className="text-[13px] text-ink">{t("myArb")}</p>
-                  <p className="text-[13px] font-semibold">0 ARB</p>
+                  <p className="text-13 text-ink">{t("myArb")}</p>
+                  <p className="text-13 font-semibold">0 ARB</p>
                 </div>
               </div>
               <Link href="/bind-card" className="h-8 px-3 rounded-md bg-main text-white text-xs font-semibold grid place-items-center">
@@ -216,7 +216,7 @@ export default function WithdrawPage() {
 
         <div className="mx-3.5 mt-4 bg-white rounded-xl px-3.5 py-4">
           {isArpay ? (
-            <p className="flex items-center gap-1.5 text-[15px] font-semibold text-ink">
+            <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
               <Wallet className="h-5 w-5 text-main" />
               {t("withdrawAsArb")}
             </p>
@@ -230,7 +230,7 @@ export default function WithdrawPage() {
               placeholder={t("enterAmount")}
               onChange={(e) => setAmount(Number(e.target.value.replace(/\D/g, "").slice(0, 11)) || 0)}
               maxLength={11}
-              className="flex-1 min-w-0 bg-transparent outline-none text-[15px] text-ink placeholder:text-faint"
+              className="flex-1 min-w-0 bg-transparent outline-none text-15 text-ink placeholder:text-faint"
             />
             {isArpay ? (
               <button type="button" className="text-sm text-main font-medium" onClick={() => setAmount(Math.min(Math.floor(user.balance), 99_999_999_999))}>
@@ -239,7 +239,7 @@ export default function WithdrawPage() {
             ) : null}
           </div>
           <div className="mt-3 flex items-center justify-between">
-            <p className="text-[13px] text-main ">
+            <p className="text-13 text-main ">
               {t("withdrawableBalance")} ₹{formatMoney(user.balance)}
             </p>
             {!isArpay ? (
@@ -252,7 +252,7 @@ export default function WithdrawPage() {
               </button>
             ) : null}
           </div>
-          <div className="mt-2 flex items-center justify-between text-[13px]">
+          <div className="mt-2 flex items-center justify-between text-13">
             <span className="text-muted">{t("withdrawReceived")}</span>
             <span className="text-secondary font-semibold">₹{formatMoney(received)}</span>
           </div>
@@ -263,7 +263,7 @@ export default function WithdrawPage() {
 
         <div className="mx-3.5 mt-4 bg-white rounded-xl px-3.5 py-4">
           {isArpay ? (
-            <p className="flex items-center gap-1.5 text-[15px] font-semibold text-ink">
+            <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
               <Book className="h-5 w-5 text-main" />
               {t("withdrawInstructions")}
             </p>
@@ -287,7 +287,7 @@ export default function WithdrawPage() {
         {recent.map((x) => (
           <div key={x.id} className="mx-3.5 mt-2.5 bg-white rounded-xl px-3 py-3.5">
             <div className="flex items-center justify-between border-b border-line pb-2">
-              <span className="h-[26px] px-3 rounded-md bg-main text-white text-[13px] font-medium grid place-items-center">
+              <span className="h-[26px] px-3 rounded-md bg-main text-white text-13 font-medium grid place-items-center">
                 {t("withdrawal")}
               </span>
               <span
@@ -319,7 +319,7 @@ export default function WithdrawPage() {
           </div>
         ))}
         <div className="mx-3.5 mt-2 rounded-lg px-3 py-3">
-          <Button variant="outline" size="sm" className="font-medium" onClick={() => router.push("/wallet/withdrawhistory")}>
+          <Button variant="outline" size="sm" className="font-medium" onClick={() => router.push("/wallet/withdrawHistory")}>
             {t("allHistory")}
           </Button>
         </div>

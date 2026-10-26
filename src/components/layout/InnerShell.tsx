@@ -9,6 +9,9 @@ export function InnerShell({
   right,
   className,
   headerExtra,
+  headerCenter,
+  headerCenterOut,
+  onHeaderCenterAnimEnd,
   children,
 }: {
   title: string;
@@ -16,12 +19,22 @@ export function InnerShell({
   right?: React.ReactNode;
   className?: string;
   headerExtra?: React.ReactNode;
+  headerCenter?: React.ReactNode;
+  headerCenterOut?: boolean;
+  onHeaderCenterAnimEnd?: () => void;
   children: React.ReactNode;
 }) {
   return (
     <div className={cn("h-full min-h-0 flex flex-col", className ?? "bg-bg-l1")}>
       <div className="sticky top-0 z-30 shrink-0">
-        <InnerHeader title={title} light={variant === "light"} right={right} />
+        <InnerHeader
+          title={title}
+          light={variant === "light"}
+          right={right}
+          center={headerCenter}
+          centerOut={headerCenterOut}
+          onCenterAnimEnd={onHeaderCenterAnimEnd}
+        />
         {headerExtra}
       </div>
       <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">{children}</div>

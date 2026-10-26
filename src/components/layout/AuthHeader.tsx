@@ -22,7 +22,7 @@ export function AuthHeader({
 
   return (
     <div className="h-full min-h-0 flex flex-col">
-      <div className="shrink-0 z-30 bg-main-x text-white">
+      <div className="shrink-0 z-30 bg-main-x text-white pt-safe-t">
         <div className="h-12 relative flex items-center px-1">
           <button
             type="button"
@@ -41,7 +41,7 @@ export function AuthHeader({
             className="ml-auto mr-2 h-11 flex items-center gap-1 z-10"
           >
             {lang === "en" ? <FlagUS /> : <FlagIN />}
-            <span className="text-[13px] font-semibold">{lang === "en" ? "EN" : "HD"}</span>
+            <span className="text-13 font-semibold">{lang === "en" ? "EN" : "HD"}</span>
           </button>
         </div>
       </div>

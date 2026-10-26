@@ -10,8 +10,8 @@ import { IconEye } from "@/components/Icons";
 const actions = [
   { href: "/wallet/deposit", labelKey: "deposit" as const, bg: "#FFEBEC", icon: "↓" },
   { href: "/wallet/withdraw", labelKey: "withdraw" as const, bg: "#DAFFEB", icon: "↑" },
-  { href: "/wallet/deposithistory", labelKey: "depositHistory" as const, bg: "#FFF4E5", icon: "📄" },
-  { href: "/wallet/withdrawhistory", labelKey: "withdrawHistory" as const, bg: "#EEE8FF", icon: "📑" },
+  { href: "/wallet/depositHistory", labelKey: "depositHistory" as const, bg: "#FFF4E5", icon: "📄" },
+  { href: "/wallet/withdrawHistory", labelKey: "withdrawHistory" as const, bg: "#EEE8FF", icon: "📑" },
 ];
 
 export default function WalletPage() {
@@ -23,7 +23,7 @@ export default function WalletPage() {
 
   return (
     <div>
-      <header className="bg-main-y text-white px-4 pt-4 pb-10">
+      <header className="bg-main-y text-white px-4 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-10">
         <p className="text-xs text-white/80">{t("totalBalance")}</p>
         <div className="flex items-center gap-2 mt-1">
           <p className="text-3xl font-extrabold">₹{user.hideBalance ? "****" : formatMoney(total)}</p>
@@ -59,7 +59,7 @@ export default function WalletPage() {
               <span className="h-12 w-12 rounded-xl grid place-items-center text-lg" style={{ background: a.bg }}>
                 {a.icon}
               </span>
-              <span className="text-[10px] text-center text-muted leading-tight">{t(a.labelKey)}</span>
+              <span className="text-10 text-center text-muted leading-tight">{t(a.labelKey)}</span>
             </Link>
           ))}
         </div>

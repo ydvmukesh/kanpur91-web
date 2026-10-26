@@ -18,7 +18,7 @@ export function InstallBanner() {
       <span className="h-9 w-9 rounded-full bg-white grid place-items-center shrink-0 overflow-hidden">
         <ImgIcon src={IMG.redBrand} alt="" className="h-5 w-auto object-contain" />
       </span>
-      <span className="flex-1 text-white text-[13px] font-semibold text-left">{t("addToDesktop")}</span>
+      <span className="flex-1 text-white text-13 font-semibold text-left">{t("addToDesktop")}</span>
     </Link>
   );
 }

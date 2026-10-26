@@ -290,14 +290,14 @@ export function WinGoFollow({
     <div className="space-y-2.5">
       <section className="rounded-xl bg-white px-3 pt-3 pb-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 text-[15px] font-semibold text-ink">
+          <div className="flex items-center gap-1 text-15 font-semibold text-ink">
             {t("bettingStrategy")}
             <HelpBtn onClick={() => setHint("strategy")} />
           </div>
           <button
             type="button"
             onClick={() => setHistoryOpen((v) => !v)}
-            className="h-7 px-2.5 rounded-md border border-[#18B660] text-[#18B660] text-[12px] font-medium inline-flex items-center gap-1"
+            className="h-7 px-2.5 rounded-md border border-[#18B660] text-[#18B660] text-sm font-medium inline-flex items-center gap-1"
           >
             <IconHistoryClock />
             {t("history")}
@@ -310,7 +310,7 @@ export function WinGoFollow({
           ) : (
             <div className="mt-3 space-y-2">
               {history.map((h) => (
-                <div key={h.id} className="flex justify-between text-[12px] py-2 border-t border-[#F0F1F5]">
+                <div key={h.id} className="flex justify-between text-sm py-2 border-t border-[#F0F1F5]">
                   <div>
                     <p className="font-semibold text-ink">{h.name}</p>
                     <p className="text-faint mt-0.5">
@@ -326,8 +326,8 @@ export function WinGoFollow({
           <div className="mt-3 flex items-center gap-2.5">
             <LionAvatar />
             <div className="flex-1 min-w-0">
-              <p className="text-[15px] font-bold text-ink">{active.strategy.type}</p>
-              <p className="text-[12px] text-muted mt-0.5">
+              <p className="text-15 font-bold text-ink">{active.strategy.type}</p>
+              <p className="text-sm text-muted mt-0.5">
                 {t("remainingRounds")} {active.remaining}
               </p>
             </div>
@@ -338,7 +338,7 @@ export function WinGoFollow({
                 setActive(null);
                 showToast(t("strategyStopped"));
               }}
-              className="h-8 px-3 rounded-md border border-main text-main text-[12px] font-semibold"
+              className="h-8 px-3 rounded-md border border-main text-main text-sm font-semibold"
             >
               {t("stopFollow")}
             </button>
@@ -346,7 +346,7 @@ export function WinGoFollow({
         ) : (
           <div className="pt-6 pb-2">
             <EmptyStrategyArt />
-            <p className="mt-2 text-center text-[13px] text-faint">{t("pleaseSelectStrategy")}</p>
+            <p className="mt-2 text-center text-13 text-faint">{t("pleaseSelectStrategy")}</p>
           </div>
         )}
       </section>
@@ -356,19 +356,19 @@ export function WinGoFollow({
           <div className="flex gap-2.5">
             <LionAvatar />
             <div className="flex-1 min-w-0">
-              <p className="text-[16px] font-bold text-ink leading-tight">{s.type}</p>
-              <p className="mt-1 flex items-center gap-1 text-[12px] text-main font-medium">
+              <p className="text-base font-bold text-ink leading-tight">{s.type}</p>
+              <p className="mt-1 flex items-center gap-1 text-sm text-main font-medium">
                 <span className="text-main">
                   <IconPeople />
                 </span>
                 {s.followed} {t("followedCount")}
               </p>
               <div className="mt-1.5 flex items-center gap-1.5 flex-wrap">
-                <span className="text-[12px] text-faint">{s.author}</span>
-                <span className={cn("h-5 px-1.5 rounded text-[11px] font-medium grid place-items-center", choiceTone(s.choice))}>
+                <span className="text-sm text-faint">{s.author}</span>
+                <span className={cn("h-5 px-1.5 rounded text-11 font-medium grid place-items-center", choiceTone(s.choice))}>
                   {s.choice === "follow" ? t("followTag") : s.choice}
                 </span>
-                <span className="h-5 px-1.5 rounded bg-[#F2F3F7] text-[11px] text-muted grid place-items-center">
+                <span className="h-5 px-1.5 rounded bg-[#F2F3F7] text-11 text-muted grid place-items-center">
                   {t("martingale")}
                 </span>
               </div>
@@ -377,20 +377,20 @@ export function WinGoFollow({
 
           <div className="mt-3 border-t border-[#F0F1F5] pt-2.5 space-y-2">
             <div className="flex items-center justify-between">
-              <span className="inline-flex items-center gap-1 text-[12px] text-muted">
+              <span className="inline-flex items-center gap-1 text-sm text-muted">
                 {t("returnOnInvestment")}
                 <HelpBtn onClick={() => setHint("roi")} />
               </span>
-              <span className="text-[20px] font-extrabold text-main leading-none">{formatRoi(s.roi)}</span>
+              <span className="text-xl font-extrabold text-main leading-none">{formatRoi(s.roi)}</span>
             </div>
-            <div className="flex items-center justify-between text-[13px]">
+            <div className="flex items-center justify-between text-13">
               <span className="inline-flex items-center gap-1 text-muted">
                 {t("totalProfit")}
                 <HelpBtn onClick={() => setHint("profit")} />
               </span>
               <span className="text-ink tabular-nums">₹{formatMoney(s.profit)}</span>
             </div>
-            <div className="flex items-center justify-between text-[13px]">
+            <div className="flex items-center justify-between text-13">
               <span className="inline-flex items-center gap-1 text-muted">
                 {t("totalBetAmount")}
                 <HelpBtn onClick={() => setHint("wagered")} />
@@ -402,7 +402,7 @@ export function WinGoFollow({
           <button
             type="button"
             onClick={() => openSettings(s)}
-            className="mt-3 w-full h-11 rounded-lg bg-main-x text-white text-[15px] font-semibold"
+            className="mt-3 w-full h-11 rounded-lg bg-main-x text-white text-15 font-semibold"
           >
             {t("followStrategy")}
           </button>
@@ -416,10 +416,10 @@ export function WinGoFollow({
             <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 flex flex-col items-center">
               <div className="w-full overflow-hidden rounded-2xl bg-white">
                 <div className="h-11 bg-main-x grid place-items-center">
-                  <p className="text-white text-[15px] font-medium">· {t("strategySettings")} ·</p>
+                  <p className="text-white text-15 font-medium">· {t("strategySettings")} ·</p>
                 </div>
                 <div className="px-4 pt-4 pb-3">
-                  <label className="flex items-center gap-1.5 text-[13px] text-muted">
+                  <label className="flex items-center gap-1.5 text-13 text-muted">
                     <IconChip />
                     <span>
                       {t("betAmountLabel")}
@@ -431,25 +431,25 @@ export function WinGoFollow({
                       value={amount}
                       onChange={(e) => setAmount(clampAmt(Number(e.target.value)))}
                       inputMode="numeric"
-                      className="flex-1 h-10 rounded-md border border-[#E6E8EE] px-3 text-[14px] text-ink outline-none"
+                      className="flex-1 h-10 rounded-md border border-[#E6E8EE] px-3 text-sm text-ink outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setAmount((a) => clampAmt(a / 2))}
-                      className="h-10 w-11 rounded-md bg-main text-white text-[12px] font-semibold"
+                      className="h-10 w-11 rounded-md bg-main text-white text-sm font-semibold"
                     >
                       1/2
                     </button>
                     <button
                       type="button"
                       onClick={() => setAmount((a) => clampAmt(a * 2))}
-                      className="h-10 w-11 rounded-md bg-main text-white text-[12px] font-semibold"
+                      className="h-10 w-11 rounded-md bg-main text-white text-sm font-semibold"
                     >
                       2X
                     </button>
                   </div>
 
-                  <label className="mt-3 flex items-center gap-1.5 text-[13px] text-muted">
+                  <label className="mt-3 flex items-center gap-1.5 text-13 text-muted">
                     <IconRound />
                     <span>
                       {t("strategyRound")}
@@ -460,13 +460,13 @@ export function WinGoFollow({
                     value={rounds}
                     onChange={(e) => setRounds(Math.max(1, Math.min(100, Number(e.target.value) || 1)))}
                     inputMode="numeric"
-                    className="mt-2 w-full h-10 rounded-md border border-[#E6E8EE] px-3 text-[14px] text-ink outline-none"
+                    className="mt-2 w-full h-10 rounded-md border border-[#E6E8EE] px-3 text-sm text-ink outline-none"
                   />
 
                   <button
                     type="button"
                     onClick={() => setExtra((v) => !v)}
-                    className="mx-auto mt-3 flex items-center gap-1 text-[13px] text-[#7FADD1]"
+                    className="mx-auto mt-3 flex items-center gap-1 text-13 text-[#7FADD1]"
                   >
                     {extra ? t("putAway") : t("expandMore")}
                     <span className={cn("transition-transform", extra && "rotate-180")}>
@@ -474,8 +474,8 @@ export function WinGoFollow({
                     </span>
                   </button>
 
-                  <p className="mt-2 text-[13px] text-ink font-medium">{t("strategyParameters")}</p>
-                  <div className="mt-2 rounded-xl bg-[#F6F7FB] px-3 py-2 text-[13px]">
+                  <p className="mt-2 text-13 text-ink font-medium">{t("strategyParameters")}</p>
+                  <div className="mt-2 rounded-xl bg-[#F6F7FB] px-3 py-2 text-13">
                     <div className="flex justify-between py-1.5">
                       <span className="text-muted">{t("remainingRounds")}</span>
                       <span className="text-ink">{rounds}</span>
@@ -516,7 +516,7 @@ export function WinGoFollow({
                       </button>
                     </div>
                     {extra ? (
-                      <p className="py-1.5 text-[12px] text-faint">
+                      <p className="py-1.5 text-sm text-faint">
                         {pick.type} · {pick.choice === "follow" ? t("followTag") : pick.choice}
                       </p>
                     ) : null}
@@ -526,7 +526,7 @@ export function WinGoFollow({
                   <button
                     type="button"
                     onClick={() => startFollow(true)}
-                    className="h-11 px-3 rounded-lg border border-main text-main text-[14px] font-semibold inline-flex items-center gap-1 shrink-0"
+                    className="h-11 px-3 rounded-lg border border-main text-main text-sm font-semibold inline-flex items-center gap-1 shrink-0"
                   >
                     <IconPad />
                     {t("tryIt")}
@@ -534,7 +534,7 @@ export function WinGoFollow({
                   <button
                     type="button"
                     onClick={() => startFollow(false)}
-                    className="h-11 flex-1 rounded-lg bg-main-x text-white text-[16px] font-semibold"
+                    className="h-11 flex-1 rounded-lg bg-main-x text-white text-base font-semibold"
                   >
                     {t("confirm")}
                   </button>

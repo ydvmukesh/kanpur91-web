@@ -55,7 +55,7 @@ export default function K3Page() {
             key={x}
             type="button"
             onClick={() => setIntervalSec(x)}
-            className={cn("rounded-lg py-2 text-[11px] font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-muted")}
+            className={cn("rounded-lg py-2 text-11 font-semibold", interval === x ? "bg-main-x text-white" : "bg-white text-muted")}
           >
             K3 {labels[x]}
           </button>
@@ -63,11 +63,11 @@ export default function K3Page() {
       </div>
       <div className="mx-2 mt-2 bg-white rounded-xl p-3 flex justify-between">
         <div>
-          <p className="text-[11px] text-muted">{t("period")}</p>
+          <p className="text-11 text-muted">{t("period")}</p>
           <p className="text-sm font-bold">{round.period}</p>
         </div>
         <div className="text-right">
-          <p className="text-[11px] text-muted">{t("timeRemaining")}</p>
+          <p className="text-11 text-muted">{t("timeRemaining")}</p>
           <p className={cn("text-xl font-black text-main", round.locked && "digit-pulse")}>
             {mm}:{ss}
           </p>
@@ -112,7 +112,7 @@ export default function K3Page() {
                 setSumPick(n);
                 play({ kind: "sum", value: n });
               }}
-              className={cn("h-8 rounded text-[11px] font-semibold", sumPick === n ? "bg-main text-white" : "bg-bg-l3")}
+              className={cn("h-8 rounded text-11 font-semibold", sumPick === n ? "bg-main text-white" : "bg-bg-l3")}
             >
               {n}
             </button>

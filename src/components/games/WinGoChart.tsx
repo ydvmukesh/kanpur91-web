@@ -67,29 +67,29 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
   return (
     <div>
       <div className="overflow-hidden rounded-xl bg-white">
-        <div className="grid grid-cols-[118px_minmax(0,1fr)_26px] bg-main text-white text-[13px] font-semibold py-2.5">
+        <div className="grid grid-cols-[118px_minmax(0,1fr)_26px] bg-main text-white text-13 font-semibold py-2.5">
           <span className="pl-3">{t("period")}</span>
           <span className="text-center">{t("number")}</span>
           <span />
         </div>
 
         <div className="px-1.5 pt-2 pb-1">
-          <p className="text-[12px] text-muted mb-2">{t("statisticLast100")}</p>
+          <p className="text-sm text-muted mb-2">{t("statisticLast100")}</p>
           <div className="grid grid-cols-[76px_repeat(10,1fr)] gap-y-1.5 items-center">
             <span />
             {Array.from({ length: 10 }, (_, n) => (
               <span
                 key={n}
-                className="mx-auto h-[18px] w-[18px] rounded-full border border-main text-[10px] text-main font-semibold grid place-items-center"
+                className="mx-auto h-[18px] w-[18px] rounded-full border border-main text-10 text-main font-semibold grid place-items-center"
               >
                 {n}
               </span>
             ))}
             {statRows.map((row) => (
               <div key={row.label} className="contents">
-                <span className="text-[11px] text-muted leading-tight pr-1">{row.label}</span>
+                <span className="text-11 text-muted leading-tight pr-1">{row.label}</span>
                 {row.values.map((v, n) => (
-                  <span key={n} className="text-center text-[11px] text-ink tabular-nums">
+                  <span key={n} className="text-center text-11 text-ink tabular-nums">
                     {v}
                   </span>
                 ))}
@@ -105,7 +105,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
                 key={h.period}
                 className="flex h-9 items-center border-t border-[#F0F1F5] pl-2 pr-2"
               >
-                <span className="text-[10px] text-ink tabular-nums leading-tight">{h.period}</span>
+                <span className="text-10 text-ink tabular-nums leading-tight">{h.period}</span>
               </div>
             ))}
           </div>
@@ -118,7 +118,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
                     <span key={n} className="grid place-items-center">
                       <span
                         className={cn(
-                          "relative z-[2] h-[18px] w-[18px] rounded-full text-[10px] font-semibold grid place-items-center",
+                          "relative z-[2] h-[18px] w-[18px] rounded-full text-10 font-semibold grid place-items-center",
                           win ? "text-white" : "border border-[#E4E7EE] text-[#C5CAD6]",
                         )}
                         style={win ? { background: chartBallBg(n) } : undefined}
@@ -152,7 +152,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
             {rows.map((h) => (
               <div key={h.period} className="grid h-9 place-items-center border-t border-[#F0F1F5]">
                 <span
-                  className="h-[18px] w-[18px] rounded-full text-[10px] font-bold text-white grid place-items-center"
+                  className="h-[18px] w-[18px] rounded-full text-10 font-bold text-white grid place-items-center"
                   style={{ background: h.big ? "#FEAA57" : "#6EA8F4" }}
                 >
                   {h.big ? "B" : "S"}
@@ -178,7 +178,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
             <IconChevron />
           </span>
         </button>
-        <span className="text-[13px] text-ink tabular-nums">
+        <span className="text-13 text-ink tabular-nums">
           {page}/{PAGES}
         </span>
         <button

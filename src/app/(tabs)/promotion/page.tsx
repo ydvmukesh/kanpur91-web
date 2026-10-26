@@ -13,16 +13,16 @@ export default function PromotionPage() {
 
   return (
     <div>
-      <header className="bg-pop text-white px-4 pt-4 pb-8">
+      <header className="bg-pop text-white px-4 pt-[calc(1rem+env(safe-area-inset-top,0px))] pb-8">
         <h1 className="text-lg font-semibold">{t("promotion")}</h1>
         <p className="text-xs text-white/80 mt-1">{t("invitationBonus")}</p>
         <div className="mt-4 grid grid-cols-2 gap-3">
           <div>
-            <p className="text-[11px] text-white/70">{t("yesterday")}</p>
+            <p className="text-11 text-white/70">{t("yesterday")}</p>
             <p className="text-xl font-bold">₹0.00</p>
           </div>
           <div>
-            <p className="text-[11px] text-white/70">{t("thisWeek")}</p>
+            <p className="text-11 text-white/70">{t("thisWeek")}</p>
             <p className="text-xl font-bold">₹0.00</p>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default function PromotionPage() {
         <div>
           <p className="text-xs text-muted">{t("invitationLink")}</p>
           <div className="mt-1 flex items-center gap-2">
-            <p className="flex-1 text-[11px] text-ink truncate bg-bg-l3 rounded-lg px-2 py-2">{link}</p>
+            <p className="flex-1 text-11 text-ink truncate bg-bg-l3 rounded-lg px-2 py-2">{link}</p>
             <button
               type="button"
               className="h-8 px-3 rounded-full bg-main-x text-white text-xs font-semibold"
@@ -62,7 +62,7 @@ export default function PromotionPage() {
         </div>
       </div>
       <div className="mx-3 mt-3 bg-white rounded-xl overflow-hidden">
-        <div className="grid grid-cols-4 text-center py-3 text-[11px] text-muted border-b border-line">
+        <div className="grid grid-cols-4 text-center py-3 text-11 text-muted border-b border-line">
           <span>{t("team")}</span>
           <span>{t("newSub")}</span>
           <span>{t("betAmount")}</span>

@@ -5,8 +5,6 @@ import { ImgIcon } from "@/lib/img";
 
 export type GameSlide = { n: string; img: string };
 
-export const GAME_CARD_W = 118;
-
 export function GameCard({
   game,
   onOpen,
@@ -21,7 +19,7 @@ export function GameCard({
   fill?: boolean;
 }) {
   return (
-    <div className={cn("flex flex-col items-center", fill ? "w-full" : "w-[118px] shrink-0")}>
+    <div className={cn("flex flex-col items-center", fill ? "w-full" : "w-[var(--game-card-w)] shrink-0")}>
       <button
         type="button"
         onClick={() => {

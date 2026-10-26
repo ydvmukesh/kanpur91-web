@@ -146,13 +146,13 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
               className="w-full flex items-center gap-2.5 px-3 py-2.5 text-left"
             >
               <span
-                className="h-11 w-11 shrink-0 rounded-lg text-white text-[20px] font-bold grid place-items-center"
+                className="h-11 w-11 shrink-0 rounded-lg text-white text-xl font-bold grid place-items-center"
                 style={{ background: face.bg }}
               >
                 {face.text}
               </span>
               <span className="flex-1 min-w-0">
-                <span className="flex items-center gap-1.5 text-[13px] font-semibold text-ink tabular-nums">
+                <span className="flex items-center gap-1.5 text-13 font-semibold text-ink tabular-nums">
                   {b.period}
                   <i
                     className={cn(
@@ -161,12 +161,12 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                     )}
                   />
                 </span>
-                <span className="block mt-0.5 text-[11px] text-faint">{b.createdAt}</span>
+                <span className="block mt-0.5 text-11 text-faint">{b.createdAt}</span>
               </span>
               <span className="shrink-0 text-right">
                 <span
                   className={cn(
-                    "inline-flex h-[22px] min-w-[58px] px-2 rounded border text-[12px] font-medium items-center justify-center",
+                    "inline-flex h-[22px] min-w-[58px] px-2 rounded border text-sm font-medium items-center justify-center",
                     ok && "border-green-norm text-green-norm",
                     fail && "border-main text-main",
                     b.status === "pending" && "border-secondary text-secondary",
@@ -176,7 +176,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
                 </span>
                 <span
                   className={cn(
-                    "block mt-1 text-[13px] font-semibold tabular-nums",
+                    "block mt-1 text-13 font-semibold tabular-nums",
                     ok ? "text-green-norm" : fail ? "text-main" : "text-faint",
                   )}
                 >
@@ -186,8 +186,8 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
             </button>
             {expanded ? (
               <div className="px-3 pb-3">
-                <p className="text-[14px] font-semibold text-ink mb-2">{t("details")}</p>
-                <div className="rounded-lg bg-[#F6F7FB] px-3 py-1 text-[12px]">
+                <p className="text-sm font-semibold text-ink mb-2">{t("details")}</p>
+                <div className="rounded-lg bg-[#F6F7FB] px-3 py-1 text-sm">
                   <DetailRow
                     label={t("orderNumber")}
                     value={

@@ -73,7 +73,7 @@ function HistoryNumber({ n }: { n: number }) {
   if (n === 0 || n === 5) {
     return (
       <span
-        className="text-[20px] font-extrabold leading-none"
+        className="text-xl font-extrabold leading-none"
         style={{
           backgroundImage:
             n === 0
@@ -90,7 +90,7 @@ function HistoryNumber({ n }: { n: number }) {
   }
   return (
     <span
-      className="text-[20px] font-extrabold leading-none"
+      className="text-xl font-extrabold leading-none"
       style={{ color: n % 2 === 1 ? "#18B660" : "#FB5B5B" }}
     >
       {n}
@@ -128,7 +128,7 @@ function TimeBox({ n, pulse }: { n: string; pulse?: boolean }) {
   return (
     <span
       className={cn(
-        "inline-flex h-[30px] w-[22px] items-center justify-center rounded-[5px] bg-white text-[#2B3270] text-[20px] font-extrabold tabular-nums leading-none",
+        "inline-flex h-[30px] w-[22px] items-center justify-center rounded-[5px] bg-white text-[#2B3270] text-xl font-extrabold tabular-nums leading-none",
         pulse && "digit-pulse",
       )}
     >
@@ -273,7 +273,8 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
 
   return (
     <div className="min-h-full bg-[#f6f6f6] pb-8">
-      <header className="sticky top-0 z-30 h-12 px-1 flex items-center text-white bg-main">
+      <header className="sticky top-0 z-30 pt-safe-t px-1 flex items-center text-white bg-main">
+        <div className="h-12 flex items-center flex-1">
         <button
           type="button"
           onClick={() => router.back()}
@@ -302,12 +303,13 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
             <IconVolume muted={muted} />
           </button>
         </div>
+        </div>
       </header>
 
       <div className="wingo-hero px-3 pt-2 pb-4 space-y-2.5">
         <section className="bg-white rounded-2xl px-4 pt-4 pb-3.5 shadow-[0_2px_8px_rgba(30,38,55,0.06)]">
           <div className="flex items-center gap-1.5">
-            <span className="text-[22px] font-extrabold text-[#1e2637] leading-none tabular-nums">
+            <span className="text-22 font-extrabold text-[#1e2637] leading-none tabular-nums">
               ₹{formatMoney(user?.balance ?? 0)}
             </span>
             <button
@@ -324,18 +326,18 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
           </div>
           <div className="mt-2 flex items-center gap-1 text-main">
             <IconWalletMini />
-            <span className="text-[12px] text-[#2B3270]">{t("walletBalance")}</span>
+            <span className="text-sm text-[#2B3270]">{t("walletBalance")}</span>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-3">
             <Link
               href="/wallet/withdraw"
-              className="h-10 rounded-full bg-[#F95959] text-white text-[14px] font-semibold grid place-items-center"
+              className="h-10 rounded-full bg-[#F95959] text-white text-sm font-semibold grid place-items-center"
             >
               {t("withdraw")}
             </Link>
             <Link
               href="/wallet/deposit"
-              className="h-10 rounded-full bg-[#18B660] text-white text-[14px] font-semibold grid place-items-center"
+              className="h-10 rounded-full bg-[#18B660] text-white text-sm font-semibold grid place-items-center"
             >
               {t("deposit")}
             </Link>
@@ -347,14 +349,14 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
             <IconSpeaker />
           </span>
           <div className="flex-1 overflow-hidden">
-            <div className="marquee text-[11px] text-ink">
+            <div className="marquee text-11 text-ink">
               <span className="pr-8">{t("withdrawNotice")}</span>
               <span className="pr-8">{t("withdrawNotice")}</span>
             </div>
           </div>
           <Link
             href="/notifications"
-            className="shrink-0 h-7 pl-1.5 pr-2 rounded-full bg-main text-white text-[11px] font-semibold flex items-center gap-0.5"
+            className="shrink-0 h-7 pl-1.5 pr-2 rounded-full bg-main text-white text-11 font-semibold flex items-center gap-0.5"
           >
             <span className="text-[#FFD45A]">
               <IconFlame />
@@ -381,8 +383,8 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                   alt=""
                   className="h-[34px] w-[34px] object-contain"
                 />
-                <span className="text-[11px] font-semibold leading-none">{trx ? "TrxWin" : x.name}</span>
-                <span className="text-[11px] font-semibold leading-none">{x.sub}</span>
+                <span className="text-11 font-semibold leading-none">{trx ? "TrxWin" : x.name}</span>
+                <span className="text-11 font-semibold leading-none">{x.sub}</span>
               </button>
             );
           })}
@@ -396,12 +398,12 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
               <button
                 type="button"
                 onClick={() => setRules(true)}
-                className="self-start h-7 px-2.5 rounded-full border border-white/85 text-[11px] font-medium flex items-center gap-1"
+                className="self-start h-7 px-2.5 rounded-full border border-white/85 text-11 font-medium flex items-center gap-1"
               >
                 <IconBook className="h-3.5 w-3.5" />
                 {t("howToPlay")}
               </button>
-              <p className="mt-2.5 text-[13px] font-semibold">{gameName}</p>
+              <p className="mt-2.5 text-13 font-semibold">{gameName}</p>
               <div className="mt-auto pt-2 flex gap-1.5">
                 {history.map((h) => (
                   <ImgIcon
@@ -418,7 +420,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                 className="pointer-events-none absolute inset-y-3 left-0 border-l border-dashed border-white/70"
                 aria-hidden
               />
-              <p className="text-[12px] font-medium">{t("timeRemaining")}</p>
+              <p className="text-sm font-medium">{t("timeRemaining")}</p>
               <div className="mt-2 flex items-center gap-[3px]">
                 <TimeBox n={mm[0]} />
                 <TimeBox n={mm[1]} />
@@ -426,7 +428,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                 <TimeBox n={ss[0]} pulse={round.locked} />
                 <TimeBox n={ss[1]} pulse={round.locked} />
               </div>
-              <p className="mt-auto pt-2 text-[12px] font-semibold tracking-wide tabular-nums">{round.period}</p>
+              <p className="mt-auto pt-2 text-sm font-semibold tracking-wide tabular-nums">{round.period}</p>
             </div>
           </div>
         </section>
@@ -434,10 +436,10 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
         <div className="relative p-1 bg-white rounded-xl">
           {overlay ? (
             <div className="absolute inset-0 z-10 rounded-xl bg-black/50 flex items-center justify-center gap-3">
-              <span className="h-[86px] w-[64px] rounded-xl bg-white text-[#F95959] text-[52px] font-black grid place-items-center digit-pulse shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+              <span className="h-[86px] w-[64px] rounded-xl bg-white text-[#F95959] text-52 font-black grid place-items-center digit-pulse shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
                 {overlay[0]}
               </span>
-              <span className="h-[86px] w-[64px] rounded-xl bg-white text-[#F95959] text-[52px] font-black grid place-items-center digit-pulse shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
+              <span className="h-[86px] w-[64px] rounded-xl bg-white text-[#F95959] text-52 font-black grid place-items-center digit-pulse shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
                 {overlay[1]}
               </span>
             </div>
@@ -481,7 +483,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
               type="button"
               onClick={randomPick}
               className={cn(
-                "h-8 px-3 rounded-full border border-main text-main text-[12px] font-semibold shrink-0 wingo-press",
+                "h-8 px-3 rounded-full border border-main text-main text-sm font-semibold shrink-0 wingo-press",
                 randomBusy.current && "opacity-60",
               )}
             >
@@ -494,7 +496,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                   type="button"
                   onClick={() => setMul(m)}
                   className={cn(
-                    "h-8 min-w-[36px] px-1.5 rounded-full text-[12px] font-semibold wingo-press",
+                    "h-8 min-w-[36px] px-1.5 rounded-full text-sm font-semibold wingo-press",
                     mul === m ? "bg-main text-white" : "bg-[#F0F1F5] text-muted",
                   )}
                 >
@@ -508,14 +510,14 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
             <button
               type="button"
               onClick={() => open({ kind: "size", value: "big" })}
-              className=" flex-1 h-11 bg-[#FEAA57] text-white text-[16px] font-bold"
+              className=" flex-1 h-11 bg-[#FEAA57] text-white text-base font-bold"
             >
               {t("big")}
             </button>
             <button
               type="button"
               onClick={() => open({ kind: "size", value: "small" })}
-              className=" flex-1 h-11 bg-[#6EA8F4] text-white text-[16px] font-bold"
+              className=" flex-1 h-11 bg-[#6EA8F4] text-white text-base font-bold"
             >
               {t("small")}
             </button>
@@ -537,7 +539,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
               data-hist-tab={x.key}
               onClick={() => selectTab(x.key)}
               className={cn(
-                "h-10 shrink-0 w-[calc((100%-2.4rem)/3)] rounded-lg text-[12px] font-semibold border px-1 leading-tight",
+                "h-10 shrink-0 w-[calc((100%-2.4rem)/3)] rounded-lg text-sm font-semibold border px-1 leading-tight",
                 tab === x.key
                   ? "bg-main-x text-white border-transparent"
                   : "bg-white text-muted border-[#E6E8EE]",
@@ -551,7 +553,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
         {tab === "game" ? (
           <div>
             <div className="overflow-hidden rounded-xl bg-white">
-              <div className="grid grid-cols-[1.55fr_0.5fr_0.7fr_0.55fr] bg-main text-white text-[13px] font-semibold items-center py-2.5">
+              <div className="grid grid-cols-[1.55fr_0.5fr_0.7fr_0.55fr] bg-main text-white text-13 font-semibold items-center py-2.5">
                 <span className="pl-3 text-left">{t("period")}</span>
                 <span className="text-center">{t("number")}</span>
                 <span className="text-center">{t("bigSmall")}</span>
@@ -560,9 +562,9 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
               {records.map((h) => (
                 <div
                   key={h.period}
-                  className="grid grid-cols-[1.55fr_0.5fr_0.7fr_0.55fr] items-center py-2.5 text-[13px] border-t border-[#F0F1F5]"
+                  className="grid grid-cols-[1.55fr_0.5fr_0.7fr_0.55fr] items-center py-2.5 text-13 border-t border-[#F0F1F5]"
                 >
-                  <span className="pl-3 text-left text-ink tabular-nums text-[12px]">{h.period}</span>
+                  <span className="pl-3 text-left text-ink tabular-nums text-sm">{h.period}</span>
                   <span className="text-center">
                     <HistoryNumber n={h.number} />
                   </span>
@@ -588,7 +590,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                   <IconChevron />
                 </span>
               </button>
-              <span className="text-[13px] text-ink tabular-nums">
+              <span className="text-13 text-ink tabular-nums">
                 {histPage}/{HISTORY_PAGES}
               </span>
               <button
@@ -615,10 +617,10 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
           <div className="relative overflow-hidden rounded-xl bg-white min-h-[220px]">
             <Link
               href={`${trx ? "/trx-win" : "/win-go"}/history?interval=${interval}`}
-              className="absolute right-2.5 top-2.5 z-10 h-7 pl-2.5 pr-1.5 rounded border border-main text-main text-[12px] font-medium inline-flex items-center gap-1"
+              className="absolute right-2.5 top-2.5 z-10 h-7 pl-2.5 pr-1.5 rounded border border-main text-main text-sm font-medium inline-flex items-center gap-1"
             >
               {t("detail")}
-              <span className="h-3.5 w-3.5 rounded-full border border-current grid place-items-center text-[10px] leading-none">
+              <span className="h-3.5 w-3.5 rounded-full border border-current grid place-items-center text-10 leading-none">
                 ›
               </span>
             </Link>
@@ -639,15 +641,15 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
             <button type="button" className="absolute inset-0 bg-black/55" onClick={() => setSheet(null)} />
             <div className="absolute bottom-0 inset-x-0 overflow-hidden rounded-t-xl bg-white">
               <div className="wingo-bet-head pt-3 pb-8 text-center text-white" style={{ background: theme }}>
-                <p className="text-[16px] font-semibold">{gameName}</p>
-                <div className="mt-2 mx-auto w-fit min-w-[148px] h-[30px] px-6 rounded-md bg-white text-[#1e2637] text-[13px] font-semibold grid place-items-center">
+                <p className="text-base font-semibold">{gameName}</p>
+                <div className="mt-2 mx-auto w-fit min-w-[148px] h-[30px] px-6 rounded-md bg-white text-[#1e2637] text-13 font-semibold grid place-items-center">
                   {t("select")} {selectLabel}
                 </div>
               </div>
 
               <div className="px-3 pt-1 pb-3">
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-[13px] text-muted">{t("balance")}</span>
+                  <span className="text-13 text-muted">{t("balance")}</span>
                   <div className="flex gap-1.5">
                     {amounts.map((a) => (
                       <button
@@ -655,7 +657,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                         type="button"
                         onClick={() => setAmt(a)}
                         className={cn(
-                          "h-8 min-w-[46px] px-2 rounded-md text-[13px] font-semibold",
+                          "h-8 min-w-[46px] px-2 rounded-md text-13 font-semibold",
                           amt === a ? "text-white" : "bg-[#F4F5F8] text-muted",
                         )}
                         style={amt === a ? { background: theme } : undefined}
@@ -667,7 +669,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                 </div>
 
                 <div className="mt-4 flex items-center justify-between gap-3">
-                  <span className="text-[13px] text-muted">{t("quantity")}</span>
+                  <span className="text-13 text-muted">{t("quantity")}</span>
                   <div className="flex items-center gap-1.5">
                     <button
                       type="button"
@@ -677,7 +679,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                     >
                       −
                     </button>
-                    <span className="h-8 min-w-[52px] px-2 rounded-md border border-[#E6E8EE] bg-white text-[14px] font-semibold grid place-items-center tabular-nums">
+                    <span className="h-8 min-w-[52px] px-2 rounded-md border border-[#E6E8EE] bg-white text-sm font-semibold grid place-items-center tabular-nums">
                       {qty}
                     </span>
                     <button
@@ -698,7 +700,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                       type="button"
                       onClick={() => setMul(m)}
                       className={cn(
-                        "h-7 min-w-[36px] px-1.5 rounded-md text-[12px] font-semibold",
+                        "h-7 min-w-[36px] px-1.5 rounded-md text-sm font-semibold",
                         mul === m ? "text-white" : "bg-[#F4F5F8] text-muted",
                       )}
                       style={mul === m ? { background: theme } : undefined}
@@ -728,14 +730,14 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
                 <button
                   type="button"
                   onClick={() => setSheet(null)}
-                  className="h-12 w-[32%] bg-[#F4F5F8] text-muted text-[15px] font-medium"
+                  className="h-12 w-[32%] bg-[#F4F5F8] text-muted text-15 font-medium"
                 >
                   {t("cancel")}
                 </button>
                 <button
                   type="button"
                   onClick={confirm}
-                  className="h-12 flex-1 text-white text-[15px] font-semibold"
+                  className="h-12 flex-1 text-white text-15 font-semibold"
                   style={{ background: theme }}
                 >
                   {t("totalAmount")} ₹{formatMoney(total)}

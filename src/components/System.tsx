@@ -62,7 +62,7 @@ export function ToastHost() {
         <div className="h-[120px] w-[120px] rounded-[8px] bg-[rgba(0,0,0,0.7)] text-white px-2 flex flex-col items-center justify-center">
             <Check className="h-8 w-8"  />
         
-          <p className="mt-3 text-[14px] leading-snug text-center whitespace-pre-line">{toast.text}</p>
+          <p className="mt-3 text-sm leading-snug text-center whitespace-pre-line">{toast.text}</p>
         </div>
       ) : (
         <div className="bg-black/75 text-white text-sm px-4 py-2.5 rounded-lg max-w-[80%] text-center">

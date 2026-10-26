@@ -22,7 +22,7 @@ function Field({
 }) {
   return (
     <div className="mt-5">
-      <p className="flex items-center gap-1.5 text-[13px] text-ink mb-2">
+      <p className="flex items-center gap-1.5 text-13 text-ink mb-2">
         <span className="text-main">{icon}</span>
         {label}
       </p>
@@ -32,7 +32,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full h-11 rounded-md bg-white px-4 text-[13px] text-ink placeholder:text-faint outline-none";
+  "w-full h-11 rounded-md bg-white px-4 text-13 text-ink placeholder:text-faint outline-none";
 
 export default function AddBankCardPage() {
   const { t } = useI18n();
@@ -86,8 +86,8 @@ export default function AddBankCardPage() {
         <Field icon={<Landmark className="h-4 w-4" />} label={t("chooseBank")}>
           <button
             type="button"
-            onClick={() => router.push("/wallet/withdraw/choosebank")}
-            className="w-full h-10 rounded-md bg-main-x px-4 flex items-center justify-between text-[13px] text-white"
+            onClick={() => router.push("/wallet/withdraw/chooseBank")}
+            className="w-full h-10 rounded-md bg-main-x px-4 flex items-center justify-between text-13 text-white"
           >
             <span className="truncate">{bankName || t("selectBank")}</span>
             <ChevronRight className="h-5 w-5 shrink-0" />
