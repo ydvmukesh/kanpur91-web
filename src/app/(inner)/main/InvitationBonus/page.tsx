@@ -5,7 +5,6 @@ import { CircleCheck, CircleX } from "lucide-react";
 import { InnerShell } from "@/components/layout/InnerShell";
 import { useI18n } from "@/hooks/useI18n";
 import { IMG, ImgIcon } from "@/lib/img";
-import { useStore } from "@/lib/store";
 import { formatMoney } from "@/lib/format";
 
 const TIERS = [
@@ -35,19 +34,14 @@ const TIERS = [
 
 export default function InvitationBonusPage() {
   const { t } = useI18n();
-  const { showToast } = useStore();
-
-  function soon() {
-    showToast(t("comingSoon"));
-  }
 
   return (
     <InnerShell title={t("invitationBonus")} variant="light" className="bg-page">
       <div
-        className="relative w-full px-2.5 pt-2.5 pb-14 text-white min-h-[10rem] bg-cover bg-center bg-no-repeat"
+        className="relative w-full px-3.5 pt-3 pb-14 text-white min-h-[10rem] bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${IMG.invitationBg}), linear-gradient(94deg, #f99937 2.72%, #ff6922 43.54%, #ff8039 98.54%)` }}
       >
-        <h2 className="text-lg font-semibold">{t("inviteFriendsAndDeposit")}</h2>
+        <h2 className="text-xl font-semibold">{t("inviteFriendsAndDeposit")}</h2>
         <p className="mt-2 max-w-[58%] text-[13px] leading-snug text-white/95">{t("bothPartiesRewards")}</p>
         <p className="mt-2 max-w-[58%] text-[13px] leading-snug text-white/95">{t("inviteFriendsRegisterRecharge")}</p>
         <p className="mt-3 text-[13px] text-white/90">{t("activityDate")}</p>
@@ -60,10 +54,10 @@ export default function InvitationBonusPage() {
             <ImgIcon src={IMG.inviteRule} alt="" className="h-14 w-14" />
             <span className="px-2 text-center text-11 leading-snug text-muted">{t("invitationRewardRules")}</span>
           </Link>
-          <button type="button" onClick={soon} className="flex flex-col items-center gap-1">
+          <Link href="/main/InvitationBonus/Record" className="flex flex-col items-center gap-1">
             <ImgIcon src={IMG.inviteRecord} alt="" className="h-14 w-14" />
             <span className="px-2 text-center text-11 leading-snug text-muted">{t("invitationRecord")}</span>
-          </button>
+          </Link>
         </div>
 
         {TIERS.map((tier) => {

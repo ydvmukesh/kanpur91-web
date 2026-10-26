@@ -22,6 +22,8 @@ export const IMG = {
   inviteRecord: "/activity/invite-record.svg",
   actRebate: "/activity/betting-rebate.png",
   actJackpot: "/activity/super-jackpot.png",
+  superJackpotBg: "/activity/super-jackpot-bg.png",
+  superJackpotRuleBg: "/activity/super-jackpot-rule-bg.png",
   actFirstGift: "/activity/first-gift.png",
   actWheel: "/activity/invite-wheel.png",
   actGiftsBanner: "/activity/gifts-banner.png",

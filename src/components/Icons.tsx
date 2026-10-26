@@ -272,6 +272,54 @@ export function IconFlame({ className = "h-3 w-3" }: { className?: string }) {
   );
 }
 
+
+
+export function IconLaundryTab({ name, className = "h-6 w-6 shrink-0" }: { name: "all" | "lottery" | "video" | "chess" | "slot"; className?: string }) {
+  const cls = className;
+  if (name === "all") {
+    return (
+      <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden>
+        <rect x="3" y="3" width="8" height="8" rx="1.6" />
+        <rect x="13" y="3" width="8" height="8" rx="1.6" />
+        <rect x="3" y="13" width="8" height="8" rx="1.6" />
+        <rect x="13" y="13" width="8" height="8" rx="1.6" />
+      </svg>
+    );
+  }
+  if (name === "lottery") {
+    return (
+      <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden>
+        <path d="M12 2.5A9.5 9.5 0 1 0 21.5 12 9.5 9.5 0 0 0 12 2.5Zm0 3.2a6.3 6.3 0 1 1-6.3 6.3A6.3 6.3 0 0 1 12 5.7Z" />
+        <circle cx="12" cy="12" r="2.2" />
+      </svg>
+    );
+  }
+  if (name === "video") {
+    return (
+      <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden>
+        <path d="M3.5 6.5A2.5 2.5 0 0 1 6 4h8.5A2.5 2.5 0 0 1 17 6.5v11A2.5 2.5 0 0 1 14.5 20H6A2.5 2.5 0 0 1 3.5 17.5Z" />
+        <path d="M18 9.2 21.2 7a1 1 0 0 1 1.5.87v8.26a1 1 0 0 1-1.5.87L18 14.8Z" />
+      </svg>
+    );
+  }
+  if (name === "chess") {
+    return (
+      <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden>
+        <path d="M8 4.5h8v2.2H8zM9.2 6.7h5.6L16.2 11H7.8zM7 12h10l-1.2 6.2H8.2Z" />
+        <path d="M5.5 19.2h13v1.8h-13z" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" className={cls} fill="currentColor" aria-hidden>
+      <rect x="4" y="5" width="16" height="14" rx="2.2" />
+      <rect x="7" y="8.5" width="3" height="7" rx="0.6" fill="white" fillOpacity=".35" />
+      <rect x="10.5" y="8.5" width="3" height="7" rx="0.6" fill="white" fillOpacity=".35" />
+      <rect x="14" y="8.5" width="3" height="7" rx="0.6" fill="white" fillOpacity=".35" />
+    </svg>
+  );
+}
+
 export function IconRuleHead({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 489 60" fill="none" className={className} preserveAspectRatio="none" aria-hidden>

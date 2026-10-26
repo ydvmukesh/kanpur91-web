@@ -21,8 +21,8 @@ export default function ActivityPage() {
 
   const tiles: { href?: string; src: string; label: DictKey; dot?: boolean }[] = [
     { href: "/main/InvitationBonus", src: IMG.actInvite, label: "invitationBonus" },
-    { src: IMG.actRebate, label: "bettingRebate" },
-    { src: IMG.actJackpot, label: "superJackpot" },
+    { href: "/main/Laundry", src: IMG.actRebate, label: "bettingRebate" },
+    { href: "/main/SuperJackpot", src: IMG.actJackpot, label: "superJackpot" },
     { src: IMG.actFirstGift, label: "firstGift" },
     { src: IMG.actWheel, label: "inviteWheel", dot: true },
   ];

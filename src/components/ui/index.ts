@@ -10,6 +10,7 @@ export { PhoneField } from "./PhoneField";
 export { Spinner } from "./Spinner";
 export { TextField } from "./TextField";
 export { TabContent, UnderlineTabs } from "./UnderlineTabs";
+export { ScrollTabs } from "./ScrollTabs";
 export { DateSelect, FilterDateRow, FilterSelect } from "./FilterDateRow";
 export { WheelPicker } from "./WheelPicker";
 export { WheelPickerSheet } from "./WheelPickerSheet";
