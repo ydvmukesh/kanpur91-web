@@ -41,7 +41,6 @@ export default function BonusPage() {
     <InnerShell
       title={t("bonusDetails")}
       variant="light"
-      className="bg-page"
       headerExtra={
         <div className="px-3 pb-0 pt-4">
           <FilterDateRow value={filter} onChange={setFilter} options={filterOptions} date={date} onDateChange={setDate} />

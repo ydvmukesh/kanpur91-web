@@ -236,7 +236,7 @@ export default function AccountPage() {
           <p className="mb-3 text-base font-medium text-ink">{t("serviceCenter")}</p>
           <div className="grid grid-cols-3 gap-y-4">
             {[
-              { href: undefined as string | undefined, label: t("settings"), icon: Settings },
+              { href: "/main/SettingCenter", label: t("settings"), icon: Settings },
               { href: undefined, label: t("feedback"), icon: ClipboardList },
               { href: undefined, label: t("announcement"), icon: Megaphone },
               { href: "/promotion/customerService", label: t("customerService"), icon: Headphones },
