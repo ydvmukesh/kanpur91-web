@@ -379,6 +379,15 @@ button:disabled.bg-btn-disabled {
   }
 }
 
+@keyframes sheet-down {
+  from {
+    transform: none;
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
 @keyframes header-search-in {
   from {
     width: 2rem;

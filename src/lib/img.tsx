@@ -63,6 +63,7 @@ export const IMG = {
   arrowL: "/icons/arrow-left.svg",
   arrowR: "/icons/arrow-right.svg",
   ball8: "/icons/ball-8.svg",
+  splashimg: "/icons/splash.png",
   changlong: "/game-category/changlong.svg",
   rankBg: "/rank/rank.svg",
   rankCrown: "/rank/top.svg",

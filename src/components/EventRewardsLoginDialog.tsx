@@ -6,9 +6,11 @@ import { createPortal } from "react-dom";
 import { Button } from "@/components/ui";
 import { useI18n } from "@/hooks/useI18n";
 import { isAuthOnly, loginUrl } from "@/lib/auth/routes";
+import { cn } from "@/lib/cn";
 import { IMG, ImgIcon } from "@/lib/img";
 
 const EVT = "kanpur91-er-login";
+const MS = 280;
 
 export function openEventRewardsLogin(next = "/account") {
   window.dispatchEvent(new CustomEvent(EVT, { detail: next }));
@@ -20,6 +22,8 @@ export function EventRewardsLoginDialog() {
   const pathname = usePathname();
   const [root, setRoot] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [leaving, setLeaving] = useState(false);
   const [next, setNext] = useState("/account");
 
   useEffect(() => {
@@ -35,19 +39,52 @@ export function EventRewardsLoginDialog() {
       if (isAuthOnly(pathname)) return;
       const detail = (e as CustomEvent<string>).detail;
       setNext(typeof detail === "string" && detail ? detail : "/account");
+      setLeaving(false);
       setOpen(true);
+      setMounted(true);
     }
     window.addEventListener(EVT, onOpen);
     return () => window.removeEventListener(EVT, onOpen);
   }, [pathname]);
 
-  if (!open || !root) return null;
+  useEffect(() => {
+    if (open) {
+      setLeaving(false);
+      setMounted(true);
+      return;
+    }
+    if (!mounted) return;
+    setLeaving(true);
+    const tmr = window.setTimeout(() => {
+      setMounted(false);
+      setLeaving(false);
+    }, MS);
+    return () => window.clearTimeout(tmr);
+  }, [open, mounted]);
+
+  function close() {
+    setOpen(false);
+  }
+
+  if (!mounted || !root) return null;
 
   return createPortal(
     <div className="absolute inset-0 z-[80] flex justify-center">
       <div className="relative h-full w-full">
-        <button type="button" className="absolute inset-0 bg-black/55" onClick={() => setOpen(false)} />
-        <div className="absolute inset-x-0 bottom-0 animate-[sheet-up_280ms_ease-out] rounded-t-[1.25rem] bg-white pb-safe-b">
+        <button
+          type="button"
+          className={cn(
+            "absolute inset-0 bg-black/55 transition-opacity duration-[280ms] ease-out",
+            leaving ? "opacity-0" : "opacity-100",
+          )}
+          onClick={close}
+        />
+        <div
+          className={cn(
+            "absolute inset-x-0 bottom-0 rounded-t-[1.25rem] bg-white pb-safe-b",
+            leaving ? "animate-[sheet-down_280ms_ease-in]" : "animate-[sheet-up_280ms_ease-out]",
+          )}
+        >
           <div className="relative overflow-visible px-5 pb-7 pt-[6.25rem]">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-[7.5rem] rounded-t-[1.25rem] bg-gradient-to-b from-[#ffe4e1] to-white" />
             <ImgIcon
@@ -69,7 +106,7 @@ export function EventRewardsLoginDialog() {
                 className="mt-6"
                 size="sm"
                 onClick={() => {
-                  setOpen(false);
+                  close();
                   router.push(loginUrl(next));
                 }}
               >
@@ -78,7 +115,7 @@ export function EventRewardsLoginDialog() {
               <button
                 type="button"
                 className="mt-4 w-full text-center text-15 font-medium text-ink"
-                onClick={() => setOpen(false)}
+                onClick={close}
               >
                 {t("continueBrowsing")}
               </button>
