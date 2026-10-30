@@ -49,7 +49,7 @@ export default function TeamReportPage() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={t("searchSubordinateUid")}
-              className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-faint"
+              className="min-w-0 flex-1 bg-transparent text-15 text-ink outline-none placeholder:text-faint"
             />
             <button
               type="button"

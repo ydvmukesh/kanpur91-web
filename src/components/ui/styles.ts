@@ -10,14 +10,14 @@ export function fieldSurface(variant: FieldVariant = "sheet") {
   }
   return cn(
     FIELD_H,
-    "bg-white text-13 text-ink placeholder:text-faint outline-none shadow-field",
+    "bg-white text-15 text-ink placeholder:text-faint outline-none shadow-field",
     variant === "pill" ? "rounded-full" : "rounded-[0.625rem]",
   );
 }
 
 export function fieldInput(variant: FieldVariant = "sheet", extra?: string) {
   if (variant === "line") {
-    return cn("flex-1 min-w-0 bg-transparent outline-none text-sm text-ink placeholder:text-faint", extra);
+    return cn("flex-1 min-w-0 bg-transparent outline-none text-15 text-ink placeholder:text-faint", extra);
   }
   return cn(fieldSurface(variant), "w-full min-w-0 px-4", extra);
 }

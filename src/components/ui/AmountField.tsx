@@ -21,7 +21,7 @@ export function AmountField({
         inputMode="numeric"
         value={value || ""}
         onChange={(e) => onChange(Number(e.target.value.replace(/\D/g, "")) || 0)}
-        className="flex-1 min-w-0 bg-transparent outline-none font-semibold text-ink"
+        className="flex-1 min-w-0 bg-transparent outline-none text-15 font-semibold text-ink"
       />
       {suffix}
     </div>

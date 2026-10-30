@@ -1,4 +1,6 @@
 export { AlertModal } from "./AlertModal";
+export { ConfirmModal } from "./ConfirmModal";
+export { Popup } from "./Popup";
 export { AmountField } from "./AmountField";
 export { HtmlContent } from "./HtmlContent";
 export { EmptyState } from "./EmptyState";

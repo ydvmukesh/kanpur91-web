@@ -30,7 +30,7 @@ export default function ChooseBankPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t("searchBank")}
-            className="flex-1 min-w-0 bg-transparent outline-none text-sm text-ink placeholder:text-faint"
+            className="flex-1 min-w-0 bg-transparent outline-none text-15 text-ink placeholder:text-faint"
           />
         </div>
       }

@@ -48,6 +48,7 @@ export type User = {
   email?: string;
   password: string;
   nickname: string;
+  avatar?: string;
   uid: string;
   inviteCode: string;
   balance: number;

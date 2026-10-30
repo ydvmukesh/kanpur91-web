@@ -14,8 +14,8 @@ export function FieldLabel({
   children: React.ReactNode;
 }) {
   return (
-    <label className="flex items-center gap-1.5 text-13 text-ink font-medium mb-2">
-      {icon ? <span className="text-main">{icon}</span> : null}
+    <label className="flex items-center gap-1.5 text-sm text-ink font-medium mb-2">
+      {icon ? <span className="inline-flex shrink-0 text-main [&_svg]:size-5">{icon}</span> : null}
       {children}
     </label>
   );

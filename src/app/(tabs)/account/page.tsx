@@ -26,10 +26,12 @@ import {
   Wallet,
 } from "lucide-react";
 import { IconCopy, IconRefresh } from "@/components/Icons";
+import { ConfirmModal } from "@/components/ui";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/hooks/useI18n";
 import { useWallet } from "@/hooks/useWallet";
 import { copyText, formatMoney, pad2 } from "@/lib/format";
+import { userAvatar } from "@/lib/avatars";
 import { IMG, ImgIcon } from "@/lib/img";
 import { languageName } from "@/lib/languages";
 import { useStore } from "@/lib/store";
@@ -44,6 +46,7 @@ export default function AccountPage() {
   const { user, logout } = useAuth();
   const { recycle } = useWallet();
   const [loginAt, setLoginAt] = useState("");
+  const [logoutOpen, setLogoutOpen] = useState(false);
 
   useEffect(() => {
     setLoginAt(stamp(new Date()));
@@ -64,7 +67,7 @@ export default function AccountPage() {
         <header className="">
           <div className="flex items-center bg-main-x px-4 pb-16 pt-safe pt-10 pb-30 text-white  gap-3  rounded-b-3xl ">
             <div className="grid h-[4.25rem] w-[4.25rem] shrink-0 place-items-center overflow-hidden rounded-full bg-white">
-              <ImgIcon src={IMG.vipAvatar} className="h-full w-full object-cover" />
+              <ImgIcon src={userAvatar(user)} className="h-full w-full object-cover" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5">
@@ -238,16 +241,16 @@ export default function AccountPage() {
             {[
               { href: "/main/SettingCenter", label: t("settings"), icon: Settings },
               { href: undefined, label: t("feedback"), icon: ClipboardList },
-              { href: undefined, label: t("announcement"), icon: Megaphone },
+              { href: "/notifications?tab=info", label: t("announcement"), icon: Megaphone },
               { href: "/promotion/customerService", label: t("customerService"), icon: Headphones },
-              { href: undefined, label: t("guide"), icon: BookOpen },
-              { href: undefined, label: t("about"), icon: Box },
+              { href: "/main/Guide", label: t("guide"), icon: BookOpen },
+              { href: "/main/About", label: t("about"), icon: Box },
             ].map((item) => {
               const Icon = item.icon;
               const inner = (
                 <>
                   <Icon className="h-7 w-7 text-main" strokeWidth={1.6} />
-                  <span className="mt-1 text-center text-11 text-muted">{item.label}</span>
+                  <span className="mt-1 text-center text-xs text-muted">{item.label}</span>
                 </>
               );
               const cls = "flex flex-col items-center";
@@ -275,12 +278,21 @@ export default function AccountPage() {
         <button
           type="button"
           className="mx-3 mt-4 mb-4 flex h-11 w-[calc(100%-1.5rem)] items-center justify-center gap-2 rounded-full border border-main text-sm font-medium text-main"
-          onClick={() => logout()}
+          onClick={() => setLogoutOpen(true)}
         >
           <Power className="h-5 w-5" />
           {t("logout")}
         </button>
       </div>
+      <ConfirmModal
+        open={logoutOpen}
+        message={t("logoutConfirm")}
+        onClose={() => setLogoutOpen(false)}
+        onConfirm={() => {
+          setLogoutOpen(false);
+          logout();
+        }}
+      />
     </div>
   );
 }

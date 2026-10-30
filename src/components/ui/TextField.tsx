@@ -41,14 +41,14 @@ export function TextField({
   const control =
     variant === "line" ? (
       <div className={fieldSurface("line")}>
-        {icon && !label ? <span className="text-main">{icon}</span> : null}
+        {icon && !label ? <span className="inline-flex shrink-0 text-main [&_svg]:size-5">{icon}</span> : null}
         {el}
         {suffix}
       </div>
     ) : suffix ? (
       <div className="relative">
         {el}
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-muted flex items-center justify-center">{suffix}</div>
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 text-faint flex items-center justify-center">{suffix}</div>
       </div>
     ) : (
       el

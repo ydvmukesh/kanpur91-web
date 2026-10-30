@@ -439,6 +439,43 @@ button:disabled.bg-btn-disabled {
   transform: scale(1);
 }
 
+.er-title-decor {
+  position: relative;
+  width: 1.1875rem;
+  height: 1.5rem;
+  display: block;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.er-title-decor::before,
+.er-title-decor::after {
+  content: "";
+  position: absolute;
+  background: var(--main-color);
+  border-radius: 50%;
+}
+
+.er-title-decor::before {
+  left: 0.0625rem;
+  top: 0;
+  width: 0.53125rem;
+  height: 0.6875rem;
+  transform: rotate(-38deg);
+}
+
+.er-title-decor::after {
+  left: 0;
+  top: 0.625rem;
+  width: 0.84375rem;
+  height: 0.40625rem;
+  transform: rotate(18deg);
+}
+
+.er-title-decor--right {
+  transform: scaleX(-1);
+}
+
 .app-toast {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;

@@ -66,7 +66,7 @@ export function UnderlineTabs<T extends string>({
             type="button"
             onClick={() => onChange(item.id)}
             className={cn(
-              "flex flex-col items-center gap-1 pt-4 pb-2.5 text-13 border-b-2",
+              "flex flex-col items-center gap-1 pt-4 pb-2.5 text-15 border-b-2",
               on ? "text-main border-main font-medium" : "text-muted border-line",
             )}
           >

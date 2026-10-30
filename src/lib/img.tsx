@@ -88,6 +88,8 @@ export const IMG = {
   statsSport: "/main/game-stats/sport.svg",
   statsChess: "/main/game-stats/chess.svg",
   statsSteps: "/main/game-stats/steps.svg",
+  aboutBg: "/main/aboutBg.png",
+  eventGift: "/home/event-gift.png",
 } as const;
 
 export const WINGO_BALLS = [

@@ -234,7 +234,7 @@ function UtrSheet({
             maxLength={12}
             placeholder={t("utrPlaceholder")}
             onChange={(e) => onUtr(e.target.value.replace(/\D/g, "").slice(0, 12))}
-            className="h-10 min-w-0 flex-1 rounded-full bg-bg-l3 px-4 text-sm text-ink outline-none placeholder:text-faint"
+            className="h-10 min-w-0 flex-1 rounded-full bg-bg-l3 px-4 text-15 text-ink outline-none placeholder:text-faint"
           />
         </div>
         <Row k={t("balance")} v={`₹${formatMoney(x.amount)}`} valueClass="text-secondary font-semibold" />

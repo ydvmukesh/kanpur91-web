@@ -39,7 +39,7 @@ export function PhoneField({
             onClick={() => setOpen((v) => !v)}
             className={cn(
               FIELD_H,
-              "w-[4.75rem] shrink-0 bg-white shadow-field text-13 text-ink flex items-center justify-center gap-1 px-2 rounded-[0.625rem]",
+              "w-[4.75rem] shrink-0 bg-white shadow-field text-15 text-ink flex items-center justify-center gap-1 px-2 rounded-[0.625rem]",
             )}
           >
             <span className="font-medium">+91</span>
@@ -53,7 +53,7 @@ export function PhoneField({
             value={value}
             onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(0, 10))}
             placeholder={t("phoneHint")}
-            className={cn(fieldSurface(variant), "flex-1 min-w-0 px-4")}
+            className={cn(fieldSurface(variant), "flex-1 min-w-0 px-4 text-15")}
           />
         </div>
         {open ? (

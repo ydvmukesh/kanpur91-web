@@ -60,7 +60,7 @@ export default function RedeemGiftPage() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder={t("enterGiftCode")}
-            className="mt-3.5 h-[2.125rem] w-full rounded-lg bg-bg-l1 px-3.5 text-sm text-ink outline-none placeholder:text-faint"
+            className="mt-3.5 h-[2.125rem] w-full rounded-lg bg-bg-l1 px-3.5 text-15 text-ink outline-none placeholder:text-faint"
           />
           <Button className="mt-5" size="xs" disabled={busy} onClick={() => void onReceive()}>
             {t("redeem")}

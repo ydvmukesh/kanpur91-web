@@ -4,6 +4,7 @@ import Link from "next/link";
 import { LoginBrand } from "@/components/Logo";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/hooks/useI18n";
+import { openEventRewardsLogin } from "@/components/EventRewardsLoginDialog";
 import { ACTIVITY_LIST } from "@/lib/activity";
 import { IMG, ImgIcon } from "@/lib/img";
 import { formatMoney } from "@/lib/format";
@@ -17,18 +18,29 @@ export default function ActivityPage() {
   const { t } = useI18n();
   const { user } = useAuth();
   const { showToast } = useStore();
-  if (!user) return null;
+  const guest = !user;
 
-  const tiles: { href?: string; src: string; label: DictKey; dot?: boolean }[] = [
-    { href: "/main/InvitationBonus", src: IMG.actInvite, label: "invitationBonus" },
-    { href: "/main/Laundry", src: IMG.actRebate, label: "bettingRebate" },
-    { href: "/main/SuperJackpot", src: IMG.actJackpot, label: "superJackpot" },
-    { href: "/activity/MemberPackage", src: IMG.actFirstGift, label: "firstGift" },
-    { src: IMG.actWheel, label: "inviteWheel", dot: true },
-  ];
+  const tiles: { href?: string; src: string; label: DictKey; dot?: boolean }[] = guest
+    ? [
+        { href: "/main/SuperJackpot", src: IMG.actJackpot, label: "superJackpot" },
+        { href: "/activity/MemberPackage", src: IMG.actFirstGift, label: "firstGift" },
+        { src: IMG.actWheel, label: "inviteWheel", dot: true },
+      ]
+    : [
+        { href: "/main/InvitationBonus", src: IMG.actInvite, label: "invitationBonus" },
+        { href: "/main/Laundry", src: IMG.actRebate, label: "bettingRebate" },
+        { href: "/main/SuperJackpot", src: IMG.actJackpot, label: "superJackpot" },
+        { href: "/activity/MemberPackage", src: IMG.actFirstGift, label: "firstGift" },
+        { src: IMG.actWheel, label: "inviteWheel", dot: true },
+      ];
+
+  function needLogin() {
+    openEventRewardsLogin("/activity");
+  }
 
   function soon() {
-    showToast(t("comingSoon"));
+    if (guest) needLogin();
+    else showToast(t("comingSoon"));
   }
 
   return (
@@ -41,25 +53,37 @@ export default function ActivityPage() {
 
       <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
         <div className="bg-main-x px-4 py-5 text-white">
-          <div className="grid grid-cols-2 divide-x divide-white/50">
-            <div className="text-center">
-              <p className="text-xs">{t("todayBonus")}</p>
-              <p className="text-lg font-semibold">₹{formatMoney(TODAY_BONUS)}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-xs">{t("totalBonus")}</p>
-              <p className="text-lg font-semibold">₹{formatMoney(TOTAL_BONUS)}</p>
-            </div>
-          </div>
-          <Link
-            href="/activity/Bonus"
-            className="mx-auto mt-5 flex h-10 w-40 items-center justify-center rounded-full bg-white text-sm font-medium text-main"
-          >
-            {t("bonusDetails")}
-          </Link>
+          {guest ? (
+            <button
+              type="button"
+              onClick={needLogin}
+              className="mx-auto flex h-10 w-40 items-center justify-center rounded-full bg-white text-sm font-medium text-main"
+            >
+              {t("login")}
+            </button>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 divide-x divide-white/50">
+                <div className="text-center">
+                  <p className="text-xs">{t("todayBonus")}</p>
+                  <p className="text-lg font-semibold">₹{formatMoney(TODAY_BONUS)}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs">{t("totalBonus")}</p>
+                  <p className="text-lg font-semibold">₹{formatMoney(TOTAL_BONUS)}</p>
+                </div>
+              </div>
+              <Link
+                href="/activity/Bonus"
+                className="mx-auto mt-5 flex h-10 w-40 items-center justify-center rounded-full bg-white text-sm font-medium text-main"
+              >
+                {t("bonusDetails")}
+              </Link>
+            </>
+          )}
         </div>
         <div className="px-4 pb-16 pt-4">
-        <div className="grid grid-cols-4 gap-x-2 gap-y-4">
+        <div className={guest ? "grid grid-cols-3 gap-x-2 gap-y-4" : "grid grid-cols-4 gap-x-2 gap-y-4"}>
           {tiles.map((item) => {
             const body = (
               <>
@@ -71,6 +95,13 @@ export default function ActivityPage() {
               </>
             );
             const cls = "flex flex-col items-center";
+            if (guest) {
+              return (
+                <button key={item.label} type="button" onClick={needLogin} className={cls}>
+                  {body}
+                </button>
+              );
+            }
             return item.href ? (
               <Link key={item.label} href={item.href} className={cls}>
                 {body}
@@ -84,14 +115,14 @@ export default function ActivityPage() {
         </div>
 
         <div className="mt-5 grid grid-cols-2 items-stretch gap-3">
-          <Link href="/main/RedeemGift" className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
+          <Link href="/main/RedeemGift" onClick={guest ? (e) => { e.preventDefault(); needLogin(); } : undefined} className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
             <ImgIcon src={IMG.actGiftsBanner} alt="" className="h-28 w-full shrink-0 object-cover" />
             <div className="flex flex-1 flex-col px-2.5 py-2.5">
               <p className="text-sm font-bold text-ink">{t("gift")}</p>
               <p className="mt-1 text-11 leading-snug text-muted">{t("giftRedeemBody")}</p>
             </div>
           </Link>
-          <Link href="/activity/DailySignIn" className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
+          <Link href="/activity/DailySignIn" onClick={guest ? (e) => { e.preventDefault(); needLogin(); } : undefined} className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
             <ImgIcon src={IMG.actAttendanceBanner} alt="" className="h-28 w-full shrink-0 object-cover" />
             <div className="flex flex-1 flex-col px-2.5 py-2.5">
               <p className="text-sm font-bold text-ink">{t("attendance")}</p>
@@ -105,6 +136,7 @@ export default function ActivityPage() {
             <Link
               key={event.slug}
               href={`/activity/ActivityDetail/${event.slug}`}
+              onClick={guest ? (e) => { e.preventDefault(); needLogin(); } : undefined}
               className="block w-full overflow-hidden rounded-lg bg-white text-left"
             >
               <ImgIcon src={event.banner} alt="" className="h-auto w-full object-cover" />

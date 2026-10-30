@@ -18,3 +18,7 @@ export function isEmail(value: string) {
 export function isPassword(value: string) {
   return passwordSchema.safeParse(value).success;
 }
+
+export function isStrongPassword(value: string) {
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(value);
+}

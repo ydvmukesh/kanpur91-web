@@ -7,9 +7,10 @@ export const PUBLIC_PATHS = [
   "/download",
   "/customer-service",
   "/home",
+  "/activity",
 ] as const;
 
-export const AUTH_ONLY_PATHS = ["/login", "/register", "/forgot"] as const;
+export const AUTH_ONLY_PATHS = ["/login", "/register"] as const;
 
 export function normalizePath(pathname: string | null | undefined): string {
   if (!pathname) return "/";

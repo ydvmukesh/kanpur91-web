@@ -11,6 +11,7 @@ import { ApiError } from "@/lib/api/client";
 import { notifyTokenExpired } from "@/lib/api/token";
 import type { AppNotification, CmsPage, Session, StoredBet, Txn, User, WalletSnapshot } from "@/lib/api/models";
 import { signinBonus } from "@/lib/daily-signin";
+import { CONFIDENTIALITY_HTML } from "@/lib/confidentiality-agreement";
 import { currentUser, getDb, rid, updateDb } from "./db";
 
 function msg(key: DictKey) {
@@ -388,6 +389,13 @@ export function mockSettleDue() {
 
 export function mockCmsPage(slug: string): CmsPage {
   const lang = getDb().lang;
+  if (slug === "confidentiality") {
+    return {
+      slug,
+      title: translate(lang, "confidentialityAgreement"),
+      html: CONFIDENTIALITY_HTML,
+    };
+  }
   if (slug === "privacy") {
     const blocks = ["userAgreement", "riskP1", "riskP2", "riskP3", "riskP4", "riskP5"] as const;
     return {

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { EventRewardsLoginDialog, openEventRewardsLogin } from "@/components/EventRewardsLoginDialog";
 import { loginUrl } from "@/lib/auth/routes";
 import { cn } from "@/lib/cn";
 import { IMG, ImgIcon, TabMaskIcon } from "@/lib/img";
@@ -19,7 +20,8 @@ export function BottomNav() {
     { href: "/promotion", label: t("promotion"), icon: IMG.tabPromotion },
     { href: "/account", label: t("account"), icon: IMG.tabAccount },
   ];
-  const hrefFor = (href: string) => (!user && href !== "/home" ? loginUrl(href) : href);
+  const hrefFor = (href: string) =>
+    !user && href !== "/home" && href !== "/activity" ? loginUrl(href) : href;
 
   return (
     <nav className="shrink-0 z-40 overflow-visible bg-white border-t border-line pb-safe-b">
@@ -41,22 +43,29 @@ export function BottomNav() {
               </li>
             );
           }
+          const guestAccount = !user && item.href === "/account";
+          const cls = cn(
+            "h-full w-full flex flex-col items-center justify-center gap-0.5 text-11",
+            active ? "text-main font-semibold" : "text-muted",
+          );
           return (
             <li key={item.href + item.label}>
-              <Link
-                href={hrefFor(item.href)}
-                className={cn(
-                  "h-full flex flex-col items-center justify-center gap-0.5 text-11",
-                  active ? "text-main font-semibold" : "text-muted",
-                )}
-              >
-                <TabMaskIcon src={item.icon as string} active={active} />
-                {item.label}
-              </Link>
+              {guestAccount ? (
+                <button type="button" className={cls} onClick={() => openEventRewardsLogin("/account")}>
+                  <TabMaskIcon src={item.icon as string} active={active} />
+                  {item.label}
+                </button>
+              ) : (
+                <Link href={hrefFor(item.href)} className={cls}>
+                  <TabMaskIcon src={item.icon as string} active={active} />
+                  {item.label}
+                </Link>
+              )}
             </li>
           );
         })}
       </ul>
+      <EventRewardsLoginDialog />
     </nav>
   );
 }

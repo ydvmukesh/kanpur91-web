@@ -53,7 +53,7 @@ export function IconUser({ active }: { active?: boolean }) {
 
 export function IconBack() {
   return (
-    <ChevronLeft className="h-6.5 w-6.5" strokeWidth={1.5} />
+    <ChevronLeft className="h-6.5 w-6.5" strokeWidth={1.75} />
   );
 }
 

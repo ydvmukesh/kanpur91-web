@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { InnerShell } from "@/components/layout/InnerShell";
 import { EmptyState } from "@/components/ui";
 import { IconSpeaker } from "@/components/Icons";
@@ -41,12 +42,17 @@ export default function NotificationsPage() {
   const { t } = useStore();
   const { data: notifications = [] } = useNotifs();
   const markRead = useMarkReadMutation();
-  const [tab, setTab] = useState<"notice" | "info">("info");
+  const params = useSearchParams();
+  const [tab, setTab] = useState<"notice" | "info">(params.get("tab") === "info" ? "info" : "notice");
 
   useEffect(() => {
     markRead.mutate();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- mark-read once on open
   }, []);
+
+  useEffect(() => {
+    setTab(params.get("tab") === "info" ? "info" : "notice");
+  }, [params]);
 
   const items =
     tab === "info"

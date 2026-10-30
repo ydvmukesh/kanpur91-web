@@ -431,7 +431,7 @@ export function WinGoFollow({
                       value={amount}
                       onChange={(e) => setAmount(clampAmt(Number(e.target.value)))}
                       inputMode="numeric"
-                      className="flex-1 h-10 rounded-md border border-[#E6E8EE] px-3 text-sm text-ink outline-none"
+                      className="flex-1 h-10 rounded-md border border-[#E6E8EE] px-3 text-15 text-ink outline-none"
                     />
                     <button
                       type="button"
@@ -460,7 +460,7 @@ export function WinGoFollow({
                     value={rounds}
                     onChange={(e) => setRounds(Math.max(1, Math.min(100, Number(e.target.value) || 1)))}
                     inputMode="numeric"
-                    className="mt-2 w-full h-10 rounded-md border border-[#E6E8EE] px-3 text-sm text-ink outline-none"
+                    className="mt-2 w-full h-10 rounded-md border border-[#E6E8EE] px-3 text-15 text-ink outline-none"
                   />
 
                   <button

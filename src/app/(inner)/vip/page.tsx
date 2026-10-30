@@ -9,6 +9,7 @@ import { IconBack, IconRuleHead } from "@/components/Icons";
 import { Button, HtmlContent, TabContent, UnderlineTabs } from "@/components/ui";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/hooks/useI18n";
+import { userAvatar } from "@/lib/avatars";
 import { IMG, ImgIcon } from "@/lib/img";
 import { VIP_LEVELS, vipFromExp, vipHistoryRows, type VipLevel } from "@/lib/vip";
 
@@ -44,7 +45,7 @@ export default function VipPage() {
       <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
         <div className="flex min-h-[calc(11rem-3rem)] w-full items-center bg-main-x text-white px-3 pt-1 pb-14">
           <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full bg-white">
-            <ImgIcon src={IMG.vipAvatar} alt="" className="h-full w-full object-cover" />
+            <ImgIcon src={userAvatar(user)} alt="" className="h-full w-full object-cover" />
           </div>
           <div className="ml-3 min-w-0">
             <ImgIcon src={IMG.vipBadge0} alt={`VIP${current}`} className="h-6 w-auto" />

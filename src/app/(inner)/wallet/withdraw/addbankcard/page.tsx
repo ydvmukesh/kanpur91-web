@@ -32,7 +32,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full h-11 rounded-md bg-white px-4 text-13 text-ink placeholder:text-faint outline-none";
+  "w-full h-11 rounded-md bg-white px-4 text-15 text-ink placeholder:text-faint outline-none";
 
 export default function AddBankCardPage() {
   const { t } = useI18n();

@@ -210,7 +210,7 @@ export default function RechargePage() {
                 value={amount || ""}
                 onChange={(e) => setAmount(Math.min(50_000, Number(e.target.value.replace(/\D/g, "").slice(0, 5)) || 0))}
                 placeholder={t("depositAmountRange")}
-                className="flex-1 min-w-0 bg-transparent outline-none text-sm text-main placeholder:text-faint"
+                className="flex-1 min-w-0 bg-transparent outline-none text-15 text-main placeholder:text-faint"
               />
               {amount ? (
                 <button type="button" className="text-faint" onClick={() => setAmount(0)} aria-label="Clear">

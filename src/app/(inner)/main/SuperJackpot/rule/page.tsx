@@ -51,7 +51,7 @@ export default function SuperJackpotRulePage() {
         </div>
 
         <Link
-          href="/customer-service"
+          href="/promotion/customerService"
           className="flex h-10 items-center justify-center gap-1.5 rounded-full bg-main-x text-base font-bold text-white"
         >
           <IconHeadset />
