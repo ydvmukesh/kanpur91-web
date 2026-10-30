@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/ui";
 import { useI18n } from "@/hooks/useI18n";
-import { loginUrl } from "@/lib/auth/routes";
+import { isAuthOnly, loginUrl } from "@/lib/auth/routes";
 import { IMG, ImgIcon } from "@/lib/img";
 
 const EVT = "kanpur91-er-login";
@@ -15,6 +16,8 @@ export function openEventRewardsLogin(next = "/account") {
 
 export function EventRewardsLoginDialog() {
   const { t } = useI18n();
+  const router = useRouter();
+  const pathname = usePathname();
   const [root, setRoot] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [next, setNext] = useState("/account");
@@ -24,14 +27,19 @@ export function EventRewardsLoginDialog() {
   }, []);
 
   useEffect(() => {
+    if (isAuthOnly(pathname)) setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
     function onOpen(e: Event) {
+      if (isAuthOnly(pathname)) return;
       const detail = (e as CustomEvent<string>).detail;
       setNext(typeof detail === "string" && detail ? detail : "/account");
       setOpen(true);
     }
     window.addEventListener(EVT, onOpen);
     return () => window.removeEventListener(EVT, onOpen);
-  }, []);
+  }, [pathname]);
 
   if (!open || !root) return null;
 
@@ -57,7 +65,14 @@ export function EventRewardsLoginDialog() {
                 <span className="text-main">{t("eventRewardsLoginHl")}</span>{" "}
                 {t("eventRewardsLoginP2")}
               </p>
-              <Button href={loginUrl(next)} className="mt-6" size="sm">
+              <Button
+                className="mt-6"
+                size="sm"
+                onClick={() => {
+                  setOpen(false);
+                  router.push(loginUrl(next));
+                }}
+              >
                 {t("loginNowParticipate")}
               </Button>
               <button

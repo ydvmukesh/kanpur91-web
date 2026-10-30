@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { EventRewardsLoginDialog, openEventRewardsLogin } from "@/components/EventRewardsLoginDialog";
-import { loginUrl } from "@/lib/auth/routes";
+import { openEventRewardsLogin } from "@/components/EventRewardsLoginDialog";
 import { cn } from "@/lib/cn";
 import { IMG, ImgIcon, TabMaskIcon } from "@/lib/img";
 import { useAuth } from "@/hooks/useAuth";
@@ -20,9 +19,6 @@ export function BottomNav() {
     { href: "/promotion", label: t("promotion"), icon: IMG.tabPromotion },
     { href: "/account", label: t("account"), icon: IMG.tabAccount },
   ];
-  const hrefFor = (href: string) =>
-    !user && href !== "/home" && href !== "/activity" ? loginUrl(href) : href;
-
   return (
     <nav className="shrink-0 z-40 overflow-visible bg-white border-t border-line pb-safe-b">
       <ul className="grid grid-cols-5 h-16">
@@ -32,7 +28,7 @@ export function BottomNav() {
             return (
               <li key={`center-${idx}`} className="relative z-10">
                 <Link
-                  href={hrefFor(item.href)}
+                  href={item.href}
                   className="absolute inset-x-0 bottom-5 flex items-end justify-center h-[6rem]"
                 >
                   <ImgIcon src={IMG.wheel} alt="" className="h-[5.75rem] w-[5.75rem] object-contain" />
@@ -43,20 +39,20 @@ export function BottomNav() {
               </li>
             );
           }
-          const guestAccount = !user && item.href === "/account";
+          const guestGate = !user && item.href === "/account";
           const cls = cn(
             "h-full w-full flex flex-col items-center justify-center gap-0.5 text-11",
             active ? "text-main font-semibold" : "text-muted",
           );
           return (
             <li key={item.href + item.label}>
-              {guestAccount ? (
-                <button type="button" className={cls} onClick={() => openEventRewardsLogin("/account")}>
+              {guestGate ? (
+                <button type="button" className={cls} onClick={() => openEventRewardsLogin(item.href)}>
                   <TabMaskIcon src={item.icon as string} active={active} />
                   {item.label}
                 </button>
               ) : (
-                <Link href={hrefFor(item.href)} className={cls}>
+                <Link href={item.href} className={cls}>
                   <TabMaskIcon src={item.icon as string} active={active} />
                   {item.label}
                 </Link>
@@ -65,7 +61,6 @@ export function BottomNav() {
           );
         })}
       </ul>
-      <EventRewardsLoginDialog />
     </nav>
   );
 }

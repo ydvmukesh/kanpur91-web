@@ -7,6 +7,7 @@ import { useRealtime } from "@/hooks/useRealtime";
 import { StoreProvider } from "@/lib/store";
 import { createQueryClient } from "@/lib/query/client";
 import { PwaBoot } from "./PwaBoot";
+import { EventRewardsLoginDialog } from "./EventRewardsLoginDialog";
 import { AuthGuard, Settler, ToastHost } from "./System";
 
 function RealtimeGate() {
@@ -31,6 +32,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
               <Settler />
               {children}
             </AuthGuard>
+            <EventRewardsLoginDialog />
             <ToastHost />
           </div>
         </div>

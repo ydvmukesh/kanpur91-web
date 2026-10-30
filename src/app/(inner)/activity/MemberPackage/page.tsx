@@ -50,7 +50,7 @@ export default function MemberPackagePage() {
 
       <div className="relative mx-3 overflow-hidden rounded-[0.625rem] bg-white pb-4 pt-8">
         <div className="absolute top-0 left-1/2 w-[12.5rem] -translate-x-1/2">
-          <IconRuleHead className="h-8 w-full text-main" />
+          <IconRuleHead />
           <span className="absolute inset-0 grid place-items-center text-sm font-medium text-white">
             {t("eventStartTime")}
           </span>

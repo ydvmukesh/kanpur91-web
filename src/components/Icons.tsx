@@ -329,7 +329,7 @@ export function IconRound({ className = "h-3.5 w-3.5" }: { className?: string })
   );
 }
 
-export function IconRuleHead({ className = "mx-auto h-8 w-full text-main" }: { className?: string }) {
+export function IconRuleHead({ className = "mx-auto h-8 w-full max-w-60 text-main" }: { className?: string }) {
   return (
     <svg viewBox="0 0 489 60" fill="none" className={className} preserveAspectRatio="none" aria-hidden>
       <path

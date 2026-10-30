@@ -22,7 +22,7 @@ export default function PromotionRulePage() {
           {PROMOTION_RULES_HTML.map((html, i) => (
             <article key={i} className="overflow-hidden rounded-lg bg-white">
               <div className="relative">
-                <IconRuleHead className="mx-auto h-8 w-full max-w-70 text-main" />
+                <IconRuleHead  />
                 <span className="absolute inset-0 grid place-items-center text-sm font-medium text-white">{pad2(i + 1)}</span>
               </div>
               <HtmlContent

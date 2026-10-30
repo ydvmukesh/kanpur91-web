@@ -10,6 +10,7 @@ import { IMG, ImgIcon } from "@/lib/img";
 import { formatMoney } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import type { DictKey } from "@/lib/i18n";
+import { Button } from "@/components/ui";
 
 const TODAY_BONUS = 0;
 const TOTAL_BONUS = 1130.66;
@@ -54,13 +55,14 @@ export default function ActivityPage() {
       <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
         <div className="bg-main-x px-4 py-5 text-white">
           {guest ? (
-            <button
-              type="button"
+            <Button
               onClick={needLogin}
-              className="mx-auto flex h-10 w-40 items-center justify-center rounded-full bg-white text-sm font-medium text-main"
+              className="mx-auto max-w-40"
+              variant="white"
+              size="sm"
             >
               {t("login")}
-            </button>
+            </Button>
           ) : (
             <>
               <div className="grid grid-cols-2 divide-x divide-white/50">
@@ -136,7 +138,6 @@ export default function ActivityPage() {
             <Link
               key={event.slug}
               href={`/activity/ActivityDetail/${event.slug}`}
-              onClick={guest ? (e) => { e.preventDefault(); needLogin(); } : undefined}
               className="block w-full overflow-hidden rounded-lg bg-white text-left"
             >
               <ImgIcon src={event.banner} alt="" className="h-auto w-full object-cover" />

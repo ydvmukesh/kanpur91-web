@@ -30,7 +30,7 @@ export function VendorPicker({
         className="mb-3 h-10 w-full rounded-lg bg-white px-4 flex items-center justify-between text-sm text-ink"
       >
         <span className="font-medium">{current.name}</span>
-        <ChevronDown className="h-4 w-4 text-faint shrink-0" />
+        <ChevronDown className="size-5 text-muted shrink-0" />
       </button>
 
       {open && mounted
@@ -54,7 +54,7 @@ export function VendorPicker({
                       className="w-full h-14 px-4 flex items-center gap-3 border-b border-line last:border-0"
                     >
                       {on ? (
-                        <CircleCheck className="size-5 fill-main text-inverse shrink-0" />
+                        <CircleCheck className="size-6 fill-main text-inverse shrink-0" />
                       ) : (
                         <Circle className="size-5 text-faint shrink-0" />
                       )}

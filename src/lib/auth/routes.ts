@@ -8,6 +8,7 @@ export const PUBLIC_PATHS = [
   "/customer-service",
   "/home",
   "/activity",
+  "/promotion",
 ] as const;
 
 export const AUTH_ONLY_PATHS = ["/login", "/register"] as const;
@@ -19,7 +20,9 @@ export function normalizePath(pathname: string | null | undefined): string {
 }
 
 export function isPublic(pathname: string | null | undefined): boolean {
-  return (PUBLIC_PATHS as readonly string[]).includes(normalizePath(pathname));
+  const path = normalizePath(pathname);
+  if ((PUBLIC_PATHS as readonly string[]).includes(path)) return true;
+  return path.startsWith("/activity/ActivityDetail/");
 }
 
 export function isAuthOnly(pathname: string | null | undefined): boolean {

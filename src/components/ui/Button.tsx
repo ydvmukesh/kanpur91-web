@@ -11,6 +11,8 @@ const variants = {
   gold: "bg-[#f6af0b] text-white",
   outline: "border border-main bg-transparent text-main",
   ghost: "border-0 bg-transparent shadow-none text-main",
+  white: "bg-white text-main",
+
 } as const;
 
 const sizes = {

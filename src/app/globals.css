@@ -110,6 +110,9 @@
 .font-times {
   font-family: var(--font-times);
 }
+.font-serif {
+  font-family: inherit;
+}
 
 * {
   -webkit-tap-highlight-color: transparent;

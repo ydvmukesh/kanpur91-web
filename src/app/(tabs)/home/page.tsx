@@ -11,7 +11,7 @@ import { useCatalogs } from "@/hooks/queries/useCatalogs";
 import { VendorPicker } from "@/components/VendorPicker";
 import { toSlide, viewAllHref, type GameCatalog } from "@/lib/games/catalog";
 import { BANNERS, CATEGORIES, GAMES, IMG, ImgIcon } from "@/lib/img";
-import { loginUrl } from "@/lib/auth/routes";
+import { openEventRewardsLogin } from "@/components/EventRewardsLoginDialog";
 import { cn } from "@/lib/cn";
 import { formatMoney } from "@/lib/format";
 import { useWallet } from "@/hooks/useWallet";
@@ -91,12 +91,12 @@ export default function HomePage() {
   }, []);
 
   function go(href: string) {
-    if (!user) router.push(loginUrl(href));
+    if (!user) openEventRewardsLogin(href);
     else router.push(href);
   }
 
   function soon() {
-    if (!user) router.push(loginUrl());
+    if (!user) openEventRewardsLogin();
     else showToast(t("comingSoon"));
   }
 
@@ -127,13 +127,13 @@ export default function HomePage() {
           <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="h-[1.875rem] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-ink text-13 font-medium grid place-items-center"
+              className="h-[1.875rem] px-3.5 rounded-md border border-[#D8DCE6] bg-white text-ink text-sm font-bold grid place-items-center"
             >
               {t("login")}
             </Link>
             <Link
               href="/register"
-              className="h-[1.875rem] px-3.5 rounded-md bg-main text-white text-13 font-medium grid place-items-center"
+              className="h-[1.875rem] px-3.5 rounded-md bg-main text-white text-sm font-bold grid place-items-center"
             >
               {t("register")}
             </Link>
@@ -144,7 +144,7 @@ export default function HomePage() {
 
       <div className="phone-scroll flex-1 min-h-0 overflow-y-auto pb-8">
       <div className="h-9 bg-[#F3F4F8] px-3 flex items-center gap-2">
-        <ImgIcon src={IMG.notice} alt="" className="h-4 w-4 shrink-0" />
+        <ImgIcon src={IMG.notice} alt="" className="size-6 shrink-0" />
         <div className="flex-1 overflow-hidden">
           <div className="marquee text-11 text-ink">
             <span className="pr-8">{t("withdrawNotice")}</span>
@@ -242,7 +242,7 @@ export default function HomePage() {
         className="sticky top-0 z-30 bg-page px-3 py-1.5"
       >
         <div className="rounded-lg bg-[#F0F2F8] px-2 py-1.5">
-          <div className="flex items-center gap-2 overflow-x-auto phone-scroll">
+          <div className="flex items-center gap-2 overflow-x-auto phone-scroll py-1">
             {cats.map((c) => {
               const on = cat === c.key;
               return (
@@ -252,9 +252,9 @@ export default function HomePage() {
                   data-cat={c.key}
                   onClick={() => openTab(c.key)}
                   className={cn(
-                    "shrink-0 flex items-center h-10",
+                    "shrink-0 flex items-center h-9",
                     c.graphic ? "px-1.5" : "gap-0.5 px-2.5",
-                    on ? "bg-white rounded-lg shadow-[0_0.125rem_0.625rem_rgba(30,38,55,0.10)]" : "",
+                    on ? "bg-white rounded-lg shadow-xs" : "",
                   )}
                 >
                   {c.graphic ? (
@@ -269,7 +269,7 @@ export default function HomePage() {
                       <span
                         className={cn(
                           "whitespace-nowrap leading-none font-serif",
-                          on ? " text-sm font-bold text-[#1E2637]" : "text-13 text-[#6B7285]",
+                          on ? " text-sm font-semibold text-ink" : "text-13 text-muted",
                         )}
                       >
                         {c.label}
@@ -339,7 +339,7 @@ export default function HomePage() {
             games={c.games.slice(0, 20).map(toSlide)}
             detailLabel={t("detail")}
             onOpen={soon}
-            onDetail={() => router.push(viewAllHref(c))}
+            onDetail={() => openTab(c.id)}
           />
         ))}
         </>

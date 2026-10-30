@@ -22,7 +22,7 @@ export default function InvitationBonusRulePage() {
 
         <div className="mt-4 overflow-hidden rounded-lg bg-white pb-4 px-3">
           <div className="relative">
-            <IconRuleHead className="mx-auto h-8 w-75 text-main" />
+            <IconRuleHead />
             <span className="absolute inset-0 grid place-items-center text-sm font-medium text-white">{t("rules")}</span>
           </div>
           <HtmlContent html={INVITE_RULES_HTML} className="pt-3" />

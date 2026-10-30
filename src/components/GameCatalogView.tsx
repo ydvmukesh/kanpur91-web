@@ -1,13 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { GameCard } from "@/components/GameCard";
 import { InnerShell } from "@/components/layout/InnerShell";
 import { EmptyState } from "@/components/ui";
 import { useI18n } from "@/hooks/useI18n";
-import { loginUrl } from "@/lib/auth/routes";
+import { openEventRewardsLogin } from "@/components/EventRewardsLoginDialog";
 import { cn } from "@/lib/cn";
 import { filterCatalogGames, toSlide, type GameCatalog } from "@/lib/games/catalog";
 import { ImgIcon } from "@/lib/img";
@@ -18,7 +17,6 @@ export function GameCatalogView({ catalog }: { catalog: GameCatalog }) {
   const { t } = useI18n();
   const { user } = useAuth();
   const { showToast } = useStore();
-  const router = useRouter();
   const [q, setQ] = useState("");
   const [vendor, setVendor] = useState(catalog.vendors?.[0]?.id ?? "");
   const [searchOn, setSearchOn] = useState(catalog.layout === "search-grid");
@@ -30,7 +28,7 @@ export function GameCatalogView({ catalog }: { catalog: GameCatalog }) {
   );
 
   function open() {
-    if (!user) router.push(loginUrl());
+    if (!user) openEventRewardsLogin();
     else showToast(t("comingSoon"));
   }
 
