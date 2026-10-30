@@ -467,23 +467,3 @@ button:disabled.bg-btn-disabled {
   word-break: break-all;
 }
 
-.promotion-hero {
-   padding-top: 1.40625rem;
-  background-image: url(/activity/promotion-bg.png), var(--main_gradient-color);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover, 100% 100%;
-}
-
-.daily-signin-btn {
-  width: 8.28125rem;
-  height: 1.875rem;
-  padding: 0.4375rem 0;
-  color: #fff;
-  font-size: 0.8125rem;
-  line-height: 0.75rem;
-  border: none;
-  border-radius: 21.09375rem;
-  background: linear-gradient(180deg, #ffbd40, #ff7f3d);
-  cursor: pointer;
-}

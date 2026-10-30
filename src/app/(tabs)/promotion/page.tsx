@@ -67,7 +67,7 @@ export default function PromotionPage() {
       </div>
 
       <div className="phone-scroll flex-1 min-h-0 overflow-y-auto pb-12">
-        <div className="promotion-hero pb-26 text-white relative flex flex-col items-center h-auto">
+        <div className="relative flex h-auto flex-col items-center bg-[image:url(/activity/promotion-bg.png),var(--main_gradient-color)] bg-center bg-no-repeat [background-size:cover,100%_100%] pb-26 pt-22.5 text-white">
           <p className="text-[1.75rem] font-bold leading-none">0</p>
           <p className="mt-2 rounded-full bg-white px-3 py-1 text-xs font-medium text-main">
             {t("yesterdayTotalCommission")}

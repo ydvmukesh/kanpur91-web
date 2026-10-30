@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CalendarDays, ChevronDown } from "lucide-react";
+import { RangeCalendarSheet } from "@/components/ui/RangeCalendarSheet";
 import { WheelPicker } from "@/components/ui/WheelPicker";
 import { WheelPickerSheet, type PickerOption } from "@/components/ui/WheelPickerSheet";
 import { useI18n } from "@/hooks/useI18n";
@@ -104,15 +105,47 @@ export function DateSelect({
   onChange,
   className,
   calendar = true,
+  range = false,
 }: {
   value: string;
   onChange: (date: string) => void;
   className?: string;
   calendar?: boolean;
+  range?: boolean;
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(splitDate(value));
+
+  if (range) {
+    return (
+      <>
+        <FieldShell
+          className={className}
+          onClick={() => setOpen(true)}
+          trailing={
+            calendar ? (
+              <div className="flex shrink-0 items-center gap-1.5">
+                <CalendarDays className="h-5 w-5 shrink-0 text-muted" />
+                <ChevronDown className="h-5 w-5 shrink-0 text-muted" />
+              </div>
+            ) : undefined
+          }
+        >
+          <span className={cn("min-w-0 truncate", value ? "text-ink" : "text-faint")}>{value || t("chooseDate")}</span>
+        </FieldShell>
+        <RangeCalendarSheet
+          open={open}
+          value={value}
+          onConfirm={(next) => {
+            onChange(next);
+            setOpen(false);
+          }}
+          onClose={() => setOpen(false)}
+        />
+      </>
+    );
+  }
   const maxYear = currentYear();
   const startYear = Math.min(2022, maxYear);
   const years = Array.from({ length: maxYear - startYear + 1 }, (_, i) => {
@@ -175,6 +208,7 @@ export function FilterDateRow({
   date,
   onDateChange,
   className,
+  range = false,
 }: {
   value: string;
   onChange: (id: string) => void;
@@ -182,11 +216,12 @@ export function FilterDateRow({
   date: string;
   onDateChange: (date: string) => void;
   className?: string;
+  range?: boolean;
 }) {
   return (
     <div className={cn("grid grid-cols-2 gap-2", className)}>
       <FilterSelect value={value} onChange={onChange} options={options} />
-      <DateSelect value={date} onChange={onDateChange} />
+      <DateSelect value={date} onChange={onDateChange} range={range} />
     </div>
   );
 }

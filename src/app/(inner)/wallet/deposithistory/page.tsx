@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Copy, LayoutGrid, QrCode } from "lucide-react";
 import { InnerShell } from "@/components/layout/InnerShell";
-import { Button, EmptyState, FilterDateRow } from "@/components/ui";
+import { Button, EmptyState, FilterDateRow, padLooseDate } from "@/components/ui";
 import { useTxns } from "@/hooks/queries/useTxns";
 import { useI18n } from "@/hooks/useI18n";
 import { IMG, ImgIcon } from "@/lib/img";
@@ -45,7 +45,13 @@ export default function DepositHistoryPage() {
       list.filter((x) => {
         if (!matchesTab(x.method, tab)) return false;
         if (status !== "all" && x.status !== status) return false;
-        if (date && !x.createdAt.startsWith(date)) return false;
+        if (date) {
+          const [fromRaw, toRaw] = date.split("/");
+          const from = padLooseDate(fromRaw ?? date).slice(0, 10);
+          const to = padLooseDate(toRaw ?? fromRaw ?? date).slice(0, 10);
+          const day = x.createdAt.slice(0, 10);
+          if (day < from || day > to) return false;
+        }
         return true;
       }),
     [list, tab, status, date],
@@ -94,6 +100,7 @@ export default function DepositHistoryPage() {
             </div>
             <FilterDateRow
               className="mt-3"
+              range
               value={status}
               onChange={setStatus}
               options={statusOptions}

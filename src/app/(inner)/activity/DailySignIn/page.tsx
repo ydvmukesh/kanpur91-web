@@ -12,6 +12,9 @@ import { IMG, ImgIcon } from "@/lib/img";
 import { errMsg } from "@/lib/query/sync";
 import { useStore } from "@/lib/store";
 
+const signinBtn =
+  "grid h-[1.875rem] w-[8.28125rem] cursor-pointer place-items-center rounded-[21.09375rem] border-0 bg-[linear-gradient(180deg,#ffbd40,#ff7f3d)] py-[0.4375rem] text-[0.8125rem] leading-[0.75rem] text-white no-underline";
+
 export default function DailySignInPage() {
   const { t } = useI18n();
   const { user } = useAuth();
@@ -44,17 +47,17 @@ export default function DailySignInPage() {
       >
         <h2 className="text-lg font-medium leading-tight">{t("attendance")}</h2>
         <p className="mt-1 text-xs leading-snug text-white/90">{t("attendanceBonusLead")}</p>
-        <p className="daily-signin-chip mt-2.5">
+        <p className="daily-signin-chip inline-block text-sm font-medium text-main bg-white my-2.5">
           {t("attendedConsecutively")}{" "}
           <span className="font-semibold text-red-norm">{streak}</span> {t("dayUnit")}
         </p>
         <p className="text-xs text-white/90">{t("accumulated")}</p>
         <p className="text-lg font-bold">₹{formatMoney(signinAccumulated(streak))}</p>
         <div className="mt-3 flex gap-5">
-          <Link href="/activity/DailySignIn/Rules" className="daily-signin-btn grid place-items-center no-underline">
+          <Link href="/activity/DailySignIn/Rules" className={signinBtn}>
             {t("gameRules")}
           </Link>
-          <Link href="/activity/DailySignIn/Record" className="daily-signin-btn grid place-items-center no-underline">
+          <Link href="/activity/DailySignIn/Record" className={signinBtn}>
             {t("attendanceHistory")}
           </Link>
         </div>
