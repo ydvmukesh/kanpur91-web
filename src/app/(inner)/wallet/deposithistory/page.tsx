@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Copy, LayoutGrid, QrCode } from "lucide-react";
 import { InnerShell } from "@/components/layout/InnerShell";
+import { Sheet } from "@/components/layout/Sheet";
 import { Button, EmptyState, FilterDateRow, padLooseDate } from "@/components/ui";
 import { useTxns } from "@/hooks/queries/useTxns";
 import { useI18n } from "@/hooks/useI18n";
@@ -32,6 +33,8 @@ export default function DepositHistoryPage() {
   const [tab, setTab] = useState<Tab>("all");
   const [status, setStatus] = useState("all");
   const [date, setDate] = useState("");
+  const [utrTxn, setUtrTxn] = useState<Txn | null>(null);
+  const [utr, setUtr] = useState("");
 
   const statusOptions = [
     { id: "all", label: t("all") },
@@ -68,6 +71,7 @@ export default function DepositHistoryPage() {
   ];
 
   return (
+    <>
       <InnerShell
         title={t("depositHistory")}
         variant="light"
@@ -120,12 +124,32 @@ export default function DepositHistoryPage() {
                 void copyText(x.id);
                 showToast(t("copied"), "copy");
               }}
-              onVoucher={() => showToast(t("comingSoon"))}
+              onVoucher={() => {
+                setUtr("");
+                setUtrTxn(x);
+              }}
             />
           ))}
           {filtered.length > 0 ? <p className="pt-3 text-center text-sm text-ink">{t("noMore")}</p> : null}
         </div>
       </InnerShell>
+      {utrTxn ? (
+        <UtrSheet
+          x={utrTxn}
+          utr={utr}
+          onUtr={setUtr}
+          onClose={() => setUtrTxn(null)}
+          onSubmit={() => {
+            if (utr.replace(/\D/g, "").length !== 12) {
+              showToast(t("utrPlaceholder"));
+              return;
+            }
+            showToast(t("copied"), "success");
+            setUtrTxn(null);
+          }}
+        />
+      ) : null}
+    </>
   );
 }
 
@@ -157,12 +181,68 @@ export default function DepositHistoryPage() {
           <Copy className="h-3.5 w-3.5" />
         </button>
       </div>
-      {x.status === "pending" ? (
-        <Button className="mt-3"  size="sm" onClick={onVoucher}>
-          {t("submitDepositVoucher")}
+      {x.status === "pending" || x.status === "rejected" ? (
+        <Button className="mt-3" size="xs" onClick={onVoucher}>
+          {t("submitUtr")}
         </Button>
       ) : null}
     </div>
+  );
+}
+
+function UtrSheet({
+  x,
+  utr,
+  onUtr,
+  onClose,
+  onSubmit,
+}: {
+  x: Txn;
+  utr: string;
+  onUtr: (v: string) => void;
+  onClose: () => void;
+  onSubmit: () => void;
+}) {
+  const { t } = useI18n();
+  return (
+    <Sheet onClose={onClose}>
+      <div className="phone-scroll max-h-[70vh] overflow-y-auto">
+        <div className="relative mb-4 flex h-10 items-center justify-between">
+          <button
+            type="button"
+            className="rounded-full border border-line px-4 py-1.5 text-13 text-ink"
+            onClick={onClose}
+          >
+            {t("cancel")}
+          </button>
+          <p className="pointer-events-none absolute inset-x-20 text-center text-sm font-semibold text-ink">
+            {t("submitUtr")}
+          </p>
+          <button
+            type="button"
+            className="rounded-full bg-main-x px-4 py-1.5 text-13 font-medium text-white"
+            onClick={onSubmit}
+          >
+            {t("submit")}
+          </button>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="shrink-0 text-sm text-ink">{t("utr")}</span>
+          <input
+            value={utr}
+            inputMode="numeric"
+            maxLength={12}
+            placeholder={t("utrPlaceholder")}
+            onChange={(e) => onUtr(e.target.value.replace(/\D/g, "").slice(0, 12))}
+            className="h-10 min-w-0 flex-1 rounded-full bg-bg-l3 px-4 text-sm text-ink outline-none placeholder:text-faint"
+          />
+        </div>
+        <Row k={t("balance")} v={`₹${formatMoney(x.amount)}`} valueClass="text-secondary font-semibold" />
+        <Row k={t("typeLabel")} v={x.method} />
+        <Row k={t("timeLabel")} v={x.createdAt} />
+        <Row k={t("orderNumber")} v={x.id} />
+      </div>
+    </Sheet>
   );
 }
 

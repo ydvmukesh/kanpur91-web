@@ -20,10 +20,7 @@ const RANGE_CLASS_NAMES = {
   weekdays: cn(rdp.weekdays, "sticky top-0 z-[2] grid w-full grid-cols-7 gap-0 bg-white pb-1"),
   day: cn(rdp.day, "w-auto min-w-0 p-0"),
   weekday: cn(rdp.weekday, "w-auto min-w-0 p-0 text-center text-xs font-medium text-muted"),
-  month_caption: cn(rdp.month_caption, "justify-center !font-semibold !text-ink"),
-  range_middle: cn(rdp.range_middle, "!bg-blue-norm/20"),
-  range_start: cn(rdp.range_start, "bg-transparent"),
-  range_end: cn(rdp.range_end, "bg-transparent"),
+  month_caption: cn(rdp.month_caption, "justify-center font-semibold text-ink"),
 };
 
 function today() {
@@ -123,6 +120,7 @@ export function RangeCalendarSheet({
               defaultMonth={CAL_START}
               hideNavigation
               disabled={{ before: CAL_START, after: now }}
+              className="w-full max-w-none"
               classNames={RANGE_CLASS_NAMES}
               formatters={{
                 formatCaption: (date) => `${date.getFullYear()}/${date.getMonth() + 1}`,
@@ -140,19 +138,27 @@ export function RangeCalendarSheet({
                     {children}
                   </div>
                 ),
+                Day: ({ day: _day, modifiers, className, ...rest }) => {
+                  const single = Boolean(modifiers.range_start && modifiers.range_end);
+                  return (
+                    <td
+                      {...rest}
+                      className={cn(
+                        single ? className?.replace(/\brdp-range_end\b/g, "") : className,
+                        single && "range-cal-single",
+                      )}
+                    />
+                  );
+                },
                 DayButton: ({ day, modifiers, className, ...rest }) => (
                   <button
                     {...rest}
                     type="button"
                     className={cn(
-                      "relative z-[1] flex h-11 w-full flex-col items-center justify-center !text-15 !font-medium",
+                      "relative z-[1] flex flex-col items-center justify-center !text-15 !font-medium",
                       modifiers.disabled && "text-faint",
                       modifiers.today && !modifiers.selected && "!text-main",
-                      modifiers.range_middle && "!rounded-none bg-transparent",
                       className,
-                      (modifiers.range_start || modifiers.range_end) &&
-                        "!h-10 !rounded-lg !bg-main !text-white",
-                      modifiers.range_middle && "!text-[#1989fa]",
                     )}
                   >
                     {day.date.getDate()}

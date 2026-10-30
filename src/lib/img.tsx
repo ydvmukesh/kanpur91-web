@@ -1,3 +1,5 @@
+import { cn } from "@/lib/cn";
+
 export const IMG = {
   brand: "/logo/logo.png",
   redBrand: "/logo/redlogo.png",
@@ -68,6 +70,10 @@ export const IMG = {
   wingoTimeActive: "/wingo/time-active.png",
   downloadBanner: "/download/download-banner.png",
   totalAssetsBg: "/wallet/total-assets-bg.png",
+  walletDeposit: "/wallet/recharge-icon.png",
+  walletWithdraw: "/wallet/withdraw-blue.png",
+  walletDepositHistory: "/wallet/recharge-history.png",
+  walletWithdrawHistory: "/wallet/withdraw-history.png",
   homeWithdrawBtn: "/home/withdraw-btn.svg",
   homeRechargeBtn: "/home/recharge-btn.svg",
   withdrawBank: "/wallet/withdraw/bank-card.png",
@@ -75,6 +81,13 @@ export const IMG = {
   withdrawUpi: "/wallet/withdraw/upi.png",
   withdrawUsdt: "/wallet/withdraw/usdt.png",
   withdrawArb: "/wallet/withdraw/arb.png",
+  statsLottery: "/main/game-stats/lottery.svg",
+  statsVideo: "/main/game-stats/video.svg",
+  statsSlots: "/main/game-stats/slots.svg",
+  statsFish: "/main/game-stats/fish.svg",
+  statsSport: "/main/game-stats/sport.svg",
+  statsChess: "/main/game-stats/chess.svg",
+  statsSteps: "/main/game-stats/steps.svg",
 } as const;
 
 export const WINGO_BALLS = [
@@ -328,11 +341,19 @@ export function ImgIcon({
   );
 }
 
-export function TabMaskIcon({ src, active }: { src: string; active?: boolean }) {
+export function TabMaskIcon({
+  src,
+  active,
+  className,
+}: {
+  src: string;
+  active?: boolean;
+  className?: string;
+}) {
   return (
     <span
       aria-hidden
-      className="block h-5.5 w-5.5"
+      className={cn("block size-5.5", className)}
       style={{
         backgroundColor: active ? "var(--color-main)" : "#768096",
         WebkitMaskImage: `url(${src})`,

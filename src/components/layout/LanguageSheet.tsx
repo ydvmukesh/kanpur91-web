@@ -1,8 +1,10 @@
 "use client";
 
+import { CircleCheck } from "lucide-react";
 import { FlagIN, FlagUS } from "@/components/Icons";
 import { Sheet } from "@/components/layout/Sheet";
 import { cn } from "@/lib/cn";
+import { LANGUAGES } from "@/lib/languages";
 import { useStore } from "@/lib/store";
 
 export function LanguageSheet({ onClose }: { onClose: () => void }) {
@@ -10,30 +12,30 @@ export function LanguageSheet({ onClose }: { onClose: () => void }) {
 
   return (
     <Sheet onClose={onClose}>
-      <p className="text-center font-semibold text-ink mb-3">{t("language")}</p>
-      {(
-        [
-          { id: "en" as const, label: t("english"), flag: <FlagUS /> },
-          { id: "hd" as const, label: t("hindi"), flag: <FlagIN /> },
-        ] as const
-      ).map((opt) => (
-        <button
-          key={opt.id}
-          type="button"
-          onClick={() => {
-            setLang(opt.id);
-            onClose();
-          }}
-          className={cn(
-            "w-full h-12 flex items-center gap-3 px-2 rounded-lg text-sm",
-            lang === opt.id ? "text-main" : "text-ink",
-          )}
-        >
-          {opt.flag}
-          {opt.label}
-          <span className="ml-auto text-main">{lang === opt.id ? "✓" : ""}</span>
-        </button>
-      ))}
+      <p className="mb-3 text-center font-semibold text-ink">{t("language")}</p>
+      {LANGUAGES.map((opt) => {
+        const on = lang === opt.id;
+        return (
+          <button
+            key={opt.id}
+            type="button"
+            onClick={() => {
+              setLang(opt.id);
+              onClose();
+            }}
+            className={cn(
+              "flex h-12 w-full items-center gap-3 rounded-lg px-2 text-sm",
+              on ? "text-main" : "text-ink",
+            )}
+          >
+            {opt.flag === "us" ? <FlagUS /> : <FlagIN />}
+            {opt.name}
+            <span className="ml-auto grid size-5 place-items-center">
+              {on ? <CircleCheck className="size-5 fill-main text-inverse" /> : null}
+            </span>
+          </button>
+        );
+      })}
     </Sheet>
   );
 }

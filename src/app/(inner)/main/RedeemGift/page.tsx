@@ -52,7 +52,7 @@ export default function RedeemGiftPage() {
       </div>
 
       <div className="relative z-10 -mt-10 px-3 pb-8">
-        <div className="rounded-lg bg-white px-2.5 py-3">
+        <div className="rounded-lg bg-white p-4">
           <h4 className="text-base font-bold text-ink">{t("enterGiftCodeBelow")}</h4>
           <input
             type="text"
@@ -62,7 +62,7 @@ export default function RedeemGiftPage() {
             placeholder={t("enterGiftCode")}
             className="mt-3.5 h-[2.125rem] w-full rounded-lg bg-bg-l1 px-3.5 text-sm text-ink outline-none placeholder:text-faint"
           />
-          <Button className="mt-5" size="sm" disabled={busy} onClick={() => void onReceive()}>
+          <Button className="mt-5" size="xs" disabled={busy} onClick={() => void onReceive()}>
             {t("redeem")}
           </Button>
         </div>

@@ -2,13 +2,36 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { CreditCard, FolderOpen, Gem, Wallet } from "lucide-react";
+import {
+  BarChart3,
+  Bookmark,
+  BookOpen,
+  Box,
+  ChevronRight,
+  ClipboardList,
+  CreditCard,
+  Flower2,
+  FolderOpen,
+  Gem,
+  Gift,
+  Globe,
+  Headphones,
+  Mail,
+  Megaphone,
+  Power,
+  ReceiptText,
+  ScrollText,
+  Settings,
+  Ticket,
+  Wallet,
+} from "lucide-react";
 import { IconCopy, IconRefresh } from "@/components/Icons";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/hooks/useI18n";
 import { useWallet } from "@/hooks/useWallet";
 import { copyText, formatMoney, pad2 } from "@/lib/format";
 import { IMG, ImgIcon } from "@/lib/img";
+import { languageName } from "@/lib/languages";
 import { useStore } from "@/lib/store";
 
 function stamp(d: Date) {
@@ -16,9 +39,9 @@ function stamp(d: Date) {
 }
 
 export default function AccountPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { showToast } = useStore();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { recycle } = useWallet();
   const [loginAt, setLoginAt] = useState("");
 
@@ -37,7 +60,7 @@ export default function AccountPage() {
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="phone-scroll min-h-0 flex-1 overflow-y-auto pb-8">
+      <div className="phone-scroll min-h-0 flex-1 overflow-y-auto pb-14">
         <header className="">
           <div className="flex items-center bg-main-x px-4 pb-16 pt-safe pt-10 pb-30 text-white  gap-3  rounded-b-3xl ">
             <div className="grid h-[4.25rem] w-[4.25rem] shrink-0 place-items-center overflow-hidden rounded-full bg-white">
@@ -50,7 +73,7 @@ export default function AccountPage() {
               </div>
               <button
                 type="button"
-                className="mt-1 flex items-center gap-1.5 text-13 text-white/90"
+                className="mt-1 flex items-center gap-1.5 text-13 text-white/90 bg-[#FEAA57] rounded-full px-1.5 py-0.5"
                 onClick={() => {
                   void copyText(user.uid);
                   showToast(t("copied"), "copy");
@@ -59,11 +82,13 @@ export default function AccountPage() {
                 {t("uid")}
                 <span className="text-white/70">|</span>
                 {user.uid}
-                <span className="text-secondary">
+                <span className="text-white">
                   <IconCopy />
                 </span>
               </button>
-              {loginAt ? <p className="mt-1 text-11 text-white/80">{t("lastLogin", { t: loginAt })}</p> : null}
+              <p className="mt-1 h-4 text-11 leading-4 text-white/90">
+                {loginAt ? t("lastLogin", { t: loginAt }) : "\u00a0"}
+              </p>
             </div>
           </div>
         </header>
@@ -74,13 +99,13 @@ export default function AccountPage() {
               <p className="text-13 text-muted">{t("totalBalance")}</p>
               <div className="mt-1 flex items-center gap-2">
                 <p className="text-xl font-semibold text-ink">₹{formatMoney(user.balance)}</p>
-                <button type="button" className="text-faint" onClick={() => recycle()} aria-label={t("recycle")}>
+                <button type="button" className="text-muted" onClick={() => recycle()} aria-label={t("recycle")}>
                   <IconRefresh className="h-4 w-4" />
                 </button>
               </div>
             </div>
             <Link
-              href="/wallet/deposit"
+              href="/wallet"
               className="shrink-0 rounded-full bg-main px-3.5 py-1.5 text-13 font-medium text-white"
             >
               {t("enterWallet")}
@@ -115,6 +140,146 @@ export default function AccountPage() {
             })}
           </div>
         </div>
+
+        <div className="mx-3 mt-3 grid grid-cols-2 gap-2">
+          {[
+            {
+              href: "/main/gameHistory",
+              title: t("gameHistory"),
+              sub: t("myGameHistory"),
+              icon: <ScrollText className="h-6 w-6 text-blue-norm" />,
+            },
+            {
+              href: "/wallet/TransAction",
+              title: t("transaction"),
+              sub: t("myTransactionHistory"),
+              icon: <ReceiptText className="h-6 w-6 text-green-norm" />,
+            },
+            {
+              href: "/wallet/depositHistory",
+              title: t("deposit"),
+              sub: t("myDepositHistory"),
+              icon: <Bookmark className="h-6 w-6 text-main" />,
+            },
+            {
+              href: "/wallet/withdrawHistory",
+              title: t("withdraw"),
+              sub: t("myWithdrawHistory"),
+              icon: <FolderOpen className="h-6 w-6 text-secondary" />,
+            },
+          ].map((card) => {
+            const inner = (
+              <div className="flex items-center gap-2">
+                <span className="grid h-8 w-8 shrink-0 place-items-center">{card.icon}</span>
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium text-ink">{card.title}</p>
+                  <p className="truncate text-11 text-muted">{card.sub}</p>
+                </div>
+              </div>
+            );
+            const cls = "rounded-lg bg-white px-3 py-3";
+            return (
+              <Link key={card.title} href={card.href} className={cls}>
+                {inner}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mx-3 mt-3 overflow-hidden rounded-lg bg-white">
+          {[
+            { href: "/notifications", label: t("notification"), icon: <Mail className="h-5 w-5 text-main" /> },
+            { href: "/main/RedeemGift", label: t("gift"), icon: <Gift className="h-5 w-5 text-main" /> },
+            { href: "/main/RechargeCoupon", label: t("myTopUpCoupons"), icon: <Ticket className="h-5 w-5 text-main" /> },
+            { href: "/main/GameStats", label: t("gameStatistics"), icon: <BarChart3 className="h-5 w-5 text-main" /> },
+          ].map((row, i) => {
+            const inner = (
+              <>
+                <span className="grid h-8 w-8 shrink-0 place-items-center">{row.icon}</span>
+                <span className="min-w-0 flex-1 text-left text-15 text-ink">{row.label}</span>
+                <ChevronRight className="h-5 w-5 text-muted" />
+              </>
+            );
+            const cls = `flex w-full items-center gap-1 px-3 py-3.5 text-left ${i > 0 ? "border-t border-line" : ""}`;
+            if (!row.href) {
+              return (
+                <button
+                  key={row.label}
+                  type="button"
+                  className={cls}
+                  onClick={() => showToast(t("comingSoon"))}
+                >
+                  {inner}
+                </button>
+              );
+            }
+            return (
+              <Link key={row.label} href={row.href} className={cls}>
+                {inner}
+              </Link>
+            );
+          })}
+          <Link
+            href="/main/Language"
+            className="flex w-full items-center gap-2 border-t border-line px-3 py-3.5"
+          >
+            <span className="grid h-7 w-7 shrink-0 place-items-center">
+              <Globe className="h-5 w-5 text-main" />
+            </span>
+            <span className="min-w-0 flex-1 text-left text-15 text-ink">{t("language")}</span>
+            <span className="text-sm text-ink">{languageName(lang)}</span>
+            <ChevronRight className="h-5 w-5 text-muted" />
+          </Link>
+        </div>
+
+        <div className="mx-3 mt-3 rounded-lg bg-white px-3 py-3">
+          <p className="mb-3 text-base font-medium text-ink">{t("serviceCenter")}</p>
+          <div className="grid grid-cols-3 gap-y-4">
+            {[
+              { href: undefined as string | undefined, label: t("settings"), icon: Settings },
+              { href: undefined, label: t("feedback"), icon: ClipboardList },
+              { href: undefined, label: t("announcement"), icon: Megaphone },
+              { href: "/promotion/customerService", label: t("customerService"), icon: Headphones },
+              { href: undefined, label: t("guide"), icon: BookOpen },
+              { href: undefined, label: t("about"), icon: Box },
+            ].map((item) => {
+              const Icon = item.icon;
+              const inner = (
+                <>
+                  <Icon className="h-7 w-7 text-main" strokeWidth={1.6} />
+                  <span className="mt-1 text-center text-11 text-muted">{item.label}</span>
+                </>
+              );
+              const cls = "flex flex-col items-center";
+              if (!item.href) {
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    className={cls}
+                    onClick={() => showToast(t("comingSoon"))}
+                  >
+                    {inner}
+                  </button>
+                );
+              }
+              return (
+                <Link key={item.label} href={item.href} className={cls}>
+                  {inner}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="mx-3 mt-4 mb-4 flex h-11 w-[calc(100%-1.5rem)] items-center justify-center gap-2 rounded-full border border-main text-sm font-medium text-main"
+          onClick={() => logout()}
+        >
+          <Power className="h-5 w-5" />
+          {t("logout")}
+        </button>
       </div>
     </div>
   );

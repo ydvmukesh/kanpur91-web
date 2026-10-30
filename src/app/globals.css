@@ -453,6 +453,56 @@ button:disabled.bg-btn-disabled {
   -webkit-text-fill-color: transparent;
 }
 
+.range-cal .rdp-root {
+  --rdp-today-color: var(--main-color);
+  --rdp-range_start-background: none;
+  --rdp-range_end-background: none;
+  --rdp-selected-border: none;
+  --rdp-day_button-border: none;
+  --rdp-day-width: 100%;
+  --rdp-day_button-width: 100%;
+  --rdp-day-height: 2.75rem;
+  --rdp-day_button-height: 2.75rem;
+  --rdp-day_button-border-radius: 0;
+  width: 100%;
+  max-width: none;
+}
+.range-cal .rdp-today:not(.rdp-outside) {
+  color: var(--main-color);
+}
+.range-cal .rdp-today:not(.rdp-outside):not(.rdp-range_start):not(.rdp-range_end) .rdp-day_button {
+  color: var(--main-color);
+}
+.range-cal .rdp-range_start,
+.range-cal .rdp-range_end {
+  background: none !important;
+}
+.range-cal .rdp-range_middle {
+  background-color: #1989fa1b !important;
+}
+.range-cal .rdp-range_middle .rdp-day_button {
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #1989fa !important;
+}
+.range-cal .rdp-range_start .rdp-day_button,
+.range-cal .rdp-range_end .rdp-day_button {
+  width: 100% !important;
+  height: 2.75rem !important;
+  border: none !important;
+  background: var(--main-color) !important;
+  color: #fff !important;
+}
+.range-cal .rdp-range_start .rdp-day_button {
+  border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.range-cal .rdp-range_end .rdp-day_button {
+  border-radius: 0 0.25rem 0.25rem 0 !important;
+}
+.range-cal .range-cal-single .rdp-day_button {
+  border-radius: 0.5rem !important;
+}
 .daily-signin-chip {
   display: inline-block;
   width: 12.5rem;

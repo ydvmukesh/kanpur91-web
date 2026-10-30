@@ -126,13 +126,13 @@ export function DateSelect({
           trailing={
             calendar ? (
               <div className="flex shrink-0 items-center gap-1.5">
-                <CalendarDays className="h-5 w-5 shrink-0 text-muted" />
+                <CalendarDays className="h-4 w-4 shrink-0 text-muted" />
                 <ChevronDown className="h-5 w-5 shrink-0 text-muted" />
               </div>
             ) : undefined
           }
         >
-          <span className={cn("min-w-0 truncate", value ? "text-ink" : "text-faint")}>{value || t("chooseDate")}</span>
+          <span className={cn("min-w-0 truncate", value ? "text-ink" : "text-muted")}>{value || t("chooseDate")}</span>
         </FieldShell>
         <RangeCalendarSheet
           open={open}
@@ -174,7 +174,7 @@ export function DateSelect({
         trailing={
           calendar ? (
             <div className="flex shrink-0 items-center gap-1.5">
-              <CalendarDays className="h-5 w-5 shrink-0 text-muted" />
+              <CalendarDays className="h-4 w-4 shrink-0 text-muted" />
               <ChevronDown className="h-5 w-5 shrink-0 text-muted" />
             </div>
           ) : undefined

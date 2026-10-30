@@ -98,12 +98,12 @@ export function ToastHost() {
       {view.kind === "copy" || view.kind === "warn" ? (
         <div
           className={cn(
-            "app-toast flex flex-col items-center justify-center rounded-[0.5rem] bg-[rgba(0,0,0,0.7)] text-white",
-            view.kind === "copy" ? "h-[7.5rem] w-[7.5rem] px-2" : "min-h-[7.5rem] w-[14.5rem] px-3 py-4",
+            "app-toast flex flex-col items-center justify-center rounded-[0.75rem] bg-[rgba(0,0,0,0.7)] text-white",
+            view.kind === "copy" ? "h-[7.5rem] w-[7.5rem] rounded-[0.5rem] px-2" : "h-[10.625rem] w-[8.75rem] px-3 py-5",
             shown && "is-in",
           )}
         >
-          {view.kind === "copy" ? <Check className="h-8 w-8" /> : <span className="text-[2rem] leading-none font-light">!</span>}
+          {view.kind === "copy" ? <Check className="h-8 w-8" /> : <span className="text-[2.5rem] leading-none font-light">!</span>}
           <p className="mt-3 text-center text-sm leading-snug whitespace-pre-line">{view.text}</p>
         </div>
       ) : (

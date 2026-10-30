@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { LayoutGrid } from "lucide-react";
 import { InnerShell } from "@/components/layout/InnerShell";
-import { EmptyState, FilterDateRow } from "@/components/ui";
+import { EmptyState, FilterDateRow, padLooseDate } from "@/components/ui";
 import { useTxns } from "@/hooks/queries/useTxns";
 import { useI18n } from "@/hooks/useI18n";
 import { IMG, ImgIcon } from "@/lib/img";
@@ -42,7 +42,13 @@ export default function WithdrawHistoryPage() {
     return list.filter((row) => {
       if (!matchesTab(row.method, tab)) return false;
       if (status !== "all" && row.status !== status) return false;
-      if (date && !row.createdAt.startsWith(date)) return false;
+      if (date) {
+        const [fromRaw, toRaw] = date.split("/");
+        const from = padLooseDate(fromRaw ?? date).slice(0, 10);
+        const to = padLooseDate(toRaw ?? fromRaw ?? date).slice(0, 10);
+        const day = row.createdAt.slice(0, 10);
+        if (day < from || day > to) return false;
+      }
       return true;
     });
   }, [list, tab, status, date]);
@@ -83,6 +89,7 @@ export default function WithdrawHistoryPage() {
           </div>
           <FilterDateRow
             className="mt-3"
+            range
             value={status}
             onChange={setStatus}
             options={statusOptions}
