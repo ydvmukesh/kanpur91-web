@@ -29,7 +29,7 @@ export function Checkbox({
             checked ? "border-main bg-main text-white" : "border-faint bg-white",
           )}
         >
-          {checked ? <IconCheck className="h-2.5 w-2.5" /> : null}
+          {checked ? <IconCheck className="h-3 w-3" /> : null}
         </span>
       </button>
       {children}

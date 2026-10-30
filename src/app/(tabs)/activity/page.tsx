@@ -23,7 +23,7 @@ export default function ActivityPage() {
     { href: "/main/InvitationBonus", src: IMG.actInvite, label: "invitationBonus" },
     { href: "/main/Laundry", src: IMG.actRebate, label: "bettingRebate" },
     { href: "/main/SuperJackpot", src: IMG.actJackpot, label: "superJackpot" },
-    { src: IMG.actFirstGift, label: "firstGift" },
+    { href: "/activity/MemberPackage", src: IMG.actFirstGift, label: "firstGift" },
     { src: IMG.actWheel, label: "inviteWheel", dot: true },
   ];
 
@@ -84,20 +84,20 @@ export default function ActivityPage() {
         </div>
 
         <div className="mt-5 grid grid-cols-2 items-stretch gap-3">
-          <button type="button" onClick={soon} className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
+          <Link href="/main/RedeemGift" className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
             <ImgIcon src={IMG.actGiftsBanner} alt="" className="h-28 w-full shrink-0 object-cover" />
             <div className="flex flex-1 flex-col px-2.5 py-2.5">
               <p className="text-sm font-bold text-ink">{t("gift")}</p>
               <p className="mt-1 text-11 leading-snug text-muted">{t("giftRedeemBody")}</p>
             </div>
-          </button>
-          <button type="button" onClick={soon} className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
+          </Link>
+          <Link href="/activity/DailySignIn" className="flex h-full flex-col overflow-hidden rounded-lg bg-white text-left">
             <ImgIcon src={IMG.actAttendanceBanner} alt="" className="h-28 w-full shrink-0 object-cover" />
             <div className="flex flex-1 flex-col px-2.5 py-2.5">
               <p className="text-sm font-bold text-ink">{t("attendance")}</p>
               <p className="mt-1 text-11 leading-snug text-muted">{t("attendanceBody")}</p>
             </div>
-          </button>
+          </Link>
         </div>
 
         <div className="mt-3 space-y-3">

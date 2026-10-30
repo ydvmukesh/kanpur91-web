@@ -27,7 +27,7 @@ export default function LaundryPage() {
           }))}
         />
 
-        <div className="mt-3 rounded-xl bg-white px-3 py-3">
+        <div className="mt-3 rounded-lg bg-white px-3 py-3">
           <p className="text-sm font-medium text-ink">{t("totalBettingRebate", { cat: t(current.label) })}</p>
           <div className="mt-2 inline-flex items-center gap-1 rounded-md border border-main px-2 py-0.5 text-11 text-main">
             <ShieldCheck className="h-4.5 w-4.5 fill-main text-white" />

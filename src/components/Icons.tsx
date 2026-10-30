@@ -53,7 +53,7 @@ export function IconUser({ active }: { active?: boolean }) {
 
 export function IconBack() {
   return (
-    <ChevronLeft className="h-6.5 w-6.5" strokeWidth={1.8} />
+    <ChevronLeft className="h-6.5 w-6.5" strokeWidth={1.5} />
   );
 }
 
@@ -94,7 +94,7 @@ export function IconChevronDown({ className = "h-3.5 w-3.5" }: { className?: str
 
 export function FlagUS() {
   return (
-    <svg viewBox="0 0 32 32" className="h-[1.125rem] w-[1.125rem] rounded-full overflow-hidden">
+    <svg viewBox="0 0 32 32" className="h-6 w-6 rounded-full overflow-hidden">
       <rect width="32" height="32" fill="#b22234" />
       <path fill="#fff" d="M0 4h32v3H0zm0 7h32v3H0zm0 7h32v3H0zm0 7h32v3H0z" />
       <rect width="16" height="14" fill="#3c3b6e" />
@@ -104,7 +104,7 @@ export function FlagUS() {
 
 export function FlagIN() {
   return (
-    <svg viewBox="0 0 32 32" className="h-[1.125rem] w-[1.125rem] rounded-full overflow-hidden">
+    <svg viewBox="0 0 32 32" className="h-6 w-6 rounded-full overflow-hidden">
       <rect width="32" height="11" fill="#ff9933" />
       <rect y="11" width="32" height="10" fill="#fff" />
       <rect y="21" width="32" height="11" fill="#138808" />
@@ -320,7 +320,16 @@ export function IconLaundryTab({ name, className = "h-6 w-6 shrink-0" }: { name:
   );
 }
 
-export function IconRuleHead({ className }: { className?: string }) {
+export function IconRound({ className = "h-3.5 w-3.5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" />
+      <circle cx="12" cy="12" r="5" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function IconRuleHead({ className = "mx-auto h-8 w-full text-main" }: { className?: string }) {
   return (
     <svg viewBox="0 0 489 60" fill="none" className={className} preserveAspectRatio="none" aria-hidden>
       <path

@@ -22,7 +22,7 @@ function FieldShell({
     "relative flex h-11 w-full items-center justify-between gap-2 rounded-lg bg-white px-3 text-left text-sm text-ink",
     className,
   );
-  const icons = trailing ?? <ChevronDown className="h-4 w-4 shrink-0 text-faint" />;
+  const icons = trailing ?? <ChevronDown className="h-5 w-5 shrink-0 text-muted" />;
   if (onClick) {
     return (
       <button type="button" onClick={onClick} className={cls}>
@@ -103,10 +103,12 @@ export function DateSelect({
   value,
   onChange,
   className,
+  calendar = true,
 }: {
   value: string;
   onChange: (date: string) => void;
   className?: string;
+  calendar?: boolean;
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
@@ -137,10 +139,12 @@ export function DateSelect({
           setOpen(true);
         }}
         trailing={
-          <div className="flex shrink-0 items-center gap-1">
-            <CalendarDays className="h-4 w-4 text-faint" />
-            <ChevronDown className="h-4 w-4 text-faint" />
-          </div>
+          calendar ? (
+            <div className="flex shrink-0 items-center gap-1.5">
+              <CalendarDays className="h-5 w-5 shrink-0 text-muted" />
+              <ChevronDown className="h-5 w-5 shrink-0 text-muted" />
+            </div>
+          ) : undefined
         }
       >
         <span className={cn("min-w-0 truncate", value ? "text-ink" : "text-faint")}>{value || t("chooseDate")}</span>

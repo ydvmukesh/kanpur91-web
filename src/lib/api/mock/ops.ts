@@ -10,6 +10,7 @@ import type { WinGoBetValue } from "@/lib/wingo";
 import { ApiError } from "@/lib/api/client";
 import { notifyTokenExpired } from "@/lib/api/token";
 import type { AppNotification, CmsPage, Session, StoredBet, Txn, User, WalletSnapshot } from "@/lib/api/models";
+import { signinBonus } from "@/lib/daily-signin";
 import { currentUser, getDb, rid, updateDb } from "./db";
 
 function msg(key: DictKey) {
@@ -231,9 +232,13 @@ export function mockCheckIn(): User {
   const user = needUser();
   const today = new Date().toISOString().slice(0, 10);
   if (user.lastCheckIn === today) fail(400, "alreadyChecked");
+  const deposited = getDb().txns.some(
+    (x) => x.ownerPhone === user.phone && x.type === "deposit" && x.status === "completed",
+  );
+  if (!deposited) fail(502, "signinDepositNeed");
   const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
   const streak = user.lastCheckIn === yesterday ? Math.min(user.checkStreak + 1, 7) : 1;
-  const bonus = [0, 5, 10, 15, 20, 25, 30, 50][streak];
+  const bonus = signinBonus(streak);
   updateDb((p) => ({
     ...p,
     users: p.users.map((u) =>

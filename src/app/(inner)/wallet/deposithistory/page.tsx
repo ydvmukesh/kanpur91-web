@@ -126,7 +126,7 @@ export default function DepositHistoryPage() {
   const { t } = useI18n();
   const statusKey = x.status === "rejected" ? "failed" : x.status === "completed" ? "completed" : "toBePaid";
   return (
-    <div className="bg-white rounded-xl px-3 py-3.5">
+    <div className="bg-white rounded-lg px-3 py-3.5">
       <div className="flex items-center justify-between border-b border-line pb-2">
         <span className="h-6.5 px-3 rounded-md bg-green-norm text-white text-13 font-medium grid place-items-center">
           {t("deposit")}

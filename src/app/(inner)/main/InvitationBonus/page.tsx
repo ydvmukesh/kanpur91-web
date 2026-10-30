@@ -49,7 +49,7 @@ export default function InvitationBonusPage() {
       </div>
 
       <div className="relative z-10 -mt-10 px-3">
-        <div className="grid grid-cols-2 rounded-xl bg-white py-4 mx-3 shadow-[0_0.5rem_1.5rem_rgba(30,38,55,0.08)] mb-7">
+        <div className="grid grid-cols-2 rounded-lg bg-white py-4 mx-3 shadow-[0_0.5rem_1.5rem_rgba(30,38,55,0.08)] mb-7">
           <Link href="/main/InvitationBonus/Rule" className="flex flex-col items-center gap-1">
             <ImgIcon src={IMG.inviteRule} alt="" className="h-14 w-14" />
             <span className="px-2 text-center text-11 leading-snug text-muted">{t("invitationRewardRules")}</span>
@@ -66,7 +66,7 @@ export default function InvitationBonusPage() {
           const done = tier.status === "received";
 
           return (
-            <div key={tier.n} className="mt-3 flex h-[16.75rem] flex-col overflow-hidden rounded-xl bg-white">
+            <div key={tier.n} className="mt-3 flex h-[16.75rem] flex-col overflow-hidden rounded-lg bg-white">
               <div className="flex shrink-0 items-center justify-between border-b border-line">
                 <div className="flex h-10.5 items-center gap-1.5 rounded-br-[1.5rem] bg-green-norm pl-3 pr-4 text-white">
                   <span className="text-xs font-medium">{t("bonus")}</span>

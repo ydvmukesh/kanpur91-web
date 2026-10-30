@@ -88,7 +88,7 @@ export default function NotificationsPage() {
       <div className="px-3 pb-8 space-y-3">
         {items.length === 0 ? <EmptyState /> : null}
         {items.map((n) => (
-          <article key={n.id} className="bg-white rounded-xl px-3.5 py-3.5">
+          <article key={n.id} className="bg-white rounded-lg px-3.5 py-3.5">
             <div className="flex items-center gap-1.5">
               <span className="text-main shrink-0">
               <MegaphoneIcon className="h-4 w-4" />

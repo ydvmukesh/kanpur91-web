@@ -83,7 +83,7 @@ export default function WithdrawPage() {
     >
       <div className="pb-8">
         <div className="mx-3.5 mt-4 relative min-h-[8.25rem] text-white px-4 pt-4 pb-8">
-          <img src={IMG.totalAssetsBg} alt="" className="absolute inset-0 h-full w-full object-fill" />
+          <ImgIcon src={IMG.totalAssetsBg} className="absolute inset-0 h-full w-full object-fill" />
           <p className="relative z-10 flex items-center gap-1.5 text-13 text-white/95">
             <Wallet className="h-5 w-5" />
             {t("availableBalance")}
@@ -214,7 +214,7 @@ export default function WithdrawPage() {
           </>
         ) : null}
 
-        <div className="mx-3.5 mt-4 bg-white rounded-xl px-3.5 py-4">
+        <div className="mx-3.5 mt-4 bg-white rounded-lg px-3.5 py-4">
           {isArpay ? (
             <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
               <Wallet className="h-5 w-5 text-main" />
@@ -261,7 +261,7 @@ export default function WithdrawPage() {
           </Button>
         </div>
 
-        <div className="mx-3.5 mt-4 bg-white rounded-xl px-3.5 py-4">
+        <div className="mx-3.5 mt-4 bg-white rounded-lg px-3.5 py-4">
           {isArpay ? (
             <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
               <Book className="h-5 w-5 text-main" />
@@ -285,7 +285,7 @@ export default function WithdrawPage() {
           </p>
         </div>
         {recent.map((x) => (
-          <div key={x.id} className="mx-3.5 mt-2.5 bg-white rounded-xl px-3 py-3.5">
+          <div key={x.id} className="mx-3.5 mt-2.5 bg-white rounded-lg px-3 py-3.5">
             <div className="flex items-center justify-between border-b border-line pb-2">
               <span className="h-[1.625rem] px-3 rounded-md bg-main text-white text-13 font-medium grid place-items-center">
                 {t("withdrawal")}

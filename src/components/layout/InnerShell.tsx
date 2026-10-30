@@ -8,6 +8,7 @@ export function InnerShell({
   variant = "main",
   right,
   className,
+  headerClassName,
   headerExtra,
   headerCenter,
   headerCenterOut,
@@ -18,6 +19,7 @@ export function InnerShell({
   variant?: "main" | "light";
   right?: React.ReactNode;
   className?: string;
+  headerClassName?: string;
   headerExtra?: React.ReactNode;
   headerCenter?: React.ReactNode;
   headerCenterOut?: boolean;
@@ -30,6 +32,7 @@ export function InnerShell({
         <InnerHeader
           title={title}
           light={variant === "light"}
+          bgClassName={headerClassName}
           right={right}
           center={headerCenter}
           centerOut={headerCenterOut}

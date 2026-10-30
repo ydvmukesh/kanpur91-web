@@ -1,3 +1,4 @@
+export { AlertModal } from "./AlertModal";
 export { AmountField } from "./AmountField";
 export { HtmlContent } from "./HtmlContent";
 export { EmptyState } from "./EmptyState";

@@ -66,7 +66,7 @@ export function WinGoChart({ interval, now }: { interval: WinGoInterval; now: nu
 
   return (
     <div>
-      <div className="overflow-hidden rounded-xl bg-white">
+      <div className="overflow-hidden rounded-lg bg-white">
         <div className="grid grid-cols-[7.375rem_minmax(0,1fr)_1.625rem] bg-main text-white text-13 font-semibold py-2.5">
           <span className="pl-3">{t("period")}</span>
           <span className="text-center">{t("number")}</span>

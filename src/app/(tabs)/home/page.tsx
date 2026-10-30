@@ -157,7 +157,7 @@ export default function HomePage() {
       </div>
 
       <div className="px-3 pt-2 space-y-3">
-        <div className="relative aspect-[702/320] rounded-xl overflow-hidden bg-[#f3f4f8]">
+        <div className="relative aspect-[702/320] rounded-lg overflow-hidden bg-[#f3f4f8]">
           {heroes.map((src, i) => (
             <div
               key={src}
@@ -352,7 +352,7 @@ export default function HomePage() {
             <ImgIcon src={IMG.winner} alt="" className="h-5 w-5 object-contain" />
             <h2 className="text-sm font-semibold font-serif text-ink">{t("winningInfo")}</h2>
           </div>
-          <div className="bg-white rounded-xl overflow-hidden">
+          <div className="bg-white rounded-lg overflow-hidden">
             <div className="grid grid-cols-3 px-3 py-2.5 text-sm font-semibold text-ink">
               <span>{t("game")}</span>
               <span className="text-center">{t("user")}</span>
@@ -379,7 +379,7 @@ export default function HomePage() {
             <ImgIcon src={IMG.rank} alt="" className="h-5 w-auto object-contain" />
             <h2 className="text-sm font-semibold font-serif text-ink">{t("todayProfit")}</h2>
           </div>
-<div className="px-1 pt-9 bg-white rounded-xl overflow-hidden">
+<div className="px-1 pt-9 bg-white rounded-lg overflow-hidden">
           <div className="relative ">
             <ImgIcon src={IMG.rankBg} alt="" className="w-full h-auto block" />
             <div className="absolute left-1 right-1 top-9 bottom-0">
@@ -447,7 +447,7 @@ export default function HomePage() {
         </>
         ) : null}
 
-        <footer className="mb-12 rounded-xl bg-white px-5 pt-5 pb-6 shadow-[0_0.25rem_0.875rem_rgba(30,38,55,0.08)]">
+        <footer className="mb-12 rounded-lg bg-white px-5 pt-5 pb-6 shadow-[0_0.25rem_0.875rem_rgba(30,38,55,0.08)]">
           <div className="mx-auto mb-4 grid h-[2.875rem] w-[2.875rem] place-items-center rounded-full border-[0.15625rem] border-[#F95959]">
             <span className="text-15 font-bold leading-none text-[#F95959]">+18</span>
           </div>

@@ -54,7 +54,7 @@ export default function SuperJackpotPage() {
           </Link>
         </div>
 
-        <div className="mt-3 overflow-hidden rounded-xl bg-white">
+        <div className="mt-3 overflow-hidden rounded-lg bg-white">
           {rows.length === 0 ? <EmptyState label={t("noBigJackpot")} className="py-10" /> : null}
           {rows.map((row) => (
             <article key={row.id} className="border-b border-line px-3 py-3 last:border-0">

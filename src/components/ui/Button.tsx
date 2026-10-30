@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 import { isAuthOnly } from "@/lib/auth/routes";
 
 const variants = {
-  primary: "bg-main-x text-white shadow-[0_8px_16px_rgba(249,89,89,0.28)]",
+  primary: "bg-main-x text-white shadow-[0_8px_16px_rgba(249,89,89,0.1)]",
   main: "bg-main text-white",
   gold: "bg-[#f6af0b] text-white",
   outline: "border border-main bg-transparent text-main",

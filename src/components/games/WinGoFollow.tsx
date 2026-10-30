@@ -288,7 +288,7 @@ export function WinGoFollow({
 
   return (
     <div className="space-y-2.5">
-      <section className="rounded-xl bg-white px-3 pt-3 pb-4">
+      <section className="rounded-lg bg-white px-3 pt-3 pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1 text-15 font-semibold text-ink">
             {t("bettingStrategy")}
@@ -352,7 +352,7 @@ export function WinGoFollow({
       </section>
 
       {FOLLOW_STRATEGIES.map((s) => (
-        <article key={s.id} className="rounded-xl bg-white px-3 pt-3 pb-3 shadow-[0_0.0625rem_0.25rem_rgba(30,38,55,0.04)]">
+        <article key={s.id} className="rounded-lg bg-white px-3 pt-3 pb-3 shadow-[0_0.0625rem_0.25rem_rgba(30,38,55,0.04)]">
           <div className="flex gap-2.5">
             <LionAvatar />
             <div className="flex-1 min-w-0">
@@ -475,7 +475,7 @@ export function WinGoFollow({
                   </button>
 
                   <p className="mt-2 text-13 text-ink font-medium">{t("strategyParameters")}</p>
-                  <div className="mt-2 rounded-xl bg-[#F6F7FB] px-3 py-2 text-13">
+                  <div className="mt-2 rounded-lg bg-[#F6F7FB] px-3 py-2 text-13">
                     <div className="flex justify-between py-1.5">
                       <span className="text-muted">{t("remainingRounds")}</span>
                       <span className="text-ink">{rounds}</span>

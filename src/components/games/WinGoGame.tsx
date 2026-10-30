@@ -365,7 +365,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
           </Link>
         </div>
 
-        <div className="bg-white rounded-xl p-1.5 grid grid-cols-4 gap-1 shadow-[0_0.125rem_0.5rem_rgba(30,38,55,0.05)]">
+        <div className="bg-white rounded-lg p-1.5 grid grid-cols-4 gap-1 shadow-[0_0.125rem_0.5rem_rgba(30,38,55,0.05)]">
           {WINGO_INTERVALS.map((x) => {
             const on = interval === x.key;
             return (
@@ -392,7 +392,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
       </div>
 
       <div className="px-3 space-y-2.5">
-        <section className="wingo-ticket rounded-xl text-white">
+        <section className="wingo-ticket rounded-lg text-white">
           <div className="grid grid-cols-2 min-h-[8rem]">
             <div className="relative px-3 py-2.5 flex flex-col">
               <button
@@ -433,13 +433,13 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
           </div>
         </section>
 
-        <div className="relative p-1 bg-white rounded-xl">
+        <div className="relative p-1 bg-white rounded-lg">
           {overlay ? (
-            <div className="absolute inset-0 z-10 rounded-xl bg-black/50 flex items-center justify-center gap-3">
-              <span className="h-[5.375rem] w-[4rem] rounded-xl bg-white text-[#F95959] text-52 font-black grid place-items-center digit-pulse shadow-[0_0.25rem_0.75rem_rgba(0,0,0,0.15)]">
+            <div className="absolute inset-0 z-10 rounded-lg bg-black/50 flex items-center justify-center gap-3">
+              <span className="h-[5.375rem] w-[4rem] rounded-lg bg-white text-[#F95959] text-52 font-black grid place-items-center digit-pulse shadow-[0_0.25rem_0.75rem_rgba(0,0,0,0.15)]">
                 {overlay[0]}
               </span>
-              <span className="h-[5.375rem] w-[4rem] rounded-xl bg-white text-[#F95959] text-52 font-black grid place-items-center digit-pulse shadow-[0_0.25rem_0.75rem_rgba(0,0,0,0.15)]">
+              <span className="h-[5.375rem] w-[4rem] rounded-lg bg-white text-[#F95959] text-52 font-black grid place-items-center digit-pulse shadow-[0_0.25rem_0.75rem_rgba(0,0,0,0.15)]">
                 {overlay[1]}
               </span>
             </div>
@@ -552,7 +552,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
 
         {tab === "game" ? (
           <div>
-            <div className="overflow-hidden rounded-xl bg-white">
+            <div className="overflow-hidden rounded-lg bg-white">
               <div className="grid grid-cols-[1.55fr_0.5fr_0.7fr_0.55fr] bg-main text-white text-13 font-semibold items-center py-2.5">
                 <span className="pl-3 text-left">{t("period")}</span>
                 <span className="text-center">{t("number")}</span>
@@ -614,7 +614,7 @@ export function WinGoGame({ title, trx }: { title: string; trx?: boolean }) {
         {tab === "follow" ? <WinGoFollow interval={interval} now={now} trx={trx} /> : null}
 
         {tab === "mine" ? (
-          <div className="relative overflow-hidden rounded-xl bg-white min-h-[13.75rem]">
+          <div className="relative overflow-hidden rounded-lg bg-white min-h-[13.75rem]">
             <Link
               href={`${trx ? "/trx-win" : "/win-go"}/history?interval=${interval}`}
               className="absolute right-2.5 top-2.5 z-10 h-7 pl-2.5 pr-1.5 rounded border border-main text-main text-sm font-medium inline-flex items-center gap-1"

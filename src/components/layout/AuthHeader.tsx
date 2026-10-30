@@ -27,7 +27,7 @@ export function AuthHeader({
           <button
             type="button"
             onClick={() => router.back()}
-            className="h-11 w-11 grid place-items-center z-10"
+            className="h-11 w-9 grid place-items-center z-10"
             aria-label="Back"
           >
             <IconBack />
@@ -41,7 +41,7 @@ export function AuthHeader({
             className="ml-auto mr-2 h-11 flex items-center gap-1 z-10"
           >
             {lang === "en" ? <FlagUS /> : <FlagIN />}
-            <span className="text-13 font-semibold">{lang === "en" ? "EN" : "HD"}</span>
+            <span className="text-sm font-semibold">{lang === "en" ? "EN" : "HD"}</span>
           </button>
         </div>
       </div>

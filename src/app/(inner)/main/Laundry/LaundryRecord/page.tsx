@@ -30,7 +30,7 @@ export default function LaundryRecordPage() {
         />
         {rows.length === 0 ? <EmptyState /> : null}
         {rows.map((row) => (
-          <article key={row.id} className="mt-2.5 rounded-xl bg-white px-3 py-3">
+          <article key={row.id} className="mt-2.5 rounded-lg bg-white px-3 py-3">
             <p className="text-sm font-medium text-secondary">₹{formatMoney(row.amount)}</p>
             <p className="mt-1 text-11 text-faint">{row.time}</p>
           </article>

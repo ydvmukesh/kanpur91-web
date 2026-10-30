@@ -8,6 +8,7 @@ export function InnerHeader({
   title,
   right,
   light,
+  bgClassName,
   center,
   centerOut,
   onCenterAnimEnd,
@@ -15,6 +16,7 @@ export function InnerHeader({
   title: string;
   right?: React.ReactNode;
   light?: boolean;
+  bgClassName?: string;
   center?: React.ReactNode;
   centerOut?: boolean;
   onCenterAnimEnd?: () => void;
@@ -24,14 +26,14 @@ export function InnerHeader({
     <header
       className={cn(
         "sticky top-0 z-30 pt-safe-t",
-        light ? "bg-white text-ink" : "bg-main-y text-white",
+        light ? "bg-white text-ink" : cn("text-white", bgClassName || "bg-main-y"),
       )}
     >
       <div className="relative flex items-center h-12 px-2">
         <button
           type="button"
           onClick={() => router.back()}
-          className="relative z-10 h-8 w-8 grid place-items-center shrink-0"
+          className="relative z-10 h-8 w-7 grid place-items-center shrink-0"
           aria-label="Back"
         >
           <IconBack />

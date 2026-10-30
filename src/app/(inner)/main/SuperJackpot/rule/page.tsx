@@ -41,12 +41,12 @@ export default function SuperJackpotRulePage() {
         </h2>
 
         <div
-          className="overflow-hidden rounded-lg [&_table]:w-full [&_table]:border-collapse [&_table]:text-center [&_table]:text-xs [&_tbody_tr:nth-child(odd)]:bg-white [&_tbody_tr:nth-child(even)]:bg-bg-l1 [&_td]:h-[2.1875rem] [&_td:nth-child(1)]:text-secondary [&_td:nth-child(2)]:text-ink [&_td:nth-child(3)]:text-red-norm [&_th]:h-10 [&_th]:font-medium [&_thead]:bg-main [&_thead]:text-white"
+          className="overflow-hidden rounded-lg [&_table]:w-full [&_table]:border-collapse [&_table]:text-center [&_table]:text-xs [&_tbody_tr:nth-child(odd)]:bg-white [&_tbody_tr:nth-child(even)]:bg-bg-l1 [&_td]:h-[2.1875rem] [&_td:nth-child(1)]:text-secondary [&_td:nth-child(2)]:text-ink [&_td:nth-child(3)]:text-red-norm [&_th]:h-10 [&_th]:font-medium [&_thead]:bg-main [&_thead]:text-white [&_table]:table-fixed"
           dangerouslySetInnerHTML={{ __html: JACKPOT_RULES_TABLE_HTML }}
         />
 
-        <div className="mt-2.5 mb-6 rounded-[0.625rem] bg-white px-3 py-5 text-xs font-medium text-muted">
-          <Play className="mr-2.5 inline h-4 w-4 fill-main text-main align-middle" />
+        <div className="mt-2.5 mb-6 rounded-[0.625rem] bg-white px-3 py-5 text-xs font-medium text-muted flex items-start">
+          <Play className="mr-2 inline h-4 w-4 shrink-0 fill-main text-main align-middle" />
           {t("jackpotRuleOwner")}
         </div>
 

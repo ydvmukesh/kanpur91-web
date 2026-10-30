@@ -123,7 +123,7 @@ html {
 html,
 body {
   height: 100%;
-  background: var(--bg-page);
+  background: var(--bg-phone-frame);
   color: var(--text-ink);
   font-family: var(--font-inter), "PingFang SC", "Helvetica Neue", Helvetica,
     Arial, sans-serif;
@@ -409,4 +409,81 @@ button:disabled.bg-btn-disabled {
 
 .safe-bottom {
   padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+}
+
+.alert-modal-mask,
+.alert-modal {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transition-property: transform, opacity, -webkit-transform;
+  transition-property: transform, opacity, -webkit-transform;
+}
+
+.alert-modal-mask {
+  opacity: 0;
+}
+
+.alert-modal-mask.is-in {
+  opacity: 1;
+}
+
+.alert-modal {
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.alert-modal.is-in {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+.app-toast {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.app-toast.is-in {
+  opacity: 1;
+}
+
+.promo-lv-tag {
+  -webkit-text-fill-color: transparent;
+}
+
+.daily-signin-chip {
+  display: inline-block;
+  width: 12.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.3125rem 0.96875rem 0.3125rem 0.34375rem;
+  color: #f95959;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  background: #fff;
+  -webkit-clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+  clip-path: polygon(100% 0, 90% 50%, 100% 100%, 0 100%, 0 0);
+  word-break: break-all;
+}
+
+.promotion-hero {
+   padding-top: 1.40625rem;
+  background-image: url(/activity/promotion-bg.png), var(--main_gradient-color);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover, 100% 100%;
+}
+
+.daily-signin-btn {
+  width: 8.28125rem;
+  height: 1.875rem;
+  padding: 0.4375rem 0;
+  color: #fff;
+  font-size: 0.8125rem;
+  line-height: 0.75rem;
+  border: none;
+  border-radius: 21.09375rem;
+  background: linear-gradient(180deg, #ffbd40, #ff7f3d);
+  cursor: pointer;
 }

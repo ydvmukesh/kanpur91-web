@@ -25,9 +25,25 @@ export const IMG = {
   superJackpotBg: "/activity/super-jackpot-bg.png",
   superJackpotRuleBg: "/activity/super-jackpot-rule-bg.png",
   actFirstGift: "/activity/first-gift.png",
+  memberPackageBg: "/activity/member-package-box.png",
   actWheel: "/activity/invite-wheel.png",
   actGiftsBanner: "/activity/gifts-banner.png",
+  redeemCrown: "/activity/redeem-crown.png",
   actAttendanceBanner: "/activity/attendance-banner.png",
+  promotionBg: "/activity/promotion-bg.png",
+  invitePoster: "/activity/invite-poster.png",
+  inviteTab: "/activity/invite-tab.png",
+  inviteBank: "/activity/invite-bank.png",
+  inviteTruck: "/activity/invite-truck.png",
+  shareWhatsapp: "/activity/share-whatsapp.svg",
+  shareTelegram: "/activity/share-telegram.svg",
+  shareFacebook: "/activity/share-facebook.svg",
+  shareX: "/activity/share-x.svg",
+  promotionLv: "/activity/lv.png",
+  serverBg: "/activity/serverbg.png",
+  signinHeaderBg: "/activity/signin-header-bg.png",
+  signinCoin: "/activity/signin-coin.png",
+  signinDay7: "/activity/signin-day7-bg.png",
   actEventChicken: "/activity/event-chicken.png",
   actEventArb: "/activity/event-arb.png",
   actEventWarp: "/activity/event-warp.jpg",
@@ -316,9 +332,9 @@ export function TabMaskIcon({ src, active }: { src: string; active?: boolean }) 
   return (
     <span
       aria-hidden
-      className="block h-6 w-6"
+      className="block h-5.5 w-5.5"
       style={{
-        backgroundColor: active ? "#f95959" : "#768096",
+        backgroundColor: active ? "var(--color-main)" : "#768096",
         WebkitMaskImage: `url(${src})`,
         maskImage: `url(${src})`,
         WebkitMaskRepeat: "no-repeat",

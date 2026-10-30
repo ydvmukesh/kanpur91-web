@@ -15,7 +15,7 @@ export default function InvitationBonusRecordPage() {
       <div className="space-y-2.5 px-3 pb-8 pt-3">
         {rows.length === 0 ? <EmptyState /> : null}
         {rows.map((row) => (
-          <article key={row.id} className="rounded-xl bg-white px-3 py-3">
+          <article key={row.id} className="rounded-lg bg-white px-3 py-3">
             <div className="flex items-start justify-between gap-3">
               <p className="text-15 font-medium text-ink">{row.name}</p>
               <p className="shrink-0 text-15 text-muted">

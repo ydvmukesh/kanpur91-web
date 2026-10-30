@@ -72,14 +72,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     showToast,
   };
 
-  if (!ready) {
-    return (
-      <div className="min-h-dvh bg-main-y text-white flex items-center justify-center">
-        <div className="h-10 w-10 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-      </div>
-    );
-  }
-
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>;
 }
 

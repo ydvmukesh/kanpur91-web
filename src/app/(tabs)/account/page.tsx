@@ -1,89 +1,120 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { CreditCard, FolderOpen, Gem, Wallet } from "lucide-react";
+import { IconCopy, IconRefresh } from "@/components/Icons";
 import { useAuth } from "@/hooks/useAuth";
-import { useNotifs } from "@/hooks/queries/useNotifs";
-import { useStore } from "@/lib/store";
-import { copyText } from "@/lib/format";
-import { IconChevron, IconCopy } from "@/components/Icons";
+import { useI18n } from "@/hooks/useI18n";
+import { useWallet } from "@/hooks/useWallet";
+import { copyText, formatMoney, pad2 } from "@/lib/format";
 import { IMG, ImgIcon } from "@/lib/img";
+import { useStore } from "@/lib/store";
+
+function stamp(d: Date) {
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())} ${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+}
 
 export default function AccountPage() {
-  const { t, showToast } = useStore();
-  const { user, logout } = useAuth();
-  const { data: notifications = [] } = useNotifs();
-  const router = useRouter();
-  if (!user) return null;
-  const unread = notifications.filter((n) => !n.read).length;
-  const vip = Math.min(10, Math.floor(user.vipExp / 1000));
+  const { t } = useI18n();
+  const { showToast } = useStore();
+  const { user } = useAuth();
+  const { recycle } = useWallet();
+  const [loginAt, setLoginAt] = useState("");
 
-  const rows = [
-    { href: "/wallet", label: t("wallet") },
-    { href: "/vip", label: t("vip") },
-    { href: "/notifications", label: t("notifications"), badge: unread },
-    { href: "/gift", label: t("gift") },
-    { href: "/language", label: t("language") },
-    { href: "/settings", label: t("settings") },
-    { href: "/guide", label: t("guide") },
-    { href: "/customer-service", label: t("customerService") },
-    { href: "/about", label: t("about") },
+  useEffect(() => {
+    setLoginAt(stamp(new Date()));
+  }, []);
+
+  if (!user) return null;
+
+  const shortcuts = [
+    { href: undefined, label: t("arWallet"), icon: <Wallet className="h-7 w-7 text-main" /> },
+    { href: "/wallet/deposit", label: t("deposit"), icon: <FolderOpen className="h-7 w-7 text-secondary" /> },
+    { href: "/wallet/withdraw", label: t("withdraw"), icon: <CreditCard className="h-7 w-7 text-blue-norm" /> },
+    { href: "/vip", label: t("vip"), icon: <Gem className="h-7 w-7 text-green-norm" /> },
   ];
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <header className="z-30 shrink-0 bg-main-y text-white px-4 pt-[calc(1.25rem+env(safe-area-inset-top,0px))] pb-8">
-        <div className="flex items-center gap-3">
-          <div className="h-14 w-14 rounded-full bg-white grid place-items-center overflow-hidden p-1">
-            <ImgIcon src={IMG.logo} alt="" className="h-full w-full" />
-          </div>
-          <div className="flex-1">
-            <p className="font-semibold text-lg">{user.nickname}</p>
-            <button
-              type="button"
-              className="flex items-center gap-1 text-xs text-white/85 mt-0.5"
-              onClick={() => {
-                copyText(user.uid);
-                showToast(t("copied"), "copy");
-              }}
-            >
-              {t("uid")}: {user.uid} <IconCopy />
-            </button>
-          </div>
-          <Link href="/vip" className="text-xs bg-white/20 px-2 py-1 rounded-full flex items-center gap-1">
-            <ImgIcon src={IMG.point} alt="" className="h-2.5 w-2.5" invert />
-            VIP{vip}
-          </Link>
-        </div>
-      </header>
-      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
-      <div className="mx-3 -mt-4 bg-white rounded-xl overflow-hidden">
-        {rows.map((r) => (
-          <Link key={r.href} href={r.href} className="flex items-center justify-between px-4 h-12 border-b border-line last:border-0">
-            <span className="text-sm">{r.label}</span>
-            <span className="flex items-center gap-2 text-faint">
-              {r.badge ? (
-                <span className="min-w-4 h-4 px-1 rounded-full bg-main text-white text-10 grid place-items-center">
-                  {r.badge}
+      <div className="phone-scroll min-h-0 flex-1 overflow-y-auto pb-8">
+        <header className="">
+          <div className="flex items-center bg-main-x px-4 pb-16 pt-safe pt-10 pb-30 text-white  gap-3  rounded-b-3xl ">
+            <div className="grid h-[4.25rem] w-[4.25rem] shrink-0 place-items-center overflow-hidden rounded-full bg-white">
+              <ImgIcon src={IMG.vipAvatar} className="h-full w-full object-cover" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5">
+                <p className="truncate text-lg font-semibold">{user.nickname}</p>
+                <ImgIcon src={IMG.vipBadge0} className="h-5 w-auto" />
+              </div>
+              <button
+                type="button"
+                className="mt-1 flex items-center gap-1.5 text-13 text-white/90"
+                onClick={() => {
+                  void copyText(user.uid);
+                  showToast(t("copied"), "copy");
+                }}
+              >
+                {t("uid")}
+                <span className="text-white/70">|</span>
+                {user.uid}
+                <span className="text-secondary">
+                  <IconCopy />
                 </span>
-              ) : null}
-              <IconChevron />
-            </span>
-          </Link>
-        ))}
-      </div>
-      <div className="px-3 mt-4 pb-6">
-        <button
-          type="button"
-          className="w-full h-11 rounded-full border border-main text-main font-semibold"
-          onClick={() => {
-            logout();
-            router.replace("/login");
-          }}
-        >
-          {t("logout")}
-        </button>
-      </div>
+              </button>
+              {loginAt ? <p className="mt-1 text-11 text-white/80">{t("lastLogin", { t: loginAt })}</p> : null}
+            </div>
+          </div>
+        </header>
+
+        <div className="relative z-10 mx-3 -mt-20 rounded-xl bg-white p-4">
+          <div className="flex items-start justify-between gap-3 border-b border-line pb-3">
+            <div>
+              <p className="text-13 text-muted">{t("totalBalance")}</p>
+              <div className="mt-1 flex items-center gap-2">
+                <p className="text-xl font-semibold text-ink">₹{formatMoney(user.balance)}</p>
+                <button type="button" className="text-faint" onClick={() => recycle()} aria-label={t("recycle")}>
+                  <IconRefresh className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+            <Link
+              href="/wallet/deposit"
+              className="shrink-0 rounded-full bg-main px-3.5 py-1.5 text-13 font-medium text-white"
+            >
+              {t("enterWallet")}
+            </Link>
+          </div>
+          <div className="mt-4 grid grid-cols-4 gap-1">
+            {shortcuts.map((item) => {
+              const inner = (
+                <>
+                  <span className="grid h-10 w-10 place-items-center">{item.icon}</span>
+                  <span className="mt-1 text-center text-sm text-ink">{item.label}</span>
+                </>
+              );
+              const cls = "flex flex-col items-center";
+              if (!item.href) {
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    className={cls}
+                    onClick={() => showToast(t("comingSoon"))}
+                  >
+                    {inner}
+                  </button>
+                );
+              }
+              return (
+                <Link key={item.label} href={item.href} className={cls}>
+                  {inner}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

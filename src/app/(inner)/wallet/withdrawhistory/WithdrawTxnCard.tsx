@@ -18,7 +18,7 @@ export function WithdrawTxnCard({ x, onCopy }: { x: Txn; onCopy: () => void }) {
     x.status === "completed" ? "text-green-norm" : x.status === "rejected" ? "text-main" : "text-secondary";
 
   return (
-    <div className="rounded-xl bg-white px-3 py-3.5">
+    <div className="rounded-lg bg-white px-3 py-3.5">
       <div className="flex items-center justify-between border-b border-line pb-2">
         <span className="grid h-7 place-items-center rounded-md bg-main px-3 text-13 font-medium text-white">
           {t("withdrawal")}

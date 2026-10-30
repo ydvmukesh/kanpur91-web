@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/hooks/useAuth";
@@ -10,7 +10,11 @@ import { betsApi } from "@/lib/api/resources/bets";
 import { USE_MOCK } from "@/lib/api/env";
 import { subscribeTokenExpired } from "@/lib/api/token";
 import { Check } from "lucide-react";
+import { Splash } from "@/components/Splash";
+import { cn } from "@/lib/cn";
 import { useStore } from "@/lib/store";
+
+let splashDone = false;
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const { user, hydrated } = useAuth();
@@ -18,6 +22,13 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const guestOk = isPublic(pathname);
   const authOnly = isAuthOnly(pathname);
+  const [showSplash, setShowSplash] = useState(!splashDone);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    splashDone = true;
+    setShowSplash(false);
+  }, [hydrated]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -32,7 +43,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     }
   }, [hydrated, user, guestOk, authOnly, pathname, router]);
 
-  if (!hydrated) return null;
+  if (showSplash) return <Splash />;
   if (!user && !guestOk) return null;
   if (user && authOnly) return null;
   return <>{children}</>;
@@ -54,21 +65,51 @@ export function Settler() {
   return null;
 }
 
+const TOAST_FADE_MS = 300;
+
 export function ToastHost() {
   const { toast, t, showToast } = useStore();
+  const [view, setView] = useState(toast);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => subscribeTokenExpired(() => showToast(t("tokenExpired"), "warn")), [t, showToast]);
 
-  if (!toast) return null;
+  useEffect(() => {
+    if (toast) {
+      setView(toast);
+      setShown(false);
+      let inner = 0;
+      const outer = requestAnimationFrame(() => {
+        inner = requestAnimationFrame(() => setShown(true));
+      });
+      return () => {
+        cancelAnimationFrame(outer);
+        cancelAnimationFrame(inner);
+      };
+    }
+    setShown(false);
+    const tmr = window.setTimeout(() => setView(null), TOAST_FADE_MS);
+    return () => window.clearTimeout(tmr);
+  }, [toast]);
+
+  if (!view) return null;
   return (
     <div className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center px-10">
-      {toast.kind === "copy" || toast.kind === "warn" ? (
-        <div className="flex h-[7.5rem] w-[7.5rem] flex-col items-center justify-center rounded-[0.5rem] bg-[rgba(0,0,0,0.7)] px-2 text-white">
-          {toast.kind === "copy" ? <Check className="h-8 w-8" /> : <span className="text-[2rem] leading-none font-light">!</span>}
-          <p className="mt-3 text-center text-sm leading-snug whitespace-pre-line">{toast.text}</p>
+      {view.kind === "copy" || view.kind === "warn" ? (
+        <div
+          className={cn(
+            "app-toast flex flex-col items-center justify-center rounded-[0.5rem] bg-[rgba(0,0,0,0.7)] text-white",
+            view.kind === "copy" ? "h-[7.5rem] w-[7.5rem] px-2" : "min-h-[7.5rem] w-[14.5rem] px-3 py-4",
+            shown && "is-in",
+          )}
+        >
+          {view.kind === "copy" ? <Check className="h-8 w-8" /> : <span className="text-[2rem] leading-none font-light">!</span>}
+          <p className="mt-3 text-center text-sm leading-snug whitespace-pre-line">{view.text}</p>
         </div>
       ) : (
-        <div className="max-w-[80%] rounded-lg bg-black/75 px-4 py-2.5 text-center text-sm text-white">{toast.text}</div>
+        <div className={cn("app-toast max-w-[80%] rounded-lg bg-black/75 px-4 py-2.5 text-center text-sm text-white", shown && "is-in")}>
+          {view.text}
+        </div>
       )}
     </div>
   );

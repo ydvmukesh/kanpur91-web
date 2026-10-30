@@ -139,7 +139,7 @@ export function WinGoBetRows({ bets, cards }: { bets: StoredBet[]; cards?: boole
         const statusText = ok ? t("succeed") : fail ? t("failed") : t("pending");
         const winLose = ok ? `+₹${formatMoney(b.payout)}` : fail ? `-₹${formatMoney(b.amount)}` : "--";
         return (
-          <div key={b.id} className={cn(cards ? "overflow-hidden rounded-xl bg-white" : "border-t border-[#F0F1F5] first:border-t-0")}>
+          <div key={b.id} className={cn(cards ? "overflow-hidden rounded-lg bg-white" : "border-t border-[#F0F1F5] first:border-t-0")}>
             <button
               type="button"
               onClick={() => setOpen(expanded ? null : b.id)}

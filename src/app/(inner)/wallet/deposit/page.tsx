@@ -83,7 +83,7 @@ export default function RechargePage() {
       >
         <div className="pb-28">
           <div className="mx-3.5 mt-4 relative min-h-[8.25rem] text-white px-4 pt-4 pb-8">
-            <img src={IMG.totalAssetsBg} alt="" className="absolute inset-0 h-full w-full object-fill" />
+            <ImgIcon src={IMG.totalAssetsBg} className="absolute inset-0 h-full w-full object-fill" />
             <p className="relative z-10 flex items-center gap-1.5 text-13 text-white/95">
               <Wallet className="h-5 w-5" />
               {t("balance")}
@@ -136,14 +136,14 @@ export default function RechargePage() {
           </div>
 
           {isUpi ? (
-            <div className="mx-3.5 mt-3 bg-white rounded-xl px-3.5 py-4">
+            <div className="mx-3.5 mt-3 bg-white rounded-lg px-3.5 py-4">
               <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
                 <CreditCard className="h-5 w-5 text-main" />
                 {t("selectChannel")}
               </p>
               <button
                 type="button"
-                className="mt-3 w-fit rounded-2xl bg-main-y px-4 py-2.5 text-left text-sm font-medium leading-tight text-white"
+                className="mt-3 w-fit rounded-lg bg-main-y px-4 py-2.5 text-left text-sm font-medium leading-tight text-white"
               >
                 <span className="block">{t("phonepeQr")}</span>
                 <span className="block font-normal text-white/95">
@@ -153,7 +153,7 @@ export default function RechargePage() {
             </div>
           ) : null}
 
-          <div className="mx-3.5 mt-3 bg-white rounded-xl px-3.5 py-4">
+          <div className="mx-3.5 mt-3 bg-white rounded-lg px-3.5 py-4">
             <p className="flex items-center gap-1.5 text-15 font-semibold text-muted">
               <TicketPercent className="h-5 w-5 text-main" />
               {t("topUpCoupons")}(1)
@@ -161,7 +161,7 @@ export default function RechargePage() {
             <button
               type="button"
               onClick={() => setCouponOn((v) => !v)}
-              className="mt-3 w-fit flex overflow-hidden rounded-xl"
+              className="mt-3 w-fit flex overflow-hidden rounded-lg"
             >
               <div className="w-14 shrink-0 bg-main text-white flex flex-col items-center justify-center place-items-center py-2.5">
                 <p className="text-base font-bold leading-none">2%</p>
@@ -181,7 +181,7 @@ export default function RechargePage() {
             </button>
           </div>
 
-          <div className="mx-3.5 mt-3 bg-white rounded-xl px-3.5 py-4">
+          <div className="mx-3.5 mt-3 bg-white rounded-lg px-3.5 py-4">
             <p className="flex items-center gap-1.5 text-lg font-semibold text-ink">
               <Wallet className="h-5 w-5 text-main" />
               {t("depositAmount")}
@@ -220,12 +220,12 @@ export default function RechargePage() {
             </div>
           </div>
 
-          <div className="mx-3.5 mt-3 bg-white rounded-xl px-3.5 py-4">
+          <div className="mx-3.5 mt-3 bg-white rounded-lg px-3.5 py-4">
             <p className="flex items-center gap-1.5 text-15 font-semibold text-ink">
               <BookText className="h-5 w-5 text-main" />
               {t("rechargeInstructions")}
             </p>
-            <ul className="mt-3 rounded-xl border border-line px-3 py-3 space-y-2.5">
+            <ul className="mt-3 rounded-lg border border-line px-3 py-3 space-y-2.5">
               {rechargeTips.map((key) => (
                 <li key={key} className="flex gap-2 text-xs text-muted leading-relaxed">
                   <i className="mt-1.5 h-1.5 w-1.5 rotate-45 bg-main shrink-0" />
@@ -281,7 +281,7 @@ function DepositCard({ x, onCopy }: { x: Txn; onCopy: () => void }) {
   const { t } = useI18n();
   const statusKey = x.status === "rejected" ? "failed" : x.status === "completed" ? "completed" : "pending";
   return (
-    <div className="mx-3.5 mt-2.5 bg-white rounded-xl px-3 py-3.5">
+    <div className="mx-3.5 mt-2.5 bg-white rounded-lg px-3 py-3.5">
       <div className="flex items-center justify-between border-b border-line pb-2">
         <span className="h-6.5 px-3 rounded-md bg-green-norm text-white text-13 font-medium grid place-items-center">
           {t("deposit")}
