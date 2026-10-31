@@ -13,7 +13,7 @@ export function BottomNav() {
   const { t } = useStore();
   const { user } = useAuth();
   const items = [
-    { href: "/home", label: t("home"), icon: IMG.tabHome },
+    { href: "/", label: t("home"), icon: IMG.tabHome },
     { href: "/activity", label: t("activity"), icon: IMG.tabActivity },
     { href: "/activity", label: t("get500"), icon: null, center: true },
     { href: "/promotion", label: t("promotion"), icon: IMG.tabPromotion },

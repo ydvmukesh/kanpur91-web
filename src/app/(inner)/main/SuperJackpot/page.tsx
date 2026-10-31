@@ -64,7 +64,7 @@ export default function SuperJackpotPage() {
           ))}
         </div>
 
-        <Button className="mt-4" size="sm" href="/home">
+        <Button className="mt-4" size="sm" href="/">
           {t("goBet")}
         </Button>
       </div>

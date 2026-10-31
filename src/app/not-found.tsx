@@ -6,7 +6,7 @@ export default function NotFound() {
       <div className="text-center">
         <p className="text-lg font-semibold text-ink">Page not found</p>
         <Link
-          href="/home"
+          href="/"
           className="mt-5 inline-flex h-11 px-6 items-center rounded-full bg-main-x text-white text-sm font-semibold"
         >
           Go home

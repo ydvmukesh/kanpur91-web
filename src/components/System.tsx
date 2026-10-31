@@ -24,12 +24,15 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const guestOk = isPublic(pathname);
   const authOnly = isAuthOnly(pathname);
   const [showSplash, setShowSplash] = useState(!splashDone);
-  const lastPublic = useRef("/home");
+  const lastPublic = useRef("/");
   const hadUser = useRef(false);
 
   useEffect(() => {
-    if (guestOk && (pathname === "/home" || pathname === "/activity" || pathname === "/promotion")) {
-      lastPublic.current = pathname;
+    if (
+      guestOk &&
+      (pathname === "/" || pathname === "/home" || pathname === "/activity" || pathname === "/promotion")
+    ) {
+      lastPublic.current = pathname === "/home" ? "/" : pathname;
     }
   }, [guestOk, pathname]);
 
