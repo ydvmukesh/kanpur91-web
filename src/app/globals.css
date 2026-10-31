@@ -126,7 +126,8 @@ html {
 html,
 body {
   height: 100%;
-  background: var(--bg-phone-frame);
+  /* Safari 26+ chrome tint samples html/body; desktop gray stays on Providers frame */
+  background: #fff;
   color: var(--text-ink);
   font-family: var(--font-inter), "PingFang SC", "Helvetica Neue", Helvetica,
     Arial, sans-serif;

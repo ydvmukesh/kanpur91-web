@@ -20,7 +20,7 @@ export function BottomNav() {
     { href: "/account", label: t("account"), icon: IMG.tabAccount },
   ];
   return (
-    <nav className="shrink-0 z-40 overflow-visible bg-white border-t border-line pb-safe-b">
+    <nav className="sticky bottom-0 z-40 shrink-0 overflow-visible border-t border-line bg-white pb-safe-b">
       <ul className="grid grid-cols-5 h-16">
         {items.map((item, idx) => {
           const active = item.center ? false : pathname === item.href;

@@ -37,7 +37,7 @@ export function WithdrawTxnCard({ x, onCopy }: { x: Txn; onCopy: () => void }) {
       </div>
       <p className="mt-2.5 text-xs text-muted">{t("remarks")}</p>
       {x.remark ? (
-        <p className="mt-2 rounded-lg border border-line bg-page px-3 py-2.5 text-xs leading-relaxed text-muted">
+        <p className="mt-2 rounded-lg border border-line bg-page px-2.5 py-2 text-xs leading-relaxed text-muted">
           {x.remark}
         </p>
       ) : null}
