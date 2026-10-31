@@ -24,8 +24,8 @@ export default function VipPage() {
   const current = vipFromExp(exp);
 
   return (
-    <div className="flex h-full min-h-0 flex-col bg-page pb-safe-b">
-      <div className="shrink-0 z-30 bg-main-x text-white pt-safe-t">
+    <div className="phone-scroll h-full min-h-0 overflow-y-auto bg-page pb-safe-b">
+      <div className="sticky top-0 z-30 bg-main-x text-white pt-safe-t">
         <div className="relative flex h-12 w-full items-center justify-between px-3">
           <button
             type="button"
@@ -42,35 +42,33 @@ export default function VipPage() {
         </div>
       </div>
 
-      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
-        <div className="flex min-h-[calc(11rem-3rem)] w-full items-center bg-main-x text-white px-3 pt-1 pb-14">
-          <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full bg-white">
-            <ImgIcon src={userAvatar(user)} alt="" className="h-full w-full object-cover" />
-          </div>
-          <div className="ml-3 min-w-0">
-            <ImgIcon src={IMG.vipBadge0} alt={`VIP${current}`} className="h-6 w-auto" />
-            <h3 className="mt-2 truncate text-base font-medium leading-none">{user.nickname}</h3>
-          </div>
+      <div className="flex min-h-[calc(11rem-3rem)] w-full items-center bg-main-x text-white px-3 pt-1 pb-14">
+        <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full bg-white">
+          <ImgIcon src={userAvatar(user)} alt="" className="h-full w-full object-cover" />
         </div>
-
-        <div className="-mt-10 px-3">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-lg bg-white py-2 text-center">
-              <p className="text-sm font-semibold text-main">{exp} EXP</p>
-              <p className="mt-1.5 text-11 text-muted">{t("myExperience")}</p>
-            </div>
-            <div className="rounded-lg bg-white py-2 text-center">
-              <p className="text-sm font-semibold text-main">{t("days", { n: PAYOUT_DAYS })}</p>
-              <p className="mt-1.5 text-11 text-muted">{t("payoutTime")}</p>
-            </div>
-          </div>
+        <div className="ml-3 min-w-0">
+          <ImgIcon src={IMG.vipBadge0} alt={`VIP${current}`} className="h-6 w-auto" />
+          <h3 className="mt-2 truncate text-base font-medium leading-none">{user.nickname}</h3>
         </div>
-        <p className="mx-3 mt-3 mb-6 rounded-lg bg-white px-3 py-2.5 text-center text-11 leading-snug text-muted">
-          {t("vipSettleNote")}
-        </p>
-        <VipLevelSwipe exp={exp} current={current} />
-        <VipHistoryRules />
       </div>
+
+      <div className="-mt-10 px-3">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-lg bg-white py-2 text-center">
+            <p className="text-sm font-semibold text-main">{exp} EXP</p>
+            <p className="mt-1.5 text-xs text-muted">{t("myExperience")}</p>
+          </div>
+          <div className="rounded-lg bg-white py-2 text-center">
+            <p className="text-sm font-semibold text-main">{t("days", { n: PAYOUT_DAYS })}</p>
+            <p className="mt-1.5 text-xs text-muted">{t("payoutTime")}</p>
+          </div>
+        </div>
+      </div>
+      <p className="mx-3 mt-3 mb-6 rounded-lg bg-white px-3 py-2.5 text-center text-11 leading-snug text-muted">
+        {t("vipSettleNote")}
+      </p>
+      <VipLevelSwipe exp={exp} current={current} />
+      <VipHistoryRules />
     </div>
   );
 }
