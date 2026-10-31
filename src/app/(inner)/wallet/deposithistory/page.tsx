@@ -144,7 +144,7 @@ export default function DepositHistoryPage() {
               showToast(t("utrPlaceholder"));
               return;
             }
-            showToast(t("copied"), "success");
+            showToast(t("copied"), "copy");
             setUtrTxn(null);
           }}
         />

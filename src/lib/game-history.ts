@@ -1,4 +1,4 @@
-import { IMG } from "@/lib/img";
+import { GAMES } from "@/lib/img";
 
 export type GameHistoryTab = "lottery" | "casino" | "fishing" | "rummy" | "original";
 
@@ -11,11 +11,11 @@ export type GameHistoryPick = {
 
 export const GAME_HISTORY_PICKS: Record<GameHistoryTab, GameHistoryPick[]> = {
   lottery: [
-    { id: "wingo", img: IMG.winGo, labelKey: "winGo" },
-    { id: "trx", img: IMG.trxWin, labelKey: "trxWinGo" },
-    { id: "5d", img: IMG.fiveD, labelKey: "fiveD" },
-    { id: "k3", img: IMG.k3, labelKey: "k3" },
-    { id: "moto", img: IMG.motoRacing, labelKey: "motoRace" },
+    { id: "wingo", img: GAMES.winGo, labelKey: "winGo" },
+    { id: "trx", img: GAMES.trxWin, labelKey: "trxWinGo" },
+    { id: "5d", img: GAMES.fiveD, labelKey: "fiveD" },
+    { id: "k3", img: GAMES.k3, labelKey: "k3" },
+    { id: "moto", img: GAMES.motoRacing, labelKey: "motoRace" },
   ],
   casino: [{ id: "all", labelKey: "all", mark: "all" }],
   fishing: [{ id: "all", labelKey: "all", mark: "all" }],
