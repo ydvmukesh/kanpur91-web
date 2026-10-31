@@ -112,8 +112,8 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
-      <header className="z-30 shrink-0 bg-white pt-safe-t">
+    <div className="phone-scroll h-full min-h-0 overflow-y-auto pb-8">
+      <header className="sticky top-0 z-30 bg-white pt-safe-t">
         <div className="px-3 h-12 flex items-center justify-between">
         <HomeLogo className="h-11" />
         {user ? (
@@ -142,7 +142,6 @@ export default function HomePage() {
         </div>
       </header>
 
-      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto pb-8">
       <div className="h-9 bg-[#F3F4F8] px-3 flex items-center gap-2">
         <ImgIcon src={IMG.notice} alt="" className="size-6 shrink-0" />
         <div className="flex-1 overflow-hidden">
@@ -239,7 +238,7 @@ export default function HomePage() {
 
       <div
         ref={tabBarRef}
-        className="sticky top-0 z-30 bg-page px-3 py-1.5"
+        className="sticky top-[calc(3rem+env(safe-area-inset-top,0px))] z-20 bg-page px-3 py-1.5"
       >
         <div className="rounded-lg bg-[#F0F2F8] px-2 py-1.5">
           <div className="flex items-center gap-2 overflow-x-auto phone-scroll py-1">
@@ -453,7 +452,6 @@ export default function HomePage() {
           </div>
           <HtmlContent html={HOME_FOOTER_HTML} />
         </footer>
-      </div>
       </div>
     </div>
   );

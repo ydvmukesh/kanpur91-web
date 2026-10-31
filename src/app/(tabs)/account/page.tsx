@@ -62,8 +62,7 @@ export default function AccountPage() {
   ];
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
-      <div className="phone-scroll min-h-0 flex-1 overflow-y-auto pb-14">
+    <div className="phone-scroll h-full min-h-0 overflow-y-auto pb-14">
         <header className="">
           <div className="flex items-center bg-main-x px-4 pb-16 pt-safe pt-10 pb-30 text-white  gap-3  rounded-b-3xl ">
             <div className="grid h-[4.25rem] w-[4.25rem] shrink-0 place-items-center overflow-hidden rounded-full bg-white">
@@ -283,7 +282,6 @@ export default function AccountPage() {
           <Power className="h-5 w-5" />
           {t("logout")}
         </button>
-      </div>
       <ConfirmModal
         open={logoutOpen}
         message={t("logoutConfirm")}

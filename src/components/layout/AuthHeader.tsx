@@ -21,8 +21,8 @@ export function AuthHeader({
   const [langOpen, setLangOpen] = useState(false);
 
   return (
-    <div className="h-full min-h-0 flex flex-col">
-      <div className="shrink-0 z-30 bg-main-x text-white pt-safe-t">
+    <div className="phone-scroll h-full min-h-0 overflow-y-auto">
+      <div className="sticky top-0 z-30 bg-main-x text-white pt-safe-t">
         <div className="h-12 relative flex items-center px-1">
           <button
             type="button"
@@ -46,15 +46,13 @@ export function AuthHeader({
         </div>
       </div>
 
-      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
-        <div className="bg-main-x text-white pb-8">
-          <div className="px-5 pt-3">
-            <h1 className="text-lg font-bold leading-tight">{title}</h1>
-            {sub}
-          </div>
+      <div className="bg-main-x text-white pb-8">
+        <div className="px-5 pt-3">
+          <h1 className="text-lg font-bold leading-tight">{title}</h1>
+          {sub}
         </div>
-        {children}
       </div>
+      {children}
 
       {langOpen ? <LanguageSheet onClose={() => setLangOpen(false)} /> : null}
     </div>

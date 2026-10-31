@@ -55,16 +55,16 @@ export default function VipPage() {
       <div className="-mt-10 px-3">
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-lg bg-white py-2 text-center">
-            <p className="text-sm font-semibold text-main">{exp} EXP</p>
-            <p className="mt-1.5 text-xs text-muted">{t("myExperience")}</p>
+            <p className="text-15 font-semibold text-main">{exp} EXP</p>
+            <p className="mt-1 text-xs text-muted">{t("myExperience")}</p>
           </div>
           <div className="rounded-lg bg-white py-2 text-center">
-            <p className="text-sm font-semibold text-main">{t("days", { n: PAYOUT_DAYS })}</p>
-            <p className="mt-1.5 text-xs text-muted">{t("payoutTime")}</p>
+            <p className="text-15 font-semibold text-ink">{t("days", { n: PAYOUT_DAYS })}</p>
+            <p className="mt-1 text-xs text-muted">{t("payoutTime")}</p>
           </div>
         </div>
       </div>
-      <p className="mx-3 mt-3 mb-6 rounded-lg bg-white px-3 py-2.5 text-center text-11 leading-snug text-muted">
+      <p className="mx-3 mt-3 mb-6 rounded-lg bg-white px-2.5 py-2 text-center text-11 leading-snug text-muted">
         {t("vipSettleNote")}
       </p>
       <VipLevelSwipe exp={exp} current={current} />
@@ -269,18 +269,10 @@ function VipLevelCard({ row, exp }: { row: VipLevel; exp: number }) {
   return (
     <div
       className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-lg px-2.5 py-[0.46875rem] text-11 font-normal text-white"
-      style={
-        row.n === 1
-          ? {
-              background:
-                "url(/vip/bg-1.png) no-repeat center, linear-gradient(117.29deg, #a6b7d0 21.85%, #889ebe 67.02%)",
-              boxShadow: "0 0.0625rem #7991b6, inset 0 0.0625rem #bdcadc",
-            }
-          : {
-              background: `linear-gradient(117.29deg, ${row.tone} 21.85%, ${row.track} 67.02%)`,
-              boxShadow: `0 0.0625rem ${row.track}, inset 0 0.0625rem ${row.tone}`,
-            }
-      }
+      style={{
+        background: `url(${row.bg}) no-repeat center, ${row.card}`,
+        boxShadow: row.cardShadow,
+      }}
     >
       <ImgIcon
         src={`/vip/badge-${row.n}.png`}
@@ -289,7 +281,7 @@ function VipLevelCard({ row, exp }: { row: VipLevel; exp: number }) {
       />
       <div className="relative pr-16">
         <div className="flex items-center gap-1">
-          <ImgIcon src={icon} alt="" className="h-4 w-4 object-contain" />
+          <ImgIcon src={icon} alt="" className="size-5 object-contain" />
           <h1 className="text-lg font-bold leading-none">VIP{row.n}</h1>
           {!open ? (
             <>
@@ -318,7 +310,7 @@ function VipLevelCard({ row, exp }: { row: VipLevel; exp: number }) {
               className="block h-full rounded-lg"
               style={{
                 width: `${pct}%`,
-                background: "linear-gradient(rgb(255, 252, 231) 0%, rgb(255, 200, 33) 100%)",
+                background: row.bar,
               }}
             />
           </div>

@@ -45,15 +45,14 @@ export default function ActivityPage() {
   }
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
-      <div className="z-30 shrink-0 bg-main-x pt-safe-t text-white">
+    <div className="phone-scroll h-full min-h-0 overflow-y-auto">
+      <div className="sticky top-0 z-30 bg-main-x pt-safe-t text-white">
         <div className="flex h-12 items-center justify-center">
           <LoginBrand />
         </div>
       </div>
 
-      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">
-        <div className="bg-main-x px-4 py-5 text-white">
+      <div className="bg-main-x px-4 py-5 text-white">
           {guest ? (
             <Button
               onClick={needLogin}
@@ -146,7 +145,6 @@ export default function ActivityPage() {
           ))}
         </div>
         <p className="pt-4 text-center text-sm text-muted">{t("noMore")}</p>
-      </div>
       </div>
     </div>
   );

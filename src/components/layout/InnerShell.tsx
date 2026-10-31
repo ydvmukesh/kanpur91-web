@@ -27,8 +27,8 @@ export function InnerShell({
   children?: React.ReactNode;
 }) {
   return (
-    <div className={cn("h-full min-h-0 flex flex-col", className ?? "bg-page")}>
-      <div className="sticky top-0 z-30 shrink-0">
+    <div className={cn("phone-scroll h-full min-h-0 overflow-y-auto", className ?? "bg-page")}>
+      <div className="sticky top-0 z-30">
         <InnerHeader
           title={title}
           light={variant === "light"}
@@ -40,7 +40,7 @@ export function InnerShell({
         />
         {headerExtra}
       </div>
-      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto">{children}</div>
+      {children}
     </div>
   );
 }

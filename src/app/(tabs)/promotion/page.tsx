@@ -37,8 +37,8 @@ export default function PromotionPage() {
   const { showToast } = useStore();
   if (!user) {
     return (
-      <div className="flex h-full min-h-0 flex-col">
-        <div className="z-30 shrink-0 bg-white pt-safe-t">
+      <div className="phone-scroll h-full min-h-0 overflow-y-auto pb-12">
+        <div className="sticky top-0 z-30 bg-white pt-safe-t">
           <div className="relative flex h-12 items-center px-2">
             <h1 className="pointer-events-none absolute inset-x-16 truncate text-center text-lg font-medium text-ink">
               {t("agency")}
@@ -53,7 +53,6 @@ export default function PromotionPage() {
             </button>
           </div>
         </div>
-        <div className="phone-scroll min-h-0 flex-1 overflow-y-auto pb-12">
           <div className="relative flex h-auto flex-col items-center bg-[image:url(/activity/promotion-bg.png),var(--main_gradient-color)] bg-center bg-no-repeat [background-size:cover,100%_100%] pb-26 pt-22.5" />
           <div className="relative z-10 -mt-40 px-3">
             <div className="rounded-lg bg-white px-4 pb-6 pt-6 text-center">
@@ -130,7 +129,6 @@ export default function PromotionPage() {
               </table>
             </div>
           </div>
-        </div>
       </div>
     );
   }
@@ -150,8 +148,8 @@ export default function PromotionPage() {
   ];
 
   return (
-    <div className="flex h-full min-h-0 flex-col">
-      <div className="z-30 shrink-0">
+    <div className="phone-scroll h-full min-h-0 overflow-y-auto pb-12">
+      <div className="sticky top-0 z-30">
         <InnerHeader
           title={t("agency")}
           light
@@ -167,7 +165,6 @@ export default function PromotionPage() {
         />
       </div>
 
-      <div className="phone-scroll flex-1 min-h-0 overflow-y-auto pb-12">
         <div className="relative flex h-auto flex-col items-center bg-[image:url(/activity/promotion-bg.png),var(--main_gradient-color)] bg-center bg-no-repeat [background-size:cover,100%_100%] pb-26 pt-5 text-white">
           <p className="text-[1.75rem] font-bold leading-none">0</p>
           <p className="mt-2 rounded-full bg-white px-3 py-1 text-xs font-medium text-main">
@@ -265,7 +262,6 @@ export default function PromotionPage() {
           </div>
           <div className="h-6" />
         </div>
-      </div>
     </div>
   );
 }
